@@ -1,0 +1,112 @@
+.individual-container {
+  display: flex; /* Activa el diseño en línea con Flexbox */
+  align-items: flex-start; /* Alinea los elementos al inicio del eje vertical */
+  gap: 1rem; /* Espacio entre el formulario y los gráficos */
+  padding: 1rem; /* Espaciado interno para el contenedor */
+}
+
+.form {
+  flex: 1; /* Ocupa una parte del espacio disponible */
+  max-width: 30%; /* Limita el ancho máximo del formulario */
+  background-color: #f9f9f9; /* Color de fondo para diferenciar */
+  padding: 1rem; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde para separar visualmente */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+}
+
+.charts {
+  flex: 2; /* Ocupa dos partes del espacio disponible */
+  max-width: 70%; /* Limita el ancho máximo de los gráficos */
+  background-color: #fff; /* Color de fondo */
+  padding: 1rem; /* Espaciado interno */
+  border: 1px solid #ddd; /* Borde */
+  border-radius: 8px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+.canvas-container {
+  display: flex;
+  flex-direction: column; /* Coloca los gráficos uno debajo del otro */
+  gap: 1rem; /* Espacio entre los gráficos */
+}
+
+.container-categoric {
+  flex: 1; /* El gráfico categoric ocupa el espacio disponible */
+}
+
+.container-accumulated {
+  flex: 0 0 50%; /* El gráfico accumulated ocupa el 50% del espacio disponible */
+  max-height: 300px; /* Limita la altura del gráfico accumulated */
+}
+
+canvas {
+  width: 100%; /* El canvas ocupa todo el espacio disponible */
+  height: auto; /* Mantiene la proporción */
+}
+
+.cards-container {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  gap: 100px; /* Espaciado entre tarjetas */
+  margin: 100px;
+}
+
+.custom-card {
+  width: 400px; /* Ancho fijo para mantenerla compacta */
+  height: 500px; /* Altura proporcional */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Espaciado entre los elementos */
+  align-items: center; /* Centrar contenido horizontalmente */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  background-color: #f5d1d0;
+  overflow: hidden; /* Ocultar contenido que sobresalga */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
+  cursor: pointer;
+}
+
+.custom-card:hover {
+  transform: translateY(-5px); /* Efecto de elevación */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+}
+
+.card-header {
+  width: 100%;
+  height: 10%; /* O cualquier altura que prefieras */
+  padding: 10px 15px;
+  display: flex; /* Activar flexbox */
+  align-items: center; /* Centrar solo verticalmente */
+  text-align: left; /* Mantiene el texto alineado horizontalmente a la izquierda */
+  font-family: 'FraktionMono',monospace ;
+  text-transform: uppercase;
+  font-size: 18px;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  margin-left: 25px;
+}
+
+
+.card-content {
+  flex: 1; /* Ocupa el espacio restante */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 15px; /* Espaciado interno */
+  text-align: center;
+  font-size: 14px; /* Tamaño de fuente del texto */
+}
+
+.card-content img {
+  width: 80%; /* Imagen más pequeña */
+  height: auto; /* Mantener proporción */
+  margin-bottom: 20px; /* Espaciado inferior */
+}
+
+.card-content p {
+  margin: 0;
+  line-height: 1.5; /* Espaciado entre líneas */
+}

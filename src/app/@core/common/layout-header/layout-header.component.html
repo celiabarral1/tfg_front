@@ -1,0 +1,17 @@
+<div class="menu-container">
+    <a mat-button routerLink="/">WebEmotions</a>
+    <mat-toolbar class="menu">
+      <a mat-button routerLink="/individual">Representación</a>
+      <a mat-button routerLink="/audio">Audio</a>
+      <a mat-button routerLink="/csv">CSV</a>
+    </mat-toolbar>
+    
+    <div *ngIf="!isLoggedIn">
+        <button routerLink="/login">Login</button>
+    </div>
+
+    <div *ngIf="isLoggedIn">
+        <button (click)="logout()">Logout</button>
+      </div>
+  </div>
+  

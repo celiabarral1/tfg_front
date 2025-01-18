@@ -1,0 +1,47 @@
+.inferior-div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Asegúrate de que ocupe todo el ancho */
+  }
+  
+  
+  .controls-div {
+    margin-left: auto; /* Empuja el div de controles hacia la derecha */
+    display: flex; /* Para organizar sus hijos, si es necesario */
+    gap: 10px; /* Espacio entre el botón y el enlace */
+  }
+  
+  /* Selecciona todos los divs cuya clase comienza con "emotions" */
+  div[class^="emotions"] {
+    background-color: aquamarine;
+  }
+
+  
+  
+  .main-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuye los elementos de la izquierda y derecha */
+    width: 100%;
+  }
+  
+  .left-container {
+    flex: 1; /* Esto hace que el párrafo ocupe el espacio disponible a la izquierda */
+    margin-right: 60px; /* Espacio entre el texto y la imagen */
+  }
+
+  .right-container {
+    margin-top: 20px;
+    flex: 2; /* Hace que el contenedor derecho ocupe más espacio */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+  
+  p {
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 20px; /* Margen inferior */
+  }
+  
+  

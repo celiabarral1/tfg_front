@@ -1,0 +1,38 @@
+
+<h2>Representación gráfica de las emociones de un trabajador</h2>
+<div class="cards-container">
+<div class="custom-card">
+  <div class="card-header">
+    <div class="card-title">Emociones dimensionales</div>
+  </div>
+  <div class="card-content">
+    <img src="/img/graphic-image.png" alt="Animación de un gráfico">
+    <div>
+      <p> Visualización gráfica del estudio longitudinal, puntual y acumulado de un trabajador de la plante.
+      </p>
+    </div>
+  </div>
+</div>
+<div class="custom-card">
+  <div class="card-header">
+    <div class="card-title">Emociones categóricas</div>
+  </div>
+  <div class="card-content">
+    <img src="/img/graphic-image.png" alt="Animación de un gráfico">
+    <div>
+      <p> Visualización gráfica del estudio longitudinal, puntual y acumulado de un trabajador de la plante.
+      </p>
+    </div>
+  </div>
+</div>
+</div>
+<div class="individual-container">
+    <div class="form">
+      <app-individual-form (charTypeChange)="onCharTypeChange($event)"></app-individual-form>
+    </div>
+    <div class="charts">
+      <app-dimensional *ngIf="charType === '1'"></app-dimensional>
+      <app-categoric *ngIf="charType === '0'"></app-categoric>
+    </div>
+  </div>
+  

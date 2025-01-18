@@ -1,0 +1,37 @@
+.canvas-container {
+  display:flex; 
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+/** EMOTIONS COLORS **/
+.color-joy {
+  color: #FFEB3B; /* Amarillo pastel */
+  background-color: #FFEB3B; /* Amarillo pastel */
+}
+
+.color-sadness {
+  color: #A2C2E1; /* Azul pastel */
+  background-color: #A2C2E1; /* Azul pastel */
+}
+
+.color-anger {
+  color: #FF7F7F; /* Rojo pastel */
+  background-color: #FF7F7F; /* Rojo pastel */
+}
+
+.color-fear {
+  color: #A8D5BA; /* Verde pastel */
+  background-color: #A8D5BA; /* Verde pastel */
+}
+
+.color-disgust {
+  color: #877459; /* Verde amarronado */
+  background-color: #877459; /* Verde amarronado */
+}
+
+.color-neutral {
+  color: #FFF8E7; /* Beige */
+  background-color: #FFF8E7; /* Beige */
+}

@@ -1,0 +1,122 @@
+.audio-recording {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border: 1px solid #ddd;  /* Opcional: agrega un borde */
+  border-radius: 8px;      /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.audio-container {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow-y: auto;
+}
+
+.waveform-container {
+  width: 100%;
+  margin-bottom: 10px;
+}
+.dimensional-emotions {
+  display: flex; 
+}
+
+.dimensional-emotions p {
+  margin: 0; /* Eliminar márgenes de los párrafos */
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.emotions-container {
+  width: 20%;
+  padding: 10px;
+  border-left: 2px solid #ccc;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Alinea las emociones desde la parte superior */
+  align-items: flex-start; /* Alinea las emociones a la izquierda */
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.emotion-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.emotion-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px; 
+  border: 2px solid black;
+}
+
+.emotions-container p {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+}
+
+button {
+  margin: 5px;
+}
+
+/** EMOTIONS COLORS **/
+.color-happiness {
+  color: #FFEB3B; /* Amarillo pastel */
+  background-color: #FFEB3B; /* Amarillo pastel */
+}
+
+.color-sadness {
+  color: #A2C2E1; /* Azul pastel */
+  background-color: #A2C2E1; /* Azul pastel */
+}
+
+.color-anger {
+  color: #FF7F7F; /* Rojo pastel */
+  background-color: #FF7F7F; /* Rojo pastel */
+}
+
+.color-fear {
+  color: #A8D5BA; /* Verde pastel */
+  background-color: #A8D5BA; /* Verde pastel */
+}
+
+.color-disgust {
+  color: #877459; /* Verde amarronado */
+  background-color: #877459; /* Verde amarronado */
+}
+
+.color-neutral {
+  color: #FFF8E7; /* Beige */
+  background-color: #FFF8E7; /* Beige */
+}
+
+
+/* Resaltar palabras con audio */
+.transcription-container {
+  margin-top: 20px;
+  font-size: 1.2em;
+  line-height: 1.5;
+}
+
+.word {
+  font-weight: normal;
+  color: #666;
+  margin-right: 5px;
+}
+
+.word.active {
+  font-weight: bold;
+  color: #ff5722;
+  background-color: #ffe0b2;
+  padding: 2px 4px;
+  border-radius: 4px;
+}

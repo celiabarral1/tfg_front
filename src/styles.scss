@@ -1,1 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0; /* Elimina márgenes predeterminados */
+    padding: 0; /* Elimina relleno predeterminado */
+    height: 100vh; /* Establece la altura al 100% del viewport */
+    // background: linear-gradient(to bottom, #f4c6c0 20%, #fae8e6 80%); /* Degradado vertical */
+    background: #fae8e6;
+    font-family: Arial, sans-serif; /* Fuente predeterminada para la app */
+    font-size: 22px;
+    color: #353535;
+  }
+
+h2 , h3{
+    font-family: "fontSans", sans-serif;
+    letter-spacing: -.01em;
+    font-weight: inherit;
+}
+
+/* Asegura que el botón se mantenga alineado con los radio buttons */
+
+button {
+    background-color: #555;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
+    padding: 0.65rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #666;
+  }

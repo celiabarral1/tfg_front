@@ -1,0 +1,36 @@
+<div class="audio-recording">
+  <div class="audio-container">
+    <div #waveformContainer class="waveform-container">
+      <!-- <div class="dimensional-emotions">
+        <p>Arousal: {{ emotions_dimensional[0]?.arousal | number:'1.2-2' }}</p>
+        <p>Dominance: {{ emotions_dimensional[0]?.dominance | number:'1.2-2' }}</p>
+        <p>Valence: {{ emotions_dimensional[0]?.valence | number:'1.2-2' }}</p>
+      </div> -->
+    </div>
+  </div>
+
+  <div class="emotions-container"> 
+    <div *ngFor="let emotion of emotions_categoric" class="emotion-item">
+      <div [ngClass]="emotion.colorClass" class="emotion-circle"></div> 
+      <p>{{ emotion.emo }}: {{ emotion.prob.toFixed(6) }}</p>
+    </div>
+  </div>
+</div>
+
+  <div class="transcription-container">
+    <h3>Transcripción:</h3>
+    <p>
+      <span
+        *ngFor="let alignment of alignments"
+        [class.active]="isWordActive(alignment)"
+        class="word"
+      >
+        {{ alignment.word }}
+      </span>
+    </p>
+  </div>
+
+<div class="controls">
+  <button (click)="playPause()">Play/Pause</button>
+  <button (click)="download()">Download</button>
+</div>

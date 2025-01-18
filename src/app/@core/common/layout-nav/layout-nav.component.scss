@@ -1,0 +1,13 @@
+.menu {
+    display: flex;             /* Habilita el uso de flexbox */
+    justify-content: center;   /* Centra los elementos horizontalmente */
+    align-items: center;       /* Centra los elementos verticalmente */
+    height: 64px;              /* Altura de la barra de herramientas (ajustable según tu diseño) */
+}
+
+.menu a {
+    font-family: 'FraktionMono',monospace ;
+    text-transform: uppercase;
+    font-size: 18px;
+    margin: 0 15px;
+}

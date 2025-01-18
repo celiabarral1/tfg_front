@@ -30,6 +30,7 @@
             "polyfills": [
               "zone.js"
             ],
+            
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -39,6 +40,7 @@
               }
             ],
             "styles": [
+              "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "src/styles.scss"
             ],
             "scripts": [],
@@ -110,5 +112,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "32749dca-b1af-4a85-976c-9735dcf23f82"
   }
 }

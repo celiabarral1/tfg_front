@@ -1,0 +1,44 @@
+<div class="audio-visualizer">
+   <div class="main-info">
+      <div class="left-container">
+         <h2>Reconocimiento de voz en tiempo real</h2>
+         <p>Grabación de audio y más concretamente voz en tiempo real, para posteriormente
+           procesar los audios y visualizar las emociones de cada audio grabado, del cuál se determina su duración
+           mediante la detección de voz y silencio utilizando un algoritmo.
+         <p>¿Quieres parametrizar el agoritmo? Puedes configurar la resolución de la frecuencia (FFT),
+           la longitud del búfer de audio y el tiempo de retraso en milisegundos para la detección del silencio.</p>
+         <p>Además, están a tu alcance los audios que se hayan grabado, para descargar los que más
+           te interesen. Si los descargas todos, irán acompañados de un archivo con sus metadatos.</p>
+           
+         <!-- Controles de grabación -->
+         <div class="buttons">
+            <button (click)="startRecording()">Grabar</button>
+            <button (click)="stopRecording()">Detener</button>
+            <!-- <button (click)="pauseRecording()">Pausar/Reanudar</button> -->
+         </div>
+
+      </div>
+      
+      <div class="right-container">
+         <!-- Progreso de la grabación -->
+         <div class="live-record" >
+            <!-- Contenedor de WaveSurfer -->
+               <!-- <div *ngIf="isRecording">
+                  <div #waveform style="border: 1px solid #ddd; margin: 10px 0;"></div>
+               </div> -->
+            <div #waveform ></div>
+            <!-- <p>Progreso: {{ recordingProgress }}</p> -->
+         </div>
+      </div>
+   </div>
+   
+
+
+    <!-- Grabaciones -->
+     <div class="record-container">
+        <h3>Grabaciones</h3>
+        <div #recordings class="audios-recorded"></div>
+     </div>
+    
+     <button (click)="downloadAll()">Download All</button>
+  </div>
