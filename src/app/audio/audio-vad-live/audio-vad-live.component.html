@@ -32,13 +32,15 @@
       </div>
    </div>
    
-
+   <div class="separator"></div>
 
     <!-- Grabaciones -->
+   <div class="records">
+      <h3>Grabaciones</h3>
+      <button (click)="downloadAll()">Download All</button>
+   </div> 
      <div class="record-container">
-        <h3>Grabaciones</h3>
         <div #recordings class="audios-recorded"></div>
      </div>
-    
-     <button (click)="downloadAll()">Download All</button>
+   
   </div>

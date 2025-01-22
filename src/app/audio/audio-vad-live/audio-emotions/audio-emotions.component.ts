@@ -15,11 +15,10 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
   @Input() set emotions_categoric(value: any[]) {
     this._emotions_categoric = value;
 
-    
     this._emotions_categoric.forEach(emotion => {
       emotion.colorClass = `color-${emotion.emo.toLowerCase()}`;
     });
-
+    
     this.changeDetector.detectChanges(); // Forzar la detección de cambios
     
     // this.updateBackgroundGradient();

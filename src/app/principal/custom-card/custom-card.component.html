@@ -1,7 +1,16 @@
 <div class="custom-card" [routerLink]="route">
   <div class="card-header">
+    <img [src]="imageUrl" alt="Imagen" class="card-image" />
+  </div>
+  <div class="card-content">
+    <h1 class="card-title">{{ title }}</h1>
+      <p>{{ description }}</p>
+  </div>
+</div>
+
+<!-- <div class="custom-card" [routerLink]="route">
+  <div class="card-header">
     <div class="header-image">
-      <!-- Ícono del gráfico -->
       <div [ngClass]="iconClass">{{ icon }}</div>
     </div>
     <div class="card-title">{{ title }}</div>
@@ -12,4 +21,4 @@
       <p>{{ description }}</p>
     </div>
   </div>
-</div>
+</div> -->

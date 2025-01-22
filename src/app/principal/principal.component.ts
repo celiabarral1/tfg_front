@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrl: './principal.component.scss'
 })
 export class PrincipalComponent {
-
+  scrollToCards(): void {
+    const element = document.getElementById('card-container');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }

@@ -1,0 +1,47 @@
+<div class="container-form">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- <div class="form-group">
+        <label for="userId">User ID:</label>
+        <input id="userId" type="text" placeholder="User id..." formControlName="userId"/>
+      </div> -->
+      <div class="form-group">
+        <label for="shift">Turno:</label>
+        <ng-select
+          id="shift"
+          [items]="shifts"
+          bindLabel="label"
+          bindValue="value"
+          formControlName="shift"
+          placeholder="Elija un turno"
+          [searchable]="false"
+        >
+        </ng-select>
+      </div>
+      <div class="form-group">
+        <label for="time">Temporary Window:</label>
+        <ng-select
+          id="time"
+          [items]="options"
+          bindLabel="label"
+          bindValue="value"
+          formControlName="time"
+          placeholder="Elija una opción"
+          [searchable]="false"
+          
+        >
+        </ng-select>
+      </div>
+      <div class="form-group">
+        <fieldset>
+          <legend>Char type:</legend>
+          <label>
+            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categoric
+          </label>
+          <label>
+            <input type="radio" formControlName="charType" value="1" (change)="onCharTypeChange('1')" /> Dimensional
+          </label>
+        </fieldset>
+      </div>
+        <button type="submit">Show</button>
+      </form>      
+</div>

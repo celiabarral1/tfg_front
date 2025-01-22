@@ -22,6 +22,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { AudioRecordedComponent } from './audio/audio-recorded/audio-recorded.component';
 import { ColorGenerator } from './@core/common/utils/color-generator';
 import { AudioVadComponent } from './audio/audio-vad/audio-vad.component';
@@ -33,6 +34,9 @@ import { LayoutNavComponent } from './@core/common/layout-nav/layout-nav.compone
 import { CustomCardComponent } from './principal/custom-card/custom-card.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { RegisterFormComponent } from './workers/register-form/register-form.component';
+import { ShiftRepresentationComponent } from './shift-representation/shift-representation.component';
+import { ShiftFormComponent } from './shift-representation/shift-form/shift-form.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +58,10 @@ import { LoginComponent } from './authentication/login/login.component';
     LayoutNavComponent,
     CustomCardComponent,
     AuthenticationComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterFormComponent,
+    ShiftRepresentationComponent,
+    ShiftFormComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +76,7 @@ import { LoginComponent } from './authentication/login/login.component';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    MatMenuModule,
     BrowserAnimationsModule
   ],
   providers: [

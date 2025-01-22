@@ -1,16 +1,21 @@
 <div class="menu-container">
-    <a mat-button routerLink="/">WebEmotions</a>
+  <div class="logo-container">
+    <a mat-button routerLink="/">
+      <img src="img/logo_white.png" alt="WebEmotions Logo" class="logo-image">
+    </a>
+  </div>
     <mat-toolbar class="menu">
       <a mat-button routerLink="/individual">Representación</a>
       <a mat-button routerLink="/audio">Audio</a>
       <a mat-button routerLink="/csv">CSV</a>
+      <a mat-button routerLink="/register">Trabajadores</a>
     </mat-toolbar>
-    
-    <div *ngIf="!isLoggedIn">
+  
+    <div *ngIf="!isLoggedIn" class="login">
         <button routerLink="/login">Login</button>
     </div>
 
-    <div *ngIf="isLoggedIn">
+    <div *ngIf="isLoggedIn" class="login">
         <button (click)="logout()">Logout</button>
       </div>
   </div>

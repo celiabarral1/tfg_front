@@ -1,7 +1,11 @@
+<div class="principal-container">
+  <!-- <div class="background-image"></div> -->
 <div class="inicial-container">
-
+  <h1>Visualiza y reconoce tus emociones</h1>
+  <p>Graba e identifica tus emociones a partir de tus ondas vocales</p>
+  <button class="btn-initial" (click)="scrollToCards()">Empieza ahora</button>
 </div>
-<div class = "card-container">
+<div class = "card-container" id="card-container">
   <app-custom-card 
     [title]="'Gráficos de emociones'" 
     [icon]="'📈'"
@@ -28,4 +32,5 @@
     [description]="'Este gráfico muestra las tendencias de los últimos meses. Tamaño perfecto.'"
     [route]="'/csv'">
   </app-custom-card>
+</div>
 </div>

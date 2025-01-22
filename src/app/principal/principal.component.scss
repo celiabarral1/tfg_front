@@ -1,3 +1,33 @@
-.card-container {
-    gap: 30px;
+.principal-container{
+    background-image: url('/img/background_bolas_30.png');
+    background-size: 40%; /* Ajusta la imagen para que se vea entera */
+    background-position: center 400px;;
+    background-repeat: no-repeat; /* Evita que la imagen se repita si es más pequeña que el contenedor */
 }
+
+.inicial-container {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
+//   justify-content: center; /* Centra verticalmente */  
+    align-items: center; /* Centra horizontalmente */
+    height: 60vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+    padding-top: 100px;
+}
+
+.inicial-container button{
+    margin-top: 50px;
+}
+
+
+h1 {
+    color: var(--primary-color );
+}
+
+.card-container {
+    display: flex; /* Usa flexbox para organizar las tarjetas */
+    flex-wrap: wrap; /* Permite que las tarjetas se ajusten a nuevas filas */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    gap: 100px; /* Espaciado entre las tarjetas */
+    padding: 20px;
+    margin: 0 40px;
+  }

@@ -1,37 +1,93 @@
 /* You can add global styles to this file, and also import other style files */
+// @use '@angular/material' as mat;
+
+// // Define tu paleta de colores primarios, de acento y de advertencia.
+// $custom-primary: mat.define-palette(mat.$indigo-palette, 500, 300, 700);
+// $custom-second: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+// $custom-third: mat.define-palette(mat.$red-palette);
+
+// // Crea un tema personalizado usando las paletas definidas.
+// $custom-theme: mat.define-light-theme((
+//   color: (
+//     primary: $custom-primary,
+//     second: $custom-second,
+//     third: $custom-third,
+//   )
+// ));
+
+// // Aplica el tema personalizado.
+// @include mat.all-component-themes($custom-theme);
+:root {
+  --primary-color: #6150EA;
+  --secondary-color: #876AF1;
+  --third-color: #C1B2FA;
+  --fourth-color: #E8DAF9;
+  --soft-gray-color: #D1D1D1;
+  --hard-gray-color: #8F8F8F;
+  --background-color: #FBFBFB;
+  --text-color: #2c3e50;
+}
+
 body {
     margin: 0; /* Elimina márgenes predeterminados */
     padding: 0; /* Elimina relleno predeterminado */
     height: 100vh; /* Establece la altura al 100% del viewport */
-    // background: linear-gradient(to bottom, #f4c6c0 20%, #fae8e6 80%); /* Degradado vertical */
-    background: #fae8e6;
+    background: var(--background-color);
+    
+    // background: #fae8e6;
     font-family: Arial, sans-serif; /* Fuente predeterminada para la app */
     font-size: 22px;
     color: #353535;
   }
 
-h2 , h3{
+h2 , h3, h4 {
     font-family: "fontSans", sans-serif;
-    letter-spacing: -.01em;
+    letter-spacing: 0.05em;
     font-weight: inherit;
 }
 
 /* Asegura que el botón se mantenga alineado con los radio buttons */
 
-button {
-    background-color: #555;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
-    padding: 0.65rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-    transition: border-color 0.3s ease;
-  }
+// button {
+//     font-family: 'FraktionMono',monospace ;
+//     text-transform: uppercase;
+//     font-size: 14px;
+//     letter-spacing: 0.05em;
+//     background-color: #555;
+//     color: white;
+//     cursor: pointer;
+//     transition: background-color 0.3s ease;
+//     align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
+//     padding: 10px 20px;
+//     border: none;
+//     border-radius: 5px;
+//     box-sizing: border-box;
+//     transition: border-color 0.3s ease;
+//   }
   
-  button:hover {
-    background-color: #666;
-  }
+//   button:hover {
+//     background-color: #666;
+//   }
+
+/* Definir la clase btn-initial */
+.btn-initial {
+  font-family: 'FraktionMono', monospace;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: var(--primary-color);
+  letter-spacing: 0.05em;
+  background-color: rgba(193, 178, 250, 0.5); /* Color de fondo personalizado */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  padding: 20px 65px;
+  border: 3px solid var(--primary-color);
+  border-radius: 45px;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, color 0.2s ease;
+}
+
+/* Efecto hover para btn-initial */
+.btn-initial:hover {
+  background-color: #876AF1; /* Color de fondo al pasar el ratón */
+  color: var(--background-color);
+}
