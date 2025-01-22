@@ -1,17 +1,17 @@
 .custom-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Alinea todo el contenido hacia abajo */
-  align-items: flex-start; /* Alinea los elementos al inicio */
-  flex: 1 1 calc(50% - 30px); /* Cada tarjeta ocupa la mitad del ancho del contenedor menos el gap */
-  max-width: 600px; /* Limita el ancho máximo de las tarjetas */
-  height: 450px; /* Altura fija para las tarjetas */
-  border: 2px solid var(--primary-color); /* Borde de la tarjeta */
-  border-radius: 60px; /* Bordes redondeados */
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex: 1;
+  max-width: 100%; /* Permite que se ajusten al ancho disponible */
+  height: 450px;
+  border: 2px solid var(--primary-color);
+  border-radius: 60px;
   background: linear-gradient(to top right, var(--primary-color), var(--third-color));
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para dar profundidad */
-  overflow: hidden; /* Asegura que el contenido no se desborde */
-  transition: transform 0.3s ease-in-out; /* Transición suave al pasar el ratón */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s ease-in-out;
   padding: 20px;
 }
 
