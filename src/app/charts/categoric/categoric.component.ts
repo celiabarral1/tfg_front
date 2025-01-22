@@ -87,7 +87,7 @@ export class CategoricComponent implements OnInit , OnDestroy{
               label: 'Emotions',
               data: data,
               stepped: true,
-              borderColor: '#FF6384', // Color de la línea
+              borderColor: '#6150EA', // Color de la línea
               borderWidth: 2,
               fill: false
             }

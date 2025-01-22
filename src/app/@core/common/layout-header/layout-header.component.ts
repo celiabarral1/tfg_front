@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../authentication/auth-services';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-layout-header',
@@ -9,11 +9,17 @@ import { Router } from '@angular/router';
 })
 export class LayoutHeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
+  isLoginPage: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isLoggedIn();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.isLoginPage = this.router.url === '/login';
+        this.isLoggedIn = this.authService.isLoggedIn();
+      }
+    });
   }
 
   logout() {
