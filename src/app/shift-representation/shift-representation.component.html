@@ -1,0 +1,10 @@
+<div class="individual-container">
+    <div class="form">
+      <app-shift-form (charTypeChange)="onCharTypeChange($event)"></app-shift-form>
+    </div>
+    <div class="charts_shift">
+      <app-dimensional *ngIf="charType === '1'"></app-dimensional>
+      <app-categoric *ngIf="charType === '0'"></app-categoric>
+    </div>
+  </div>
+  

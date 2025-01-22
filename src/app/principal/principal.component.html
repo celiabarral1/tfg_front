@@ -1,14 +1,18 @@
+<div class="principal-container">
+  <!-- <div class="background-image"></div> -->
 <div class="inicial-container">
-
+  <h1>Visualiza y reconoce tus emociones</h1>
+  <p>Graba e identifica tus emociones a partir de tus ondas vocales</p>
+  <button class="btn-initial" (click)="scrollToCards()">Empieza ahora</button>
 </div>
-<div class = "card-container">
+<div class = "card-container" id="card-container">
   <app-custom-card 
     [title]="'Gráficos de emociones'" 
     [icon]="'📈'"
     [iconClass]="'graph-icon'" 
     [imageUrl]="'https://via.placeholder.com/150'" 
-    [description]="'Este es un gráfico de emociones para ilustrar los datos. Tamaño perfecto.'"
-    [route]="'/individual'">
+    [description]="'Reppresentaciones gráficas representativaspara los trabajadores de la planta. Consulta de manera personalizada la evolución emocional de un solo trabajador o de un grupo de ellos.'"
+    [route]="'/representation'">
   </app-custom-card>
 
   <app-custom-card 
@@ -28,4 +32,5 @@
     [description]="'Este gráfico muestra las tendencias de los últimos meses. Tamaño perfecto.'"
     [route]="'/csv'">
   </app-custom-card>
+</div>
 </div>

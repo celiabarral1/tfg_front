@@ -1,0 +1,26 @@
+.individual-container {
+    display: flex; /* Activa el diseño en línea con Flexbox */
+    align-items: flex-start; /* Alinea los elementos al inicio del eje vertical */
+    gap: 1rem; /* Espacio entre el formulario y los gráficos */
+    padding: 1rem; /* Espaciado interno para el contenedor */
+  }
+  
+  .form {
+    flex: 1; /* Ocupa una parte del espacio disponible */
+    max-width: 30%; /* Limita el ancho máximo del formulario */
+    background-color: #f9f9f9; /* Color de fondo para diferenciar */
+    padding: 1rem; /* Espaciado interno */
+    border: 1px solid #ddd; /* Borde para separar visualmente */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+  }
+  
+  .charts_shift {
+    flex: 2; /* Ocupa dos partes del espacio disponible */
+    max-width: 70%; /* Limita el ancho máximo de los gráficos */
+    background-color: #fff; /* Color de fondo */
+    padding: 1rem; /* Espaciado interno */
+    border: 1px solid #ddd; /* Borde */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+  }

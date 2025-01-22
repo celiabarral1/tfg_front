@@ -18,6 +18,10 @@ import { ApiConfigService } from "../@core/common/api/api-config.service";
       return this.http.get(`${this.apiUrl}/getTimePeriods`); 
     }
 
+    getShifts(): Observable<any> {
+      return this.http.get(`${this.apiUrl}/getShifts`); 
+    }
+  
     getEmotions(): Observable<any> {
       return this.http.get(`${this.apiUrl}/getEmotions`); 
     }
@@ -29,6 +33,15 @@ import { ApiConfigService } from "../@core/common/api/api-config.service";
       };
 
       return this.http.post(`${this.apiUrl}/filter-records`, payload);
+  }
+
+    filterByShifts(shift: string, timeOption: string): Observable<any> {
+      const payload = {
+        shift: shift,
+        time_option: timeOption
+      };
+
+      return this.http.post(`${this.apiUrl}/filter-shift`, payload);
   }
 
     

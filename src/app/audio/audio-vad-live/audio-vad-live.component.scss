@@ -1,47 +1,85 @@
 .inferior-div {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Asegúrate de que ocupe todo el ancho */
-  }
-  
-  
-  .controls-div {
-    margin-left: auto; /* Empuja el div de controles hacia la derecha */
-    display: flex; /* Para organizar sus hijos, si es necesario */
-    gap: 10px; /* Espacio entre el botón y el enlace */
-  }
-  
-  /* Selecciona todos los divs cuya clase comienza con "emotions" */
-  div[class^="emotions"] {
-    background-color: aquamarine;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%; /* Asegúrate de que ocupe todo el ancho */
+}
 
-  
-  
-  .main-info {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Distribuye los elementos de la izquierda y derecha */
-    width: 100%;
-  }
-  
-  .left-container {
-    flex: 1; /* Esto hace que el párrafo ocupe el espacio disponible a la izquierda */
-    margin-right: 60px; /* Espacio entre el texto y la imagen */
-  }
+.controls-div {
+  margin-left: auto; /* Empuja el div de controles hacia la derecha */
+  display: flex; /* Para organizar sus hijos, si es necesario */
+  gap: 10px; /* Espacio entre el botón y el enlace */
+}
 
-  .right-container {
-    margin-top: 20px;
-    flex: 2; /* Hace que el contenedor derecho ocupe más espacio */
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-  
-  p {
-    margin-top: 20px; /* Margen superior */
-    margin-bottom: 20px; /* Margen inferior */
-  }
-  
-  
+/* Selecciona todos los divs cuya clase comienza con "emotions" */
+div[class^="emotions"] {
+  background-color: aquamarine;
+}
+
+.main-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuye los elementos de la izquierda y derecha */
+  width: 100%;
+  // border-bottom:solid 1px grey;
+  gap: 40px;
+  background-color: var(--soft-gray-color);
+  border-radius: 40px;
+  margin-bottom: 100px;
+}
+
+.buttons {
+  margin-top: 40px;
+  margin-bottom: 70px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn-secondary:disabled {
+  pointer-events: none; /* Desactiva la interacción con el botón */
+  opacity: 0.5; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
+}
+
+.btn-secondary:disabled:hover {
+  background-color: inherit; /* Mantiene el color de fondo igual en hover */
+  cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
+}
+
+.btn-secondary{
+  margin-right: 20px;
+}
+
+.left-container {
+  flex: 1; /* Esto hace que el párrafo ocupe el espacio disponible a la izquierda */
+  margin: 0 80px; /* Espacio entre el texto y la imagen */
+}
+
+.right-container {
+  margin-top: 20px;
+  margin-right: 160px;
+  flex: 2; /* Hace que el2 contenedor derecho ocupe más espacio */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+p {
+  margin-top: 20px; /* Margen superior */
+  margin-bottom: 20px; /* Margen inferior */
+}
+
+.separator {
+  border-bottom: solid 1px grey;
+  width: 80%;
+  margin: 0 auto; /* Centra el elemento horizontalmente */
+  margin-bottom: 80px;
+  display: flex;
+  justify-content: center; /* Opcional si tienes contenido dentro */
+  align-items: center; /* Alinea el contenido verticalmente */
+}
+
+.records {
+display: flex;
+justify-content: space-between; /* Distribuye el espacio entre el título, grabaciones y botón */
+align-items: center; /* Alinea verticalmente los elementos */
+}

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js'; // Importa 'registerables'
 import { ChartDataService } from '../../shared/shared/chart-data.service';
 import { DateHelper } from '../../@core/common/utils/date-helper';
@@ -15,7 +15,7 @@ export class DimensionalComponent implements OnInit, OnDestroy {
   public userId: any;
   public timePeriod: any;
 
-  constructor(private chartDataService: ChartDataService) {
+  constructor(private chartDataService: ChartDataService, private cdr: ChangeDetectorRef) {
     Chart.register(...registerables);
     if (typeof window !== 'undefined') {
       import('chartjs-plugin-zoom').then((zoomPlugin) => {
@@ -35,28 +35,40 @@ export class DimensionalComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     if (this.chart) {
+      console.log("Destroying chart on component destroy");
       this.chart.destroy();
+      this.chart = null; // Limpia la referencia
     }
     this.chartDataService.deleteChartData();
   }
+  
 
   createChart(): void {
+    const canvas = document.getElementById('canvas_dimensional') as HTMLCanvasElement;
+  if (!canvas) {
+    console.warn("Canvas not available for chart creation.");
+    return;
+  }
+    // Asegúrate de destruir el gráfico anterior si existe
     if (this.chart) {
-      this.chart.destroy(); 
+      console.log("Destroying previous chart before creating a new one");
+      this.chart.destroy();
+      this.chart = null; // Limpia la referencia
     }
-
+  
     // Convertir el timestamp en fechas legibles (en días)
     let labels = this.graphData.map(item => {
       const date = new Date(item.timestamp * 1000); 
       return date.toLocaleDateString(); 
     });
-
+  
     labels = [...new Set(labels)]; 
-
+  
     const arousalData = this.graphData.map(item => parseFloat(item.arousal));
     const valenceData = this.graphData.map(item => parseFloat(item.valence));
     const dominanceData = this.graphData.map(item => parseFloat(item.dominance));
-
+  
+    // Crear el nuevo gráfico
     this.chart = new Chart('canvas_dimensional', {
       type: 'line',
       data: {
@@ -116,8 +128,8 @@ export class DimensionalComponent implements OnInit, OnDestroy {
               mode: 'x'
             },
             pan: {
-              enabled: true, 
-              mode: 'xy' // Falta limitar desplazamiento y
+              enabled: true,
+              mode: 'xy'
             }
           },
           legend: {
@@ -128,6 +140,8 @@ export class DimensionalComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
+  
 
   changeLineVisibility(event: any): void {
     //no sé si pone el intersect a false (pilla puntos de fuera de las líneas)

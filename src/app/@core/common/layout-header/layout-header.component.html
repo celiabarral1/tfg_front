@@ -1,17 +1,23 @@
 <div class="menu-container">
-    <a mat-button routerLink="/">WebEmotions</a>
-    <mat-toolbar class="menu">
-      <a mat-button routerLink="/individual">Representación</a>
-      <a mat-button routerLink="/audio">Audio</a>
-      <a mat-button routerLink="/csv">CSV</a>
-    </mat-toolbar>
-    
-    <div *ngIf="!isLoggedIn">
-        <button routerLink="/login">Login</button>
-    </div>
-
-    <div *ngIf="isLoggedIn">
-        <button (click)="logout()">Logout</button>
-      </div>
+  <div class="logo-container">
+    <a mat-button routerLink="/">
+      <img src="img/logo_white.png" alt="WebEmotions Logo" class="logo-image">
+    </a>
   </div>
-  
+
+  <!-- Solo mostrar el menú si no estás en la página de login -->
+  <mat-toolbar *ngIf="!isLoginPage" class="menu">
+    <a mat-button routerLink="/representation">Representación</a>
+    <a mat-button routerLink="/audio">Audio</a>
+    <a mat-button routerLink="/csv">CSV</a>
+    <a mat-button routerLink="/register">Trabajadores</a>
+  </mat-toolbar>
+
+  <div *ngIf="!isLoggedIn && !isLoginPage" class="login">
+    <button class="btn-secondary" routerLink="/login">Login</button>
+  </div>
+
+  <div *ngIf="isLoggedIn && !isLoginPage" class="login">
+    <button class="btn-secondary" (click)="logout()">Logout</button>
+  </div>
+</div>

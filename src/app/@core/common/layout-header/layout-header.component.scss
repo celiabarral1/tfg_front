@@ -4,6 +4,7 @@
   justify-content: space-between; /* Alinea los elementos a los extremos */
   align-items: center; /* Alinea verticalmente */
   padding: 0 1rem; /* Espaciado lateral */
+  
 }
 
 
@@ -11,7 +12,7 @@
   display: flex;             /* Habilita el uso de flexbox */
   justify-content: center;   /* Centra los elementos horizontalmente */
   align-items: center;       /* Centra los elementos verticalmente */
-  height: 64px;              /* Altura de la barra de herramientas (ajustable según tu diseño) */
+  margin-top: 40px;
 }
 
 .menu a {
@@ -19,4 +20,21 @@
   text-transform: uppercase;
   font-size: 18px;
   margin: 0 15px;
+}
+
+.logo-container {
+  margin-left: 10%;
+  
+  margin-top: 40px;
+ 
+}
+
+.logo-image {
+  width: 300px; /* Ajusta el tamaño del logo (más pequeño) */
+  height: auto; /* Mantiene la relación de aspecto */
+}
+
+.login{
+  margin-top: 2%;
+  margin-right: 10%;
 }

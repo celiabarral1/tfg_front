@@ -20,8 +20,10 @@ import { AudioComponent } from './audio/audio.component';
 import { PrincipalComponent } from './principal/principal.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { AudioRecordedComponent } from './audio/audio-recorded/audio-recorded.component';
 import { ColorGenerator } from './@core/common/utils/color-generator';
 import { AudioVadComponent } from './audio/audio-vad/audio-vad.component';
@@ -33,6 +35,15 @@ import { LayoutNavComponent } from './@core/common/layout-nav/layout-nav.compone
 import { CustomCardComponent } from './principal/custom-card/custom-card.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { RegisterFormComponent } from './workers/register-form/register-form.component';
+import { ShiftRepresentationComponent } from './shift-representation/shift-representation.component';
+import { ShiftFormComponent } from './shift-representation/shift-form/shift-form.component';
+import { GraphicRepresentationComponent } from './charts/graphic-representation/graphic-representation.component';
+import { DatePickerComponent } from './shared/date-picker/date-picker.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerToggle } from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -54,7 +65,12 @@ import { LoginComponent } from './authentication/login/login.component';
     LayoutNavComponent,
     CustomCardComponent,
     AuthenticationComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterFormComponent,
+    ShiftRepresentationComponent,
+    ShiftFormComponent,
+    GraphicRepresentationComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,
@@ -69,6 +85,11 @@ import { LoginComponent } from './authentication/login/login.component';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
+    MatMenuModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatInputModule,
     BrowserAnimationsModule
   ],
   providers: [

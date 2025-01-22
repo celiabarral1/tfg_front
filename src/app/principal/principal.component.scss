@@ -1,3 +1,58 @@
-.card-container {
-    gap: 30px;
+.principal-container{
+    background-image: url('/img/background_bolas_30.png');
+    background-size: 40%; /* Ajusta la imagen para que se vea entera */
+    background-position: center 400px;;
+    background-repeat: no-repeat; /* Evita que la imagen se repita si es más pequeña que el contenedor */
 }
+
+.inicial-container {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
+//   justify-content: center; /* Centra verticalmente */  
+    align-items: center; /* Centra horizontalmente */
+    height: 60vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+    padding-top: 100px;
+}
+
+.inicial-container button{
+    margin-top: 50px;
+}
+
+
+h1 {
+    color: var(--primary-color );
+}
+
+/* Contenedor de las tarjetas */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Siempre dos tarjetas por fila */
+    gap: 60px; /* Espacio entre las tarjetas */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    align-items: center; /* Centra las tarjetas verticalmente */
+    padding: 20px;
+    margin: 0 250px;
+  }
+
+  @media (max-width: 768px) {
+    .card-container {
+      grid-template-columns: repeat(2, 1fr); /* Mantiene dos tarjetas por fila */
+      justify-content: center;
+    }
+  }
+  
+  /* Media query para pantallas muy pequeñas */
+  @media (max-width: 480px) {
+    .card-container {
+      grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas muy pequeñas */
+      justify-content: center;
+    }
+  }
+// .card-container {
+//     display: flex; /* Usa flexbox para organizar las tarjetas */
+//     flex-wrap: wrap; /* Permite que las tarjetas se ajusten a nuevas filas */
+//     justify-content: center; /* Centra las tarjetas horizontalmente */
+//     gap: 100px; /* Espaciado entre las tarjetas */
+//     padding: 20px;
+//     margin: 0 40px;
+//   }

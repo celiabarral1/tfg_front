@@ -1,0 +1,86 @@
+<div class="container-form">
+  <h2>Registro de Usuario</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <!-- Fila 1: ID, Nombre, Apellido -->
+    <div class="row">
+      <!-- Columna para el campo ID -->
+      <div class="col-12 col-sm-4">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <input type="text" id="id" formControlName="id" />
+          <div *ngIf="registerForm.get('id')?.invalid && registerForm.get('id')?.touched">
+            <small class="error">El ID es obligatorio.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna para el campo Name -->
+      <div class="col-12 col-sm-4">
+        <div class="form-group">
+          <label for="name">Nombre</label>
+          <input type="text" id="name" formControlName="name" />
+          <div *ngIf="registerForm.get('name')?.invalid && registerForm.get('name')?.touched">
+            <small class="error">El nombre es obligatorio.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna para el campo Surname -->
+      <div class="col-12 col-sm-4">
+        <div class="form-group">
+          <label for="surname">Apellido</label>
+          <input type="text" id="surname" formControlName="surname" />
+          <div *ngIf="registerForm.get('surname')?.invalid && registerForm.get('surname')?.touched">
+            <small class="error">El apellido es obligatorio.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila 2: Identificación, Puesto de Trabajo -->
+    <div class="row">
+      <!-- Columna para el campo Identification -->
+      <div class="col-12 col-sm-6">
+        <div class="form-group">
+          <label for="identification">Identificación</label>
+          <input type="text" id="identification" formControlName="identification" />
+          <div *ngIf="registerForm.get('identification')?.invalid && registerForm.get('identification')?.touched">
+            <small class="error">La identificación es obligatoria.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Columna para el campo Workstation -->
+      <div class="col-12 col-sm-6">
+        <div class="form-group">
+          <label for="workstation">Puesto de Trabajo</label>
+          <input type="text" id="workstation" formControlName="workstation" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila 3: Fecha de Contratación, Fecha de Registro -->
+    <div class="row">
+      <!-- Columna para el campo Hiring Date -->
+      <div class="col-12 col-sm-6">
+        <div class="form-group">
+          <label for="hiring_date">Fecha de Contratación</label>
+          <input type="date" id="hiring_date" formControlName="hiring_date" />
+        </div>
+      </div>
+
+      <!-- Columna para el campo Registration Date -->
+      <div class="col-12 col-sm-6">
+        <div class="form-group">
+          <label for="registration_date">Fecha de Registro</label>
+          <input type="date" id="registration_date" formControlName="registration_date" />
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón de envío -->
+    <div class="form-actions">
+      <button type="submit" [disabled]="registerForm.invalid">Registrar</button>
+    </div>
+  </form>
+</div>

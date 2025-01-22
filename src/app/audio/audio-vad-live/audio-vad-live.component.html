@@ -1,7 +1,7 @@
 <div class="audio-visualizer">
    <div class="main-info">
       <div class="left-container">
-         <h2>Reconocimiento de voz en tiempo real</h2>
+         <h1>Reconocimiento de voz en tiempo real</h1>
          <p>Grabación de audio y más concretamente voz en tiempo real, para posteriormente
            procesar los audios y visualizar las emociones de cada audio grabado, del cuál se determina su duración
            mediante la detección de voz y silencio utilizando un algoritmo.
@@ -12,8 +12,8 @@
            
          <!-- Controles de grabación -->
          <div class="buttons">
-            <button (click)="startRecording()">Grabar</button>
-            <button (click)="stopRecording()">Detener</button>
+            <button class="btn-initial" (click)="startRecording()">Grabar</button>
+            <button class="btn-initial" (click)="stopRecording()">Detener</button>
             <!-- <button (click)="pauseRecording()">Pausar/Reanudar</button> -->
          </div>
 
@@ -32,13 +32,15 @@
       </div>
    </div>
    
-
+   <div class="separator"></div>
 
     <!-- Grabaciones -->
+   <div class="records">
+      <h2>Grabaciones</h2>
+      <button class="btn-secondary" [disabled]="recordingsWithEmotions.length === 0" (click)="downloadAll()">Download All</button>
+   </div> 
      <div class="record-container">
-        <h3>Grabaciones</h3>
         <div #recordings class="audios-recorded"></div>
      </div>
-    
-     <button (click)="downloadAll()">Download All</button>
+   
   </div>

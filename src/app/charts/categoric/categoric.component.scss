@@ -4,6 +4,39 @@
   gap: 1rem;
 }
 
+/* Estilo general para los contenedores */
+// div {
+//   display: flex;
+//   justify-content: center; /* Centra el contenido horizontalmente */
+//   align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+//   margin: 0; /* Elimina márgenes extra */
+//   padding: 0; /* Elimina el padding extra */
+//   box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño del contenedor */
+// }
+
+/* Contenedor para el canvas_categoric */
+.container-categoric {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  margin-bottom: 20px; /* Espacio entre los contenedores */
+
+}
+
+/* Contenedor para el canvas_accumulated */
+.container-accumulated {
+  width: 50%; /* Ocupa la mitad del ancho del contenedor padre */
+  margin: 0; /* Elimina el centrado automático */
+  float: left; /* Hace que el contenedor se mueva a la izquierda */
+}
+
+/* Estilo para los canvas */
+.canvas-categoric, .canvas-accumulated {
+  width: 100%; /* Hace que el canvas ocupe todo el ancho disponible */
+  height: auto; /* Ajusta la altura proporcionalmente */
+  max-width: 100%; /* Evita que el canvas exceda el tamaño del contenedor */
+  max-height: 100%; /* Evita que el canvas exceda el tamaño del contenedor */
+  object-fit: contain; /* Mantiene la proporción del canvas sin distorsionarlo */
+}
+
 
 /** EMOTIONS COLORS **/
 .color-joy {

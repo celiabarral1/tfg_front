@@ -27,7 +27,13 @@ export class CategoricComponent implements OnInit , OnDestroy{
     } 
   }
   ngOnDestroy(): void {
-    throw new Error('Method not implemented.');
+    if (this.chart) {
+      this.chart.destroy();
+    }
+    if (this.accumulatedChart){
+      this.accumulatedChart.destroy();
+    }
+    this.chartDataService.deleteChartData();
   }
 
   ngOnInit(): void {

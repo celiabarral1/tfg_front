@@ -73,9 +73,9 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
   createWaveSurfer(): void {
     this.waveSurfer = WaveSurfer.create({
       container: this.waveformRef.nativeElement,
-      waveColor: 'rgb(241, 181, 173)',
+      waveColor: 'rgb(97, 80, 234)' ,
       progressColor: 'rgb(100, 0, 100)',
-      height: 300,// Para hacerlo responsivo si es necesario
+      height: 500,// Para hacerlo responsivo si es necesario
     });
   
     this.record = this.waveSurfer.registerPlugin(
