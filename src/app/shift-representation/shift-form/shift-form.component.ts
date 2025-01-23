@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IndividualService } from '../../individual/individual.service';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
@@ -11,7 +11,7 @@ import { Record } from '../../shared/shared/model/record';
 })
 export class ShiftFormComponent {
 form: FormGroup;
-
+isDatesDisabled: boolean = false;
   selectedOption: string | null = null; 
   shifts = [];
   options = [];
@@ -20,6 +20,7 @@ form: FormGroup;
   constructor(
     private readonly formBuilder:FormBuilder,
     private readonly service: IndividualService,
+    private readonly cdr: ChangeDetectorRef,
     private readonly chartDataService: ChartDataService // Transferencia de datos a gráfico
   ){
     this.form = this.formBuilder.group({
@@ -47,6 +48,42 @@ form: FormGroup;
       }
     );
 
+  }
+
+  
+  onTimeChange(value: any): void {
+    console.log("change")
+    const startDateControl = this.form.get('startDate');
+    const endDateControl = this.form.get('endDate');
+    const buttonDate = this.form.get('datePick');
+
+    if (value) {
+      // Si hay una opción seleccionada, deshabilitamos los campos de fecha
+      startDateControl?.disable();
+      endDateControl?.disable();
+      this.isDatesDisabled = true;
+    } else {
+      // Si no hay selección, habilitamos los campos de fecha
+      startDateControl?.enable();
+      endDateControl?.enable();
+      this.isDatesDisabled = false;
+    }
+    this.cdr.detectChanges();
+  }
+
+  onManualDate(): void {
+    const startDateControl = this.form.get('startDate');
+    const endDateControl = this.form.get('endDate');
+    const timeControl = this.form.get('time'); // Control de la ventana temporal
+  
+    // Verifica si las fechas de inicio o fin están definidas
+    if (startDateControl?.value || endDateControl?.value) {
+      // Si alguna fecha está seleccionada, deshabilita la ventana temporal
+      timeControl?.disable();
+    } else {
+      // Si no hay fechas seleccionadas, habilita la ventana temporal
+      timeControl?.enable();
+    }
   }
 
   onSubmit(): void {

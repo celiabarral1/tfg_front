@@ -21,7 +21,7 @@
   --primary-color: #6150EA;
   --secondary-color: #876AF1;
   --third-color: #C1B2FA;
-  --fourth-color: #E8DAF9;
+  --fourth-color: #c1aadf;
   --soft-gray-color: #D1D1D1;
   --hard-gray-color: #8F8F8F;
   --background-color: #FBFBFB;
@@ -155,4 +155,35 @@ main {
 .btn-secondary:hover {
   background-color: #876AF1; /* Color de fondo al pasar el ratón */
   color: var(--background-color);
+}
+
+/* Estilo para el input tipo file */
+input[type="file"] {
+  font-family: 'FraktionMono', monospace;
+  text-transform: uppercase;
+  font-size: 16px;
+  color: var(--primary-color);
+  letter-spacing: 0.05em;
+  background-color: rgba(193, 178, 250, 0.5); /* Color de fondo personalizado */
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease;
+  padding: 20px 65px;
+  border: 3px solid var(--primary-color);
+  border-radius: 45px;
+  box-sizing: border-box;
+  width: auto;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Efecto hover para input file */
+input[type="file"]:hover {
+  background-color: #876AF1; /* Color de fondo al pasar el ratón */
+  color: var(--background-color);
+  border-color: #876AF1; /* Cambiar color del borde al pasar el ratón */
+}
+
+/* Ocultar el botón de archivo por defecto y mantener solo el estilo personalizado */
+input[type="file"]::-webkit-file-upload-button {
+  display: none;
 }

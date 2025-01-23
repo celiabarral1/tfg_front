@@ -1,5 +1,8 @@
-<div>
-    <h2>Subir archivo CSV</h2>
+<div class="inicial-container">
+    <h1>Inferencia de emociones.</h1>
+    <p>Ahora no hace falta hablar, sube aquí el .csv (siguiendo el modelo que puedes descargar aquí), 
+      junto con los audios que se mencionan en el .csv y podrás visualizar las emociones asociadas a cada audio
+    </p>
     <input type="file" (change)="onFileSelected($event)" accept=".csv" />
   </div>
   
@@ -16,7 +19,8 @@
         [emotions_dimensional]="[
           { valence: recording.valence, arousal: recording.arousal, dominance: recording.dominance }
         ]"
-        [audioIndex]="i">
+        [audioIndex]="i"
+        [alignments]="recording.alignments">
       </app-audio-emotions>
     </div>
   </div>

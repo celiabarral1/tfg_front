@@ -1,3 +1,5 @@
+import { Alignment } from "./alignment";
+
 export class RecordingEmotions {
     fileName: string;
     Emotion_1_label: string;
@@ -17,6 +19,7 @@ export class RecordingEmotions {
     // audioBlob?: string;  // Nueva propiedad para almacenar la grabación
     audioBlob?: Blob;
     transcription: string;
+    alignments: Alignment[];
   
     constructor(data: {
       fileName: string;
@@ -35,9 +38,12 @@ export class RecordingEmotions {
       userId: number;
       timestamp: number;
       // audioBlob?: string;  // Nueva propiedad opcional
-      audioBlob?: Blob,
-      transcription: string 
+      audioBlob?: Blob;
+      transcription: string ;
+      alignments: Alignment[];
+      
     }) {
+      console.log(data.alignments, " NO TIENE SENTIFO")
       this.fileName = data.fileName;
       this.Emotion_1_label = data.Emotion_1_label;
       this.Emotion_1_mean = data.Emotion_1_mean;
@@ -55,6 +61,8 @@ export class RecordingEmotions {
       this.timestamp = data.timestamp;
       this.audioBlob = data.audioBlob;
       this.transcription = data.transcription;
+      this.alignments = data.alignments;
+      console.log(this.alignments, "AHORA SI Q BLOW")
     }
   
     static toCSVHeader(): string {
@@ -74,7 +82,8 @@ export class RecordingEmotions {
         'dominance',
         'user_id',
         'timestamp',
-        'transcription'
+        'transcription',
+        'alignments' 
       ].join(',');
     }
   
@@ -95,8 +104,9 @@ export class RecordingEmotions {
         this.dominance,
         this.userId,
         this.timestamp,
-        this.transcription
-      ].join(',');
+        this.transcription,
+        JSON.stringify(this.alignments) 
+    ].join(',');
     }
   }
   

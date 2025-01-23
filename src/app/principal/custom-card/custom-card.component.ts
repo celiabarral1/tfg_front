@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core';
 export class CustomCardComponent {
   @Input() title?: string;
   @Input() icon?: string; // Poner uno x defecto
-  @Input() imageUrl?: string;
+  @Input() iconName?: string;
   @Input() description?: string;
   @Input() iconClass?: string;
   @Input() route: string = '/'; 

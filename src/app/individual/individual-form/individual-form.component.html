@@ -1,26 +1,58 @@
 <div class="container-form">
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row">
       <div class="form-group">
-        <label for="userId">User ID:</label>
-        <input id="userId" type="text" placeholder="User id..." formControlName="userId"/>
+        <label for="userId">Identificación del usuario:</label>
+        <input id="userId" type="text" placeholder="Usuario id..." formControlName="userId"/>
       </div>
-      <div class="form-group">
-        <label for="time">Temporary Window:</label>
-        <ng-select
-          id="time"
-          [items]="options"
-          bindLabel="label"
-          bindValue="value"
-          formControlName="time"
-          placeholder="Elija una opción"
-          [searchable]="false"
-          
-        >
-        </ng-select>
+    </div>
+      <div class="row">
+        <div class="col-2 col-sm-6">
+          <div class="form-group">
+            <label for="time">Ventana temporal:</label>
+            <ng-select
+              id="time"
+              [items]="options"
+              bindLabel="label"
+              bindValue="value"
+              formControlName="time"
+              placeholder="Elija fecha..."
+              [searchable]="false"
+              (change)="onTimeChange($event)"
+            >
+            </ng-select>
+          </div>
       </div>
+      <div class="col-2 col-sm-6">
+        <div class="form-group">
+          <button class="btn-initial" type="button" [disabled]="isDatesDisabled" (click)="focusStartDate()">
+            <i class="bi bi-calendar"></i> Elegir fecha
+          </button>
+        </div>
+    </div>
+    </div>
+        <div class="row">
+          <!-- Columna para el campo Hiring Date -->
+          <div class="col-2 col-sm-6">
+            <div class="form-group">
+              <label for="startDate">Inicio:</label>
+              <input type="date" id="startDate" formControlName="startDate" #startDate
+              (change)="onManualDate()"/>
+            </div>
+          </div>
+          <!-- Columna para el campo Registration Date -->
+          <div class="col-2 col-sm-6">
+            <div class="form-group">
+              <label for="endDate">Fin:</label>
+              <input type="date" id="endDate" formControlName="endDate" 
+              (change)="onManualDate()"/>
+            </div>
+          </div>
+        </div>
+      <div class="row">
       <div class="form-group">
         <fieldset>
-          <legend>Char type:</legend>
+          <legend>Tipo de gráfico:</legend>
           <label>
             <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categoric
           </label>
@@ -29,6 +61,7 @@
           </label>
         </fieldset>
       </div>
-        <button type="submit">Show</button>
-      </form>      
+    </div>
+    <button type="submit" class="btn-initial">Show</button>
+  </form>      
 </div>

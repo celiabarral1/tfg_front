@@ -250,10 +250,11 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
           return new Alignment(alignment[0], alignment[1], alignment[2]);
         });
 
+        console.log(alignments)
         componentRef.instance.alignments = alignments;
 
         const recordingWithEmotion = this.createRecordingWithEmotion(fileName,emocategoric,emodimensional,response.userId,blob,
-          response.transcription);
+          response.transcription,alignments);
 
         // Agregar el objeto al arreglo
         this.recordingsWithEmotions.push(await recordingWithEmotion);
@@ -289,7 +290,8 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     emodimensional: any,
     userId: number,
     audioBlob: Blob,
-    transcription: string
+    transcription: string,
+    alignments: Alignment[] 
   ): Promise<RecordingEmotions> {
     // const audioBase64 = await this.audioUtils.convertBlobToBase64(audioBlob); // Convertir el blob a base64
   
@@ -312,6 +314,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       // audioBlob: audioBase64,  // Almacenar la cadena base64
       audioBlob:audioBlob,
       transcription: transcription,
+      alignments: alignments 
     });
   }
   
@@ -360,6 +363,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       URL.revokeObjectURL(audioUrl); // Limpia el objeto URL
     });
   
+    console.log("tiene alignmets? ", this.recordingsWithEmotions)
     CsvGestor.downloadCsv(this.recordingsWithEmotions);
     
     console.log('Todos los audios han sido descargados.');

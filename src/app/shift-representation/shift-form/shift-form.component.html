@@ -4,6 +4,7 @@
         <label for="userId">User ID:</label>
         <input id="userId" type="text" placeholder="User id..." formControlName="userId"/>
       </div> -->
+    <div class="row">
       <div class="form-group">
         <label for="shift">Turno:</label>
         <ng-select
@@ -17,8 +18,10 @@
         >
         </ng-select>
       </div>
+    </div>
+    <div class="row">
       <div class="form-group">
-        <label for="time">Temporary Window:</label>
+        <label for="time">Ventana temporal:</label>
         <ng-select
           id="time"
           [items]="options"
@@ -27,10 +30,37 @@
           formControlName="time"
           placeholder="Elija una opción"
           [searchable]="false"
-          
+          (change)="onTimeChange($event)"
         >
         </ng-select>
       </div>
+      <div class="col-2 col-sm-6">
+        <div class="form-group">
+          <button class="btn-initial" type="button" [disabled]="isDatesDisabled">
+            <i class="bi bi-calendar"></i> Elegir fecha
+          </button>
+        </div>
+    </div>
+  </div>
+        <div class="row">
+          <!-- Columna para el campo Hiring Date -->
+          <div class="col-2 col-sm-6">
+            <div class="form-group">
+              <label for="startDate">Inicio:</label>
+              <input type="date" id="startDate" formControlName="startDate" 
+              (change)="onManualDate()"/>
+            </div>
+          </div>
+          <!-- Columna para el campo Registration Date -->
+          <div class="col-2 col-sm-6">
+            <div class="form-group">
+              <label for="endDate">Fin:</label>
+              <input type="date" id="endDate" formControlName="endDate" 
+              (change)="onManualDate()"/>
+            </div>
+          </div>
+        </div>
+      <div class="row">
       <div class="form-group">
         <fieldset>
           <legend>Char type:</legend>
@@ -42,6 +72,7 @@
           </label>
         </fieldset>
       </div>
-        <button type="submit">Show</button>
+    </div>
+        <button type="submit" class="btn-initial">Show</button>
       </form>      
 </div>

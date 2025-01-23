@@ -20,12 +20,13 @@ div[class^="emotions"] {
   display: flex;
   align-items: center;
   justify-content: space-between; /* Distribuye los elementos de la izquierda y derecha */
-  width: 100%;
-  // border-bottom:solid 1px grey;
+  width: calc(100% - 80px); /* Ajusta el ancho para compensar el padding (20px a cada lado) */
   gap: 40px;
   background-color: var(--soft-gray-color);
   border-radius: 40px;
   margin-bottom: 100px;
+  padding: 20px; /* Agrega el padding deseado */
+  box-sizing: border-box; /* Asegura que el padding no agrande el contenedor */
 }
 
 .buttons {
@@ -46,7 +47,7 @@ div[class^="emotions"] {
 }
 
 .btn-secondary{
-  margin-right: 20px;
+  margin-right: 100px;
 }
 
 .left-container {

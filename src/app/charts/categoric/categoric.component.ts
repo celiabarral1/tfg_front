@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ElementRef, ViewChild } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
 import { IndividualService } from '../../individual/individual.service';
@@ -11,6 +11,8 @@ import { Chart, registerables } from 'chart.js';
   styleUrls: ['./categoric.component.scss']
 })
 export class CategoricComponent implements OnInit , OnDestroy{
+  @ViewChild('canvasCategoric', { static: true }) canvasCategoric!: ElementRef<HTMLDivElement>;
+  @ViewChild('canvasAccumulated', { static: true }) canvasAccumulated!: ElementRef<HTMLDivElement>;
   private chart: any;
   private graphData: any[] = [];
   private userId: any;
@@ -27,12 +29,8 @@ export class CategoricComponent implements OnInit , OnDestroy{
     } 
   }
   ngOnDestroy(): void {
-    if (this.chart) {
-      this.chart.destroy();
-    }
-    if (this.accumulatedChart){
-      this.accumulatedChart.destroy();
-    }
+    this.destroyChart(this.chart);
+    this.destroyChart(this.accumulatedChart);
     this.chartDataService.deleteChartData();
   }
 
@@ -55,10 +53,24 @@ export class CategoricComponent implements OnInit , OnDestroy{
     });
   }
 
-  createChart(): void {
-    if (this.chart) {
-      this.chart.destroy(); 
+
+  private destroyChart(chart: any): void {
+    if (chart) {
+      chart.destroy();
+      chart = null;
     }
+  }
+  
+
+
+  createChart(): void {
+    this.destroyChart(this.chart);
+    // Crear y adjuntar un nuevo canvas dinámicamente
+    const canvas = document.createElement('canvas');
+    canvas.id = 'canvas_categoric';
+    this.canvasCategoric.nativeElement.innerHTML = ''; // Limpia el contenedor
+    this.canvasCategoric.nativeElement.appendChild(canvas);
+
       // Configura las etiquetas del eje X
       const labels = this.graphData.map(item => {
         const date = new Date(item.timestamp * 1000); // Convertir timestamp a fecha
@@ -78,7 +90,7 @@ export class CategoricComponent implements OnInit , OnDestroy{
         });
       });
 
-      this.chart = new Chart('canvas_categoric', {
+      this.chart = new Chart(canvas, {
         type: 'line',
         data: {
           labels: labels,
@@ -87,7 +99,7 @@ export class CategoricComponent implements OnInit , OnDestroy{
               label: 'Emotions',
               data: data,
               stepped: true,
-              borderColor: '#FF6384', // Color de la línea
+              borderColor: '#6150EA', // Color de la línea
               borderWidth: 2,
               fill: false
             }
@@ -131,9 +143,13 @@ export class CategoricComponent implements OnInit , OnDestroy{
 
     createAccumulatedStudyChart(): void {
       // Destruir el gráfico previo si existe
-      if (this.accumulatedChart) {
-        this.accumulatedChart.destroy();
-      }
+      this.destroyChart(this.accumulatedChart);
+
+      // Crear y adjuntar un nuevo canvas dinámicamente
+    const canvas = document.createElement('canvas');
+    canvas.id = 'canvas_accumulated';
+    this.canvasAccumulated.nativeElement.innerHTML = ''; // Limpia el contenedor
+    this.canvasAccumulated.nativeElement.appendChild(canvas);
     
       // Calcular los datos acumulados
       const accumulatedData = this.emotions.map(emotion => {
@@ -160,7 +176,7 @@ export class CategoricComponent implements OnInit , OnDestroy{
       const backgroundColors = this.emotions.map(emotion => emotionColors[emotion.toLowerCase()] || '#FF6384'); // Color por defecto si no se encuentra la emoción
     
       // Crear el gráfico en el nuevo canvas
-      this.accumulatedChart = new Chart('canvas_accumulated', {
+      this.accumulatedChart = new Chart(canvas, {
         type: 'bar',
         data: {
           labels: labels,

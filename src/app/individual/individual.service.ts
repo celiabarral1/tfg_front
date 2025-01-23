@@ -11,7 +11,7 @@ import { ApiConfigService } from "../@core/common/api/api-config.service";
     private apiUrl: string;
 
     constructor(private http: HttpClient, private apiConfig: ApiConfigService) {
-      this.apiUrl = this.apiConfig.getApiUrl();  // Usamos el ApiConfigService para obtener la URL base
+      this.apiUrl = this.apiConfig.getApiUrl() ;  // Usamos el ApiConfigService para obtener la URL base
     }
 
     getTimePeriods(): Observable<any> {

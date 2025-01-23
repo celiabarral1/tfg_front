@@ -41,6 +41,7 @@
             ],
             "styles": [
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
               "src/styles.scss"
             ],
             "scripts": [],

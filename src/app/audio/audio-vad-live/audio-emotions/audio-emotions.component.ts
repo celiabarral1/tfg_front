@@ -65,7 +65,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
 
       this.waveSurfer = WaveSurfer.create({
         container: this.waveformContainer.nativeElement,
-        waveColor: 'rgb(200, 100, 0)',
+        waveColor: 'rgb(204, 102, 0)',
         progressColor: 'rgb(100, 50, 0)',
         url: recordedUrl,
         barWidth: 2,

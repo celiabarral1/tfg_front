@@ -8,28 +8,25 @@
 <div class = "card-container" id="card-container">
   <app-custom-card 
     [title]="'Gráficos de emociones'" 
-    [icon]="'📈'"
     [iconClass]="'graph-icon'" 
-    [imageUrl]="'https://via.placeholder.com/150'" 
-    [description]="'Reppresentaciones gráficas representativaspara los trabajadores de la planta. Consulta de manera personalizada la evolución emocional de un solo trabajador o de un grupo de ellos.'"
+    [iconName]="'bi-graph-up'" 
+    [description]="'Representaciones gráficas representativas para los trabajadores de la planta. Consulta de manera personalizada la evolución emocional de un solo trabajador o de un grupo de ellos.'"
     [route]="'/representation'">
   </app-custom-card>
 
   <app-custom-card 
     [title]="'Reconocimiento de voz en tiempo real'" 
-    [icon]="'📈'"
     [iconClass]="'graph-icon'" 
-    [imageUrl]="'https://via.placeholder.com/150'" 
-    [description]="'Este gráfico muestra las tendencias de los últimos meses. Tamaño perfecto.'"
+    [iconName]="'bi-soundwave'" 
+    [description]="'Detección de voz humana en tiempo real. Junto con la presencia y ausencia de silencios se crean grabaciones que se envían directamente para obtener las emociones predominantes.'"
     [route]="'/audio'">
   </app-custom-card>
 
   <app-custom-card 
-    [title]="'Reconocimiento de voz en tiempo real'" 
-    [icon]="'📈'"
+    [title]="'Inferencia de emociones'" 
     [iconClass]="'graph-icon'" 
-    [imageUrl]="'https://via.placeholder.com/150'" 
-    [description]="'Este gráfico muestra las tendencias de los últimos meses. Tamaño perfecto.'"
+    [iconName]="'bi-file-earmark-zip'" 
+    [description]="'Comparte tus audios con sus análisis de datos emocionales en un archivo .csv, para una agradable visualización de los mismos.'"
     [route]="'/csv'">
   </app-custom-card>
 </div>

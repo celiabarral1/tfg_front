@@ -20,6 +20,13 @@
   transform: translateY(-5px); /* Levanta la tarjeta al pasar el ratón */
 }
 
+i {
+  font-size: 7rem; 
+  margin-left: 1rem;
+  color: var(--soft-gray-color) ;
+  opacity: 0.6;
+}
+
 .card-header {
   display: flex;
   flex-direction: row;
@@ -46,8 +53,8 @@
   margin-bottom: 20px;
 }
 
-.card-content p {
-  font-size: 16px;
+p {
+  font-size: 22px;
   color: #555;
   text-align: left;
   margin: 0;
@@ -61,89 +68,34 @@ h1 {
 }
 
 /* Estilos para la flecha */
-.icon-arrow {
+i.bi-arrow-up-right-circle {
   position: absolute; /* Posiciona la flecha en relación al contenedor */
   top: 10px;
-  right: 10px;
-  width: 100px; /* Tamaño de la flecha */
-  height: 100px; /* Tamaño de la flecha */
+  right: 20px;
+  font-size: 5rem;
+  color: var(--background-color); /* Color del icono */
+  transition: transform 0.3s ease; /* Efecto de transición */
+  opacity: 1;
 }
 
-// button {
-//   font-size: 40px;
-//   padding: 30px 50px;
-//   border-radius: 30%;
-// }
+i.bi-arrow-up-right-circle:hover {
+  transform: scale(1.1); /* Aumenta el tamaño del icono al pasar el ratón */
+}
 
+@media (max-width: 576px) {
+  i {
+    font-size: 2em;
+  }
+  i.bi-arrow-up-right-circle  {
+    font-size: 1em;
+  }
+}
 
-// .custom-card {
-//     box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
-//     border-radius: 0.5rem;
-//     box-sizing: border-box;
-//     margin: 1.25rem; /* 20px */
-//     margin-bottom: 2.5rem; /* 40px */
-//     display: flex;
-//     flex-direction: column;
-//     padding: 1.25rem; /* 20px */
-//     background-color: #F1B5AD;
-//     cursor: pointer;
-//     transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s linear;
-//   }
-  
-//   .custom-card:hover {
-//     transform: translateY(-0.125rem); /* -2px */
-//     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2); /* 8px, 16px */
-//     background: linear-gradient(135deg, #ff9a9e, #fad0c4, #fbc2eb);
-//   }
-  
-//   .card-header {
-//     display: flex;
-//     align-items: center;
-//     padding-bottom: 0.625rem; /* 10px */
-//     border-bottom: 0.0625rem solid #ccc; /* 1px */
-//     margin-bottom: 0.625rem; /* 10px */
-//     flex-shrink: 0;
-//   }
-  
-//   .card-title {
-//     font-size: 1.5rem;
-//     font-weight: bold;
-//     color: #333;
-//     white-space: nowrap;
-//     overflow: hidden;
-//     text-overflow: ellipsis;
-//   }
-  
-//   .header-image {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     margin-right: 0.625rem; /* 10px */
-//   }
-  
-//   .graph-icon {
-//     font-size: 2.5rem; /* 40px */
-//     color: #3f51b5;
-//   }
-  
-//   .card-content {
-//     display: flex;
-//     align-items: flex-start;
-//     gap: 1.25rem; /* 20px */
-//   }
-  
-//   .card-image {
-//     max-width: 10rem; /* 150px */
-//     height: auto;
-//     border-radius: 0.5rem; /* 8px */
-//     flex-shrink: 0;
-//   }
-  
-//   .card-content p {
-//     flex: 1;
-//     font-size: 1rem;
-//     color: #666;
-//     line-height: 1.5;
-//     margin: 0;
-//   }
-  
+@media (max-width: 768px) {
+  i {
+    font-size: 3em;
+  }
+  i.bi-arrow-up-right-circle  {
+    font-size: 2em;
+  }
+}

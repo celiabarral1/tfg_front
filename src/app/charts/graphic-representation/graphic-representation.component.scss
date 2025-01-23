@@ -20,7 +20,7 @@
     max-width: 70%; /* Limita el ancho máximo de los gráficos */
     background-color: #fff; /* Color de fondo */
     padding: 1rem; /* Espaciado interno */
-    border: 1px solid #ddd; /* Borde */
+    border: 3px solid var(--soft-gray-color) ; /* Borde */
     border-radius: 8px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
   }
@@ -47,49 +47,68 @@
   
   .cards-container {
     display: flex;
+    flex-direction: row; /* Alineación vertical */
     justify-content: center; /* Centrar horizontalmente */
     align-items: center; /* Centrar verticalmente */
-    gap: 100px; /* Espaciado entre tarjetas */
-    margin: 100px;
-  }
-  
-  .custom-card {
-    width: 400px; /* Ancho fijo para mantenerla compacta */
-    height: 500px; /* Altura proporcional */
+    gap: 60px; /* Espaciado entre tarjetas */
+    margin: 100px 200px;
+    padding: 50px;
+    border: 5px solid var(--primary-color);
+    background-color: rgba(97, 80, 234, 0.1);
+    border-radius: 50px;
+}
+
+.custom-card {
+    width: 40%; /* 75% del ancho de la ventana */
+    height: 60vh; /* 30% de la altura de la ventana */
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Espaciado entre los elementos */
     align-items: center; /* Centrar contenido horizontalmente */
-    border-radius: 10px; /* Bordes redondeados */
+    border: 3px solid var(--primary-color);
+    border-radius: 40px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    background-color: #f5d1d0;
+    background-color: var(--background-color);
     overflow: hidden; /* Ocultar contenido que sobresalga */
     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
     cursor: pointer;
-  }
-  
-  .custom-card:hover {
+    padding: 1%;
+}
+
+h2 {
+  color: var(--primary-color);
+}
+
+.custom-card:nth-child(1) {
+  align-self: flex-start; /* Alinear la primera tarjeta a la izquierda */
+}
+
+.custom-card:nth-child(2) {
+  align-self: flex-end; /* Alinear la segunda tarjeta a la derecha */
+  margin-top: 30vh; /* Ajustar este valor según sea necesario */
+}
+
+
+.custom-card:hover {
     transform: translateY(-5px); /* Efecto de elevación */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-  }
-  
-  .card-header {
+}
+
+.card-header {
     width: 100%;
     height: 10%; /* O cualquier altura que prefieras */
     padding: 10px 15px;
     display: flex; /* Activar flexbox */
     align-items: center; /* Centrar solo verticalmente */
     text-align: left; /* Mantiene el texto alineado horizontalmente a la izquierda */
-    font-family: 'FraktionMono',monospace ;
+    font-family: 'FraktionMono', monospace;
     text-transform: uppercase;
     font-size: 18px;
-    color: #333;
     border-bottom: 1px solid #ddd;
     margin-left: 25px;
-  }
-  
-  
-  .card-content {
+}
+
+.card-content {
     flex: 1; /* Ocupa el espacio restante */
     display: flex;
     flex-direction: column;
@@ -98,25 +117,28 @@
     padding: 15px; /* Espaciado interno */
     text-align: center;
     font-size: 14px; /* Tamaño de fuente del texto */
-  }
-  
-  .card-content img {
+}
+
+.card-content img {
     width: 80%; /* Imagen más pequeña */
     height: auto; /* Mantener proporción */
     margin-bottom: 20px; /* Espaciado inferior */
-  }
-  
-  .card-content p {
+}
+
+.card-content p {
     margin: 0;
     line-height: 1.5; /* Espaciado entre líneas */
-  }
+}
 
+.card-bottom {
+  align-self: flex-end; 
+}
   
   .tabs-container {
     margin-top: 20px; /* Espacio superior para las tabs */
     display: flex;
     justify-content: center; /* Centra las tabs en el contenedor */
-    background-color: var(--soft-gray-color);
+    // background-color: var(--soft-gray-color);
   }
   
   .tabs {
@@ -144,5 +166,36 @@
   .tab.active {
     background-color: var(--primary-color); /* Color activo */
     color: white;
+  }
+  
+  .graphic-representation {
+    display: flex;
+    justify-content: space-between; /* Alinea los elementos a los extremos */
+    gap: 20px; /* Espacio entre el formulario y los gráficos */
+    padding: 20px;
+    background-color: var(--dark-gray-color);
+  }
+  
+  .graphic-representation .charts {
+    width: 60%; /* Asigna el 70% del espacio para los gráficos */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 50px;
+  }
+  
+  .graphic-representation > div {
+    width: 30%; /* Asigna el 30% del espacio para el formulario */
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+  }
+  
+  .app-individual-form, .app-shift-form {
+    margin-bottom: 20px;
+  }
+  
+  .charts app-dimensional, .charts app-categoric {
+    width: 100%;
   }
   

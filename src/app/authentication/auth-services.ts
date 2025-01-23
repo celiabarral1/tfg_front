@@ -2,15 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { ApiConfigService } from '../@core/common/api/api-config.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5000'; // URL de tu backend
+  private apiUrl: string; // URL de tu backend
   private currentUserSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private apiConfig: ApiConfigService) {
+    this.apiUrl = this.apiConfig.getApiUrl();
     // Verificar si estamos en el cliente antes de acceder a localStorage
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('access_token');
