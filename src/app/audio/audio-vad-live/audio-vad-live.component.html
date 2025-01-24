@@ -14,6 +14,8 @@
          <div class="buttons">
             <button class="btn-initial" (click)="startRecording()">Grabar</button>
             <button class="btn-initial" (click)="stopRecording()">Detener</button>
+            <button class="btn-initial" (click)="startRecording()">Grabar</button>
+            <button class="btn-initial" (click)="stopRecording()">Detener</button>
             <!-- <button (click)="pauseRecording()">Pausar/Reanudar</button> -->
          </div>
 
@@ -33,6 +35,7 @@
    </div>
    
    <div class="separator"></div>
+   <div class="separator"></div>
 
     <!-- Grabaciones -->
    <div class="records">
@@ -42,5 +45,6 @@
      <div class="record-container">
         <div #recordings class="audios-recorded"></div>
      </div>
+   
    
   </div>

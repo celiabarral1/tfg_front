@@ -1,4 +1,5 @@
 <section>
+<section>
 <div class="audio-recording">
   <div class="audio-container">
     <div #waveformContainer class="waveform-container">
@@ -11,7 +12,19 @@
   </div>
 
   <div class="emotions-container">
+  <div class="emotions-container">
     <div *ngFor="let emotion of emotions_categoric" class="emotion-item">
+      <p>{{ emotion.emo }}: {{ emotion.prob.toFixed(2) }}%</p>
+      <!-- Contenedor de la barra con fondo gris -->
+      <div class="emotion-bar-container">
+        <!-- Capa interna que se ajusta al porcentaje y tiene el color de la emoción -->
+        <div [ngClass]="emotion.colorClass" class="emotion-bar" 
+             [ngStyle]="{ 
+               'width': (emotion.prob * 100) + '%' 
+             }">
+        </div>
+      </div>
+      
       <p>{{ emotion.emo }}: {{ emotion.prob.toFixed(2) }}%</p>
       <!-- Contenedor de la barra con fondo gris -->
       <div class="emotion-bar-container">
@@ -31,9 +44,12 @@
   </div>
   </div>
   
+  </div>
+  
 </div>
 
   <div class="transcription-container">
+    <h4>Transcripción:</h4>
     <h4>Transcripción:</h4>
     <p>
       <span
@@ -45,4 +61,5 @@
       </span>
     </p>
   </div>
+</section>
 </section>

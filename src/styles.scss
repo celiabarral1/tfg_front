@@ -55,9 +55,29 @@ html, body {
 
 
 h2 , h3, h4 {
+
+// body {
+//     margin: 0; /* Elimina márgenes predeterminados */
+//     padding: 0; /* Elimina relleno predeterminado */
+//     height: 100vh; /* Establece la altura al 100% del viewport */
+//     background: var(--background-color);
+    
+//     // background: #fae8e6;
+//     font-family: Arial, sans-serif; /* Fuente predeterminada para la app */
+//     font-size: 22px;
+//     color: #353535;
+//   }
+
+
+h2 , h3, h4 {
     font-family: "fontSans", sans-serif;
     letter-spacing: 0.05em;
+    letter-spacing: 0.05em;
     font-weight: inherit;
+}
+
+main {
+  flex-grow: 1; /* Asegura que main ocupe el espacio disponible */
 }
 
 main {
@@ -93,11 +113,41 @@ main {
     text-transform: uppercase;
     font-size: 14px;
     letter-spacing: 0.05em;
+// button {
+//     font-family: 'FraktionMono',monospace ;
+//     text-transform: uppercase;
+//     font-size: 14px;
+//     letter-spacing: 0.05em;
+//     background-color: #555;
+//     color: white;
+//     cursor: pointer;
+//     transition: background-color 0.3s ease;
+//     align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
+//     padding: 10px 20px;
+//     border: none;
+//     border-radius: 5px;
+//     box-sizing: border-box;
+//     transition: border-color 0.3s ease;
+//   }
+  
+//   button:hover {
+//     background-color: #666;
+//   }
+
+/* Definir la clase btn-form */
+.btn-form {
+    font-family: 'FraktionMono',monospace ;
+    text-transform: uppercase;
+    font-size: 14px;
+    letter-spacing: 0.05em;
     background-color: #555;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;

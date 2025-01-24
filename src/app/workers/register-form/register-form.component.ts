@@ -10,7 +10,6 @@ import { EmployeeService } from '../employee.service';
 })
 export class RegisterFormComponent {
   registerForm: FormGroup;
-  
 
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
     this.registerForm = this.fb.group({

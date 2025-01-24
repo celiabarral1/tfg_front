@@ -1,10 +1,16 @@
 <div class="principal-container">
   <!-- <div class="background-image"></div> -->
+<div class="principal-container">
+  <!-- <div class="background-image"></div> -->
 <div class="inicial-container">
   <h1>Visualiza y reconoce tus emociones</h1>
   <p>Graba e identifica tus emociones a partir de tus ondas vocales</p>
   <button class="btn-initial" (click)="scrollToCards()">Empieza ahora</button>
+  <h1>Visualiza y reconoce tus emociones</h1>
+  <p>Graba e identifica tus emociones a partir de tus ondas vocales</p>
+  <button class="btn-initial" (click)="scrollToCards()">Empieza ahora</button>
 </div>
+<div class = "card-container" id="card-container">
 <div class = "card-container" id="card-container">
   <app-custom-card 
     [title]="'Gráficos de emociones'" 
@@ -29,5 +35,6 @@
     [description]="'Comparte tus audios con sus análisis de datos emocionales en un archivo .csv, para una agradable visualización de los mismos.'"
     [route]="'/csv'">
   </app-custom-card>
+</div>
 </div>
 </div>
