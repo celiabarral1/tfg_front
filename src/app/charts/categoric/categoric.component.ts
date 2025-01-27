@@ -100,7 +100,6 @@ export class CategoricComponent implements OnInit , OnDestroy{
               data: data,
               stepped: true,
               borderColor: '#6150EA', // Color de la línea
-              borderColor: '#6150EA', // Color de la línea
               borderWidth: 2,
               fill: false
             }

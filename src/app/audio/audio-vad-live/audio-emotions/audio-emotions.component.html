@@ -12,7 +12,6 @@
   </div>
 
   <div class="emotions-container">
-  <div class="emotions-container">
     <div *ngFor="let emotion of emotions_categoric" class="emotion-item">
       <p>{{ emotion.emo }}: {{ emotion.prob.toFixed(2) }}%</p>
       <!-- Contenedor de la barra con fondo gris -->
@@ -43,8 +42,7 @@
     <button class="btn-form" (click)="download()">Download</button>
   </div>
   </div>
-  
-  </div>
+ 
   
 </div>
 

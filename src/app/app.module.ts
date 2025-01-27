@@ -24,7 +24,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatMenuModule } from '@angular/material/menu';
 import { AudioRecordedComponent } from './audio/audio-recorded/audio-recorded.component';
 import { ColorGenerator } from './@core/common/utils/color-generator';
 import { AudioVadComponent } from './audio/audio-vad/audio-vad.component';

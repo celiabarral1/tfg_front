@@ -16,13 +16,25 @@ export class Record {
     valence: number;
   
     constructor(data: any) {
-      const parseDecimal = (value: string): number => {
-        const isNegative = value.startsWith('-');
-        const cleanedValue = value.replace(',', '.');
-        return isNegative ? -parseFloat(cleanedValue.slice(1)) : parseFloat(cleanedValue);
-      };
-  
-      this.Emotion_1_label = data.Emotion_1_label;
+      const parseDecimal = (value: any): number => {
+        // Si el valor ya es un número, simplemente devuélvelo.
+        if (typeof value === 'number') {
+            return value;
+        }
+    
+        // Si el valor es una cadena, verifica que sea válida para conversión.
+        if (typeof value === 'string') {
+            // Validar si la cadena es numérica
+            if (!isNaN(Number(value))) {
+                const isNegative = value.startsWith('-');
+                const cleanedValue = value.replace(',', '.');
+                return isNegative ? -parseFloat(cleanedValue.slice(1)) : parseFloat(cleanedValue);
+            }
+        }
+    
+        // Si no es un número ni una cadena numérica, lanza un error.
+        throw new Error(`Invalid value for parseDecimal: ${value}`);
+    };      this.Emotion_1_label = data.Emotion_1_label;
       this.Emotion_1_mean = parseDecimal(data.Emotion_1_mean);
       this.Emotion_1_std = parseDecimal(data.Emotion_1_std);
       this.Emotion_2_label = data.Emotion_2_label;

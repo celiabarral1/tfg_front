@@ -92,7 +92,17 @@ export class IndividualFormComponent {
       this.service.filterRecords(userId, time).subscribe(
         (response) => {
           const flattenedData = response.flat();
-           const records = flattenedData.map((item: any) => new Record(item));
+          console.log(flattenedData)
+          const records = flattenedData.map((item: any, index: number) => {
+            try {
+                console.log(`Processing item at index ${index}:`, item);
+                return new Record(item);
+            } catch (error) {
+                console.error(`Error at index ${index}:`, item, error);
+                throw error; // Rethrow the error to preserve behavior
+            }
+        });
+        
            console.log('Datos RECORDS:', records);
            this.chartDataService.updateChartData(records,time,userId);
         },
