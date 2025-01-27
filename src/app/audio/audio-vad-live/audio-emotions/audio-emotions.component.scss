@@ -105,7 +105,7 @@ button {
   font-weight: 600;
 }
 
-.emotion-bar-container {
+.emotion-bar-container, .dimension-bar-container {
   width: 100%;
   height: 8px;  /* Barra más delgada */
   background-color: #e0e0e0;  /* Gris suave */
@@ -113,7 +113,7 @@ button {
   overflow: hidden;
 }
 
-.emotion-bar {
+.emotion-bar, .dimension-bar {
   height: 100%;
   border-radius: 4px;  /* Bordes redondeados */
   transition: width 0.5s ease; /* Animación suave */
@@ -204,4 +204,16 @@ button {
 
 .color-neutral {
   background-color: #FFF8E7; /* Beige */
+}
+
+
+/* Colores para dimensiones emocionales */
+.color-arousal {
+  background-color: #3498db; /* Azul */
+}
+.color-dominance {
+  background-color: #9b59b6; /* Púrpura */
+}
+.color-valence {
+  background-color: #2ecc71; /* Verde */
 }

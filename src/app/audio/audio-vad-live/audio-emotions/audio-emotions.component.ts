@@ -26,10 +26,25 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
   get emotions_categoric(): any[] {
     return this._emotions_categoric;
   }
-  @Input() set emotions_dimensional(value: any[]) {
-    this._emotions_dimensional = value;
+  @Input() set emotions_dimensional(value: any) {
+    // Verifica si `value` es un objeto y no un arreglo
+    if (value && typeof value === 'object' && !Array.isArray(value)) {
+      // Convierte el objeto en un formato procesable como arreglo
+      this._emotions_dimensional = [
+        { name: 'Arousal', value: value.arousal, colorClass: 'color-arousal' },
+        { name: 'Dominance', value: value.dominance, colorClass: 'color-dominance' },
+        { name: 'Valence', value: value.valence, colorClass: 'color-valence' }
+      ];
+    } else {
+      console.error('Invalid value for emotions_dimensional:', value);
+      this._emotions_dimensional = [];
+    }
+  
+    console.log('Processed emotions_dimensional:', this._emotions_dimensional);
     this.changeDetector.detectChanges(); // Forzar la detección de cambios
   }
+  
+  
   get emotions_dimensional(): any[] {
     return this._emotions_dimensional;
   }
