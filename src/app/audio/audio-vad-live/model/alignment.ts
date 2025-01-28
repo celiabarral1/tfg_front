@@ -1,3 +1,4 @@
+
 export class Alignment {
     word: string;
     start: number;

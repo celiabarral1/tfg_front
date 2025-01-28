@@ -1,5 +1,11 @@
 import { Alignment } from "./alignment";
 
+/**
+ * Clase que gestiona la estructura de datos de un audio con sus datos asociados,
+ * como emociones categóricas, dimensionales, identificación del usuario, valence, 
+ * dominance y arousal, marca temporal y otros datos de la transcripción del mismo y de su 
+ * alineamiento forzado de tokens
+ */
 export class RecordingEmotions {
     fileName: string;
     Emotion_1_label: string;
@@ -16,7 +22,6 @@ export class RecordingEmotions {
     dominance: number;
     userId: number;
     timestamp: number;
-    // audioBlob?: string;  // Nueva propiedad para almacenar la grabación
     audioBlob?: Blob;
     transcription: string;
     alignments: Alignment[];
@@ -37,13 +42,12 @@ export class RecordingEmotions {
       dominance: number;
       userId: number;
       timestamp: number;
-      // audioBlob?: string;  // Nueva propiedad opcional
+      // audioBlob?: string;  
       audioBlob?: Blob;
       transcription: string ;
       alignments: Alignment[];
       
     }) {
-      console.log(data.alignments, " NO TIENE SENTIFO")
       this.fileName = data.fileName;
       this.Emotion_1_label = data.Emotion_1_label;
       this.Emotion_1_mean = data.Emotion_1_mean;
@@ -62,7 +66,6 @@ export class RecordingEmotions {
       this.audioBlob = data.audioBlob;
       this.transcription = data.transcription;
       this.alignments = data.alignments;
-      console.log(this.alignments, "AHORA SI Q BLOW")
     }
   
     static toCSVHeader(): string {

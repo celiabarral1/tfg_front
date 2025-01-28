@@ -199,3 +199,17 @@ h2 {
     width: 100%;
   }
   
+  .btn-secondary {
+    position: absolute;  
+  }
+  
+  .btn-secondary:disabled {
+    pointer-events: none; /* Desactiva la interacción con el botón */
+    opacity: 0.5; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
+  }
+  
+  .btn-secondary:disabled:hover {
+    background-color: inherit; 
+    cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
+  }
+  

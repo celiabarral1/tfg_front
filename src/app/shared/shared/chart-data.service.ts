@@ -18,6 +18,7 @@ export class ChartDataService {
   updateChartData(data: Record[], time:string, userId:string): void {
     const chartData: ChartData = { data, time, userId };
     this.chartDataSource.next(chartData);
+    console.log(this.chartData$)
   }
 
   deleteChartData(): void {

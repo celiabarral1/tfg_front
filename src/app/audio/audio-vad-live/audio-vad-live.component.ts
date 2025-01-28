@@ -11,56 +11,124 @@ import { RecordingEmotions } from './model/recording-emotions';
 import { CsvGestor } from '../../@core/common/utils/csv-gestor';
 import * as annyang from 'annyang';
 import { Alignment } from './model/alignment';
+import { AuthService } from '../../authentication/auth-services';
 
+/**
+ * Componente dedicado a la detección de voz en tiempo real y a la visualización de los datos asociados
+ * a las grabaciones obtenidas.
+ */
 @Component({
   selector: 'app-audio-vad-live',
   templateUrl: './audio-vad-live.component.html',
   styleUrl: './audio-vad-live.component.scss'
 })
+
 export class AudioVadLiveComponent implements OnInit, OnDestroy {
+  /**
+   * Propiedad que representa el elemento del HTML que contiene la onda que se visualiza en tiempo real. 
+   */
   @ViewChild('waveform', { static: true }) waveformRef!: ElementRef;
+  /**
+   * Propiedad que representa el elemento del HTML que contiene las grabaciones que se obtienen en tiempo real.
+   */
   @ViewChild('recordings', { static: true }) recordingsRef!: ElementRef;
 
+  /**
+   * Propiedad para verificar que el usuario tengas permisos necesarios para las funcionalidades.
+   */
+  isAuthorized: boolean = false;
+
+  /**
+   * Instancia de WaveSurfer para para renderizar la forma de onda captada en tiempo real
+   */
   private waveSurfer: any = null;
-  private record: any = null;
+  /**
+   * Audio
+   */
+  private audio: any = null;
+  /**
+   * Conteto de audio de la aplicación.
+   */
   private audioContext: AudioContext | null = null;
+  /**
+   * Flujo de medios activo, obtenido del micrófono del usuario
+   */
   private mediaStream: MediaStream | null = null;
+  /**
+   * Instancia de una librería que ofrece la gestión de detección de actividad en la voz.
+   */
   private vad: VAD | null = null;
+  /**
+   * Instancia de la clase que gestiona las conversiones de tipo de audios.
+   */
   private audioUtils: AudioUtils = new AudioUtils();
 
-  scrollingWaveform = false;
-  continuousWaveform = true;
+  /**
+   * Propiedad que determina si se está grabando o no 
+   */
   isRecording = false;
   recordingProgress = '00:00';
-  colorGenerator = new ColorGenerator();
 
   index=0;
 
+  /**
+   * Estructura que almacena las grabaciones de WaveSurfer
+   */
   waveSurferRecorded: any[] = [];
 
+  /**
+   * Estructura de datos en forma de cola para gestionar en orden las peticiones de procesamiento en tiempo real 
+   * de los audios.
+   */
   private requestQueue: (() => Promise<void>)[] = [];
+  /**
+   * Determina si hay o no alguna petición siendo resuelta.
+   */
   private isRequestInProgress = false;
-  private isRestartingRecording = false;
   
+  /**
+   * Lista de audios asociados con sus datos emocionales.
+   */
   recordingsWithEmotions: RecordingEmotions[] = [];
 
+  /**
+   * Propiedades de configuración de la detección automática de voz.
+   * @property {voice_stop_delay} tiempo de silencio para cortar una grabación y comenzar una nueva
+   * @property {fftSize} tamaño de la frecuencia del audio
+   * @property {'bufferLen} longitud de búfer de audio
+   */
   voice_stop_delay = 500;
   fftSize = 1024;
   bufferLen = 1024;
 
-
+  /**
+   * Constructor del componente.
+   * @param audioService serviciop para realizar peticiones relacionadas con el procesamiento y obtención de datos sobre un audio.
+   * @param viewContainerRef representa la vista actual y es necesario para insertar componente dinámicamente.
+   * @param componentFactoryResolver gestiona y crea dinámicamente instancias de componentes en tiempo de ejecución.
+   * @param authService servicio para supervisar que el usuario forma parte del perfil con privilegios para las funcionalidades.
+   */
   constructor(
-    private readonly service: AudioService,
+    private readonly audioService: AudioService,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private changeDetectorRef: ChangeDetectorRef
+    private authService: AuthService
   ) {}
 
+  /**
+   * Cuando se inicializa el componente, se crea la onda de audio en tiempo real
+   * y se verifica si el usuario tiene un rol adecuado.
+   */
   ngOnInit(): void {
     this.createWaveSurfer();
-    // this.startRecording();
+    this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
   }
 
+  /**
+   * Al destruirse el componente se detiene la grabación,
+   * y se destruye la visualización de la onda en tiempo real.
+   * Se elimina la cola de peticiones.
+   */
   ngOnDestroy(): void {
     this.stopRecording();
     if (this.waveSurfer) {
@@ -70,6 +138,13 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     this.requestQueue = [];
   }
 
+  /**
+   * Crea dinámicamente una instancia de WaveSurfer, en el contenedor del HTML asociado, con los parámetros visuales deseados.
+   * Utiliza extensiones que ofrece la librería para ajustar más la visualización.
+   * Cuando la onda termina, se procesa el audio que representa.
+   * Mientras está grabando se muestra la duración de esa grabación.
+   * 
+   */
   createWaveSurfer(): void {
     this.waveSurfer = WaveSurfer.create({
       container: this.waveformRef.nativeElement,
@@ -78,25 +153,27 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       height: 500,// Para hacerlo responsivo si es necesario
     });
   
-    this.record = this.waveSurfer.registerPlugin(
+    this.audio = this.waveSurfer.registerPlugin(
       RecordPlugin.create({
-        renderRecordedAudio: true, // No renderizamos el audio grabado en la visualización
-        continuousWaveform: false,  // Para mantener la visualización continua
+        renderRecordedAudio: true, 
+        continuousWaveform: false, 
       })
     );
   
-    this.record.on('record-end', (blob: Blob) => {
-      this.processRecordedAudio(blob); // Procesa la grabación cuando termina
+    this.audio.on('record-end', (blob: Blob) => {
+      this.processRecordedAudio(blob);
     });
   
-    this.record.on('record-progress', (time: number) => {
+    this.audio.on('record-progress', (time: number) => {
       this.updateProgress(time); 
     });
 
     console.log('WaveSurfer creado.');
   }
   
-
+  /**
+   * Destruye la onda de audio.
+   */
   destroyWaveSurfer(): void {
     if (this.waveSurfer) {
       this.waveSurfer.destroy();
@@ -105,6 +182,10 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     }
   }
   
+  /**
+   * Se encarga de cerrar bien todo lo relacionado con la capturación de audio mediante
+   * el micrófono.
+   */
   closeAudioContext(): void {
     if (this.audioContext) {
       this.audioContext.close();
@@ -118,7 +199,15 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     }
   }
 
-  
+  /**
+   * Método @async que inicia la grabación y todo lo que ello conlleva.
+   * Primero se encarga de destruir cualquier resto tanto visual como de micrófono que quede.
+   * A continuación trata de solicitar acceso al micrófono del usuario, inicializa el contexto de audio y crea un nodo de origen de medios.
+   * Se crea la instancia de VAD (detección de voz) que gestiona cuando comienza y se genera una grabación,
+   * según lo largo que sea el silencio que detecta (en este caso cada silencio de 500ms). Mientras el micrófono continúa siempre en escucha, a caso de que se detenga explícitamente.
+   * * @returns {Promise<void>} promesa que se resuelve cuando se inicializa correctamente el flujo de audio.
+   * * @throws {Error} si el usuario niega el acceso al micrófono o si ocurre algún problema de acceso.
+   */
   async startRecording(): Promise<void> {
     this.stopRecording(); // Detenemos cualquier grabación previa
     this.destroyWaveSurfer(); // Destruimos la instancia actual
@@ -143,19 +232,19 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
           console.log('Voz detectada');
           if (!this.isRecording) {
             this.isRecording = true;
-            this.record.startRecording(); // Inicia la grabación cuando se detecta voz
+            this.audio.startRecording(); // Inicia la grabación cuando se detecta voz
           }
         },
         voice_stop: () => {
           console.log('Silencio detectado, finalizando grabación actual');
           if (this.isRecording) {
-            this.record.stopRecording(); // Detiene la grabación cuando se detecta silencio
+            this.audio.stopRecording(); // Detiene la grabación cuando se detecta silencio
             this.isRecording = false;
             this.destroyWaveSurfer();
             this.createWaveSurfer(); // Reinicia la visualización si es necesario
           }
         },
-        voice_stop_delay: 20000, // Retraso para detectar silencio
+        voice_stop_delay: 500, // Retraso para detectar silencio
       });
   
   
@@ -165,14 +254,16 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
   }
   
 
-
+  /**
+   * Detiene la grabación, tanto visualmente como cierra la escucha.
+   * Cierra el micrófono y el contexto de audio si está abierto.
+   * Detiene y libera el mediaStream si existe.
+   */
   stopRecording(): void {
     if (this.isRecording) {
       this.isRecording = false;
-      this.record.stopRecording();
+      this.audio.stopRecording();
     }
-  
-    // Cerrar el AudioContext si está abierto
     if (this.audioContext && this.audioContext.state !== 'closed') {
       this.audioContext.close().then(() => {
         console.log('AudioContext cerrado correctamente.');
@@ -182,7 +273,6 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     }
     this.audioContext = null;
   
-    // Detener y liberar el MediaStream
     if (this.mediaStream) {
       this.mediaStream.getTracks().forEach((track) => track.stop());
       this.mediaStream = null;
@@ -201,8 +291,11 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     this.recordingProgress = formattedTime;
   }
 
+  /**
+   * Función @async que gestiona el procesamiento de cada grabación
+   * @param blob 
+   */
   async processRecordedAudio(blob: Blob): Promise<void> {
-    // const wavBlob = await this.audioUtils.convertBlobToWav(blob); 
     // Convertir el audio grabado a WAV
     this.audioUtils.convertBlobToWav(blob).then((wav) => {
       this.waveSurferRecorded.push(wav);
@@ -237,7 +330,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       formData.append('audioFile', audioFile);
   
       try {
-        const response = await this.service.insertAudio(formData).toPromise();
+        const response = await this.audioService.insertAudio(formData).toPromise();
         console.log('Audio enviado exitosamente:', response);
 
         
@@ -364,7 +457,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     });
   
     console.log("tiene alignmets? ", this.recordingsWithEmotions)
-    CsvGestor.downloadCsv(this.recordingsWithEmotions);
+    CsvGestor.downloadCsv(this.recordingsWithEmotions,'recordings_emotions');
     
     console.log('Todos los audios han sido descargados.');
   }

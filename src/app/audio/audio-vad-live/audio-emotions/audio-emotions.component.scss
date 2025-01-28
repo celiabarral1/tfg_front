@@ -79,30 +79,19 @@ button {
 
 
 .emotions-container {
-  width: 25%;
-  padding-left: 20px;
-  width: 25%;
+  width: 40%;
   padding-left: 20px;
   display: flex;
   flex-direction: column;
   gap: 15px;
   overflow-y: auto;
-  gap: 15px;
-  overflow-y: auto;
 }
 
-.emotion-item {
+.emotion-item , .dimension-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
-}
-
-.emotion-item p {
-  font-size: 14px;
-  color: #333;
-  margin: 0;
-  font-weight: 600;
 }
 
 .emotion-bar-container, .dimension-bar-container {
@@ -122,8 +111,8 @@ button {
   gap: 5px;
 }
 
-.emotion-item p {
-  font-size: 14px;
+.emotion-item p , .dimension-item p{
+  font-size: 18px;
   color: #333;
   margin: 0;
   font-weight: 600;
@@ -159,6 +148,17 @@ button {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+.top-container {
+  display: flex;
+  display: row;
+  width: 100%;
+  gap:20px;
+}
+
+.emotions-categoric, .emotions-dimensional {
+  width: 50%;
+}
+
 
 .transcription-container {
   margin-top: 30px;
@@ -179,6 +179,15 @@ button {
   background-color: var(--secondary-color);
   padding: 2px 6px;
   border-radius: 4px;
+}
+
+.btn-form:disabled {
+  pointer-events: none; 
+  opacity: 0.5; 
+}
+
+.btn-form:disabled:hover {
+  cursor: not-allowed; 
 }
 
 /** EMOTIONS COLORS **/

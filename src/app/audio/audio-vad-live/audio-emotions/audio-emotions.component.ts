@@ -2,16 +2,46 @@ import { Component, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorR
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 import { Alignment } from '../model/alignment';
+import { AuthService } from '../../../authentication/auth-services';
 
+/**
+ * Componente dedicado a la gestión y visualización de un audio y sus datos emocionales asociados.
+ * Para ello utiliza la librería WaveSurfer.js.
+ */
 @Component({
   selector: 'app-audio-emotions',
   templateUrl: './audio-emotions.component.html',
   styleUrl: './audio-emotions.component.scss'
 })
 export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
-  @Input() audioBlob?: Blob;
+  /**
+   * Propiedad para identificar si el perfil de la aplicación puede acceder a ciertas funcionalidades.
+   */
+  private isAuthorized: boolean = false;
+
+  /**
+   * Propiedad de entrada que es un blob de audio, el cuál posteriormente se visualizará.
+   * @decorator @Input
+   * El signo ! denota que es una propiedad obligatoria.
+   */
+  @Input() audioBlob!: Blob;
+
+  /**
+   * 
+   */
   @Input() audioIndex : number | undefined;
+
+  /**
+   * Estructura que contiene los datos de la transcripción del audio y su alineación temporal con el mismo.
+   */
   @Input() alignments: Alignment[] = [];
+
+  /**
+  * Propiedad de entrada que gestiona la lista de emociones categóricas del audio.
+  * Cada emoción recibida se procesa para añadir una clase CSS basada en su nombre, lo que permite 
+  * aplicar estilos dinámicos a los elementos relacionados.
+  * @decorator @Input
+   */
   @Input() set emotions_categoric(value: any[]) {
     this._emotions_categoric = value;
 
@@ -19,17 +49,22 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
       emotion.colorClass = `color-${emotion.emo.toLowerCase()}`;
     });
     
-    this.changeDetector.detectChanges(); // Forzar la detección de cambios
-    
-    // this.updateBackgroundGradient();
+    this.changeDetector.detectChanges();
   }
+
   get emotions_categoric(): any[] {
     return this._emotions_categoric;
   }
+
+  /**
+  * Propiedad de entrada que gestiona la lista de emociones dimensionales del audio.
+  * Cada emoción recibida se procesa para añadir una clase CSS, lo que permite 
+  * aplicar estilos dinámicos a los elementos relacionados.
+  * @decorator @Input
+  * @throws {Error} si no se procesan correctamente las emociones dimensionales
+   */
   @Input() set emotions_dimensional(value: any) {
-    // Verifica si `value` es un objeto y no un arreglo
     if (value && typeof value === 'object' && !Array.isArray(value)) {
-      // Convierte el objeto en un formato procesable como arreglo
       this._emotions_dimensional = [
         { name: 'Arousal', value: value.arousal, colorClass: 'color-arousal' },
         { name: 'Dominance', value: value.dominance, colorClass: 'color-dominance' },
@@ -48,51 +83,82 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
   get emotions_dimensional(): any[] {
     return this._emotions_dimensional;
   }
+
   private _emotions_categoric: any[] = [];
   private _emotions_dimensional: any[] = [];
   
+  /**
+   * Representa al elemento del html asociado al componente que contendrá la forma de onda del audio.
+   * `{ static: true }` indica que la referencia se resuelve cuando se carga el DOM, 
+   * antes del ciclo de vida `ngAfterViewInit`.
+   * @decorator @ViewChild
+   */
   @ViewChild('waveformContainer', { static: true }) waveformContainer?: ElementRef;
 
+  /**
+   * 
+   */
   private waveSurfer: any;
   
-
-  constructor(private changeDetector: ChangeDetectorRef) {}
+  /**
+   * Constructor del componente.
+   * @param changeDetector servicio que gestiona en tiempo real los cambios en los datos.
+   * @param authService servicio para gestionar la autenticación de usuarios.
+   */
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private authService: AuthService
+  ) {}
   
-  // Para las grabaciones tiempo real
+  /**
+   * Una vez inicializadas las vistas del componente, se comprueba que haya un audio de tipo Blob 
+   * y se llama al método para visualizar su onda.
+   * También se recoge el valor de si un usuario está autorizado o no, en este caso si los perfiles
+   * 'admin' y 'psychologist'
+   */
   ngAfterViewInit(): void {
     if (this.audioBlob) {
       this.createWaveSurfer();
     } 
+    this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
   }
 
-  // Para la subida de audios
+  /**
+   * Cuando se detectan cambios en las propiedades:
+   * audioBlob, para representar adecuadamente la onda de un nuevo audio.
+   * @param changes contiene los cambios en las propiedades en forma de objeto
+   */
   ngOnChanges(changes: SimpleChanges): void {
-    // Verificar si 'audioBlob' ha cambiado
     if (changes['audioBlob'] && this.audioBlob) {
       this.createWaveSurfer();
     }
   }
   
-
+  /**
+   * Método que crea y configura la visualización de la onda asociada al audio que contiene la propiedad 'audioBlob'.
+   * Verifica tanto el audioBlob se haya pasado como que el contenedor de onda se haya cargado correctamente en el DOM.
+   * Genera a partir del audioBlob una URL para el navegador.
+   * Mediante la librería WaveSurfer.js ajusta los parámetros para visualizar la onda.
+   * Mientras el audio se procesa está sometido a detectar cambios.
+   * @throws {Error} si alguna de las propiedades necesarias (audioBlob o waveformContainer) no están bien definidas.
+   */
   createWaveSurfer(): void {
     if (this.audioBlob && this.waveformContainer) {
       const recordedUrl = URL.createObjectURL(this.audioBlob);
 
       this.waveSurfer = WaveSurfer.create({
-        container: this.waveformContainer.nativeElement,
-        waveColor: 'rgb(204, 102, 0)',
-        progressColor: 'rgb(100, 50, 0)',
-        url: recordedUrl,
-        barWidth: 2,
-        // Optionally, specify the spacing between bars
-        barGap: 1,
-        // And the bar radius
-        barRadius: 2,
-        plugins: [RegionsPlugin.create()],
+        container: this.waveformContainer.nativeElement, // Contenedor donde se renderiza la forma de onda.
+        waveColor: 'rgb(204, 102, 0)', // Color de la onda.
+        progressColor: 'rgb(100, 50, 0)', // Color del progreso de reproducción.
+        url: recordedUrl, // URL del archivo de audio que se reproducirá.
+        barWidth: 2, // Ancho de las barras de la forma de onda.
+        barGap: 1, // Espaciado entre las barras.
+        barRadius: 2, // Radio de las barras.
+        plugins: [RegionsPlugin.create()], // Plugins adicionales, como las regiones de la forma de onda.
       });
 
       this.waveSurfer.on('audioprocess', () => {
-        this.changeDetector.detectChanges(); // Actualizar la vista
+        this.changeDetector.detectChanges(); // Actualizar la vista.
       });
 
     } else {
@@ -100,19 +166,31 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
     }
   }
 
+  /**
+   * 
+   * @param alignment 
+   * @returns 
+   */
   isWordActive(alignment: Alignment): boolean {
     if (!this.waveSurfer) return false;
     const currentTime = this.waveSurfer.getCurrentTime();
     return currentTime >= alignment.start && currentTime <= alignment.end;
   }
   
-
+  /**
+   * Permite reproducir o detener la reproducción del audio de manera que se visualiza
+   * la parte de la onda que le corresponde a cada momento del audio.
+   */
   playPause(): void {
     this.waveSurfer.playPause();
   }
 
+  /**
+   * Se encarga de la descarga propia del audioBlob en local.
+   * Genera una URL a partir del audio, crea dinámicamente un enlace de tipo <a> al que le asocia 
+   * la URL creada y simula un click que inicia la descargar del archivo.
+   */
   download(): void {
-    console.log(this.emotions_dimensional)
     if (this.audioBlob) {
       const recordedUrl = URL.createObjectURL(this.audioBlob);
       const downloadLink = document.createElement('a');
@@ -122,40 +200,4 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  // Función para actualizar el fondo con un degradado basado en las emociones
-  // updateBackgroundGradient(): void {
-  //   if (this._emotions_categoric.length > 0) {
-  //     const colors = this._emotions_categoric.map(emotion => {
-  //       return this.getEmotionColor(emotion.emo); // Obtener el color de la emoción
-  //     });
-
-  //     // const gradient = `linear-gradient(180deg, ${colors.join(', ')}, rgba(255, 255, 255, 0.3))`;
-
-  //     const gradient = `linear-gradient(180deg, ${colors[0]} 60%, ${colors[1]} 80%, ${colors[2]} 100%, rgba(255, 255, 255, 0.3) 100%)`;
-  //     const emotionsContainer = document.querySelector('.emotions-container');
-  //     if (emotionsContainer) {
-  //       emotionsContainer.setAttribute('style', `background: ${gradient};`);
-  //     }
-  //   }
-  // }
-
-  // Función para mapear emociones a colores
-  getEmotionColor(emo: string): string {
-    switch (emo.toLowerCase()) {
-      case 'happiness':
-        return '#FFEB3B'; // Amarillo
-      case 'sadness':
-        return '#A2C2E1'; // Azul
-      case 'anger':
-        return '#FF7F7F'; // Rojo
-      case 'fear':
-        return '#A8D5BA'; // Verde
-      case 'disgust':
-        return '#877459'; // Verde amarronado
-      case 'neutral':
-        return '#FFF8E7'; // Beige
-      default:
-        return '#FFF8E7'; // Color por defecto
-    }
-  }
 }

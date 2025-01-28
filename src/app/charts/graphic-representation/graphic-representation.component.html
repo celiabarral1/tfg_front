@@ -1,6 +1,6 @@
 
 <h1>Representación gráfica de las emociones de un trabajador</h1>
-<div class="cards-container">
+<!-- <div class="cards-container">
 <div class="custom-card">
   <div class="card-header">
     <h2>Emociones categóricas</h2>
@@ -40,7 +40,7 @@
     </div>
   </div>
 </div>
-</div>
+</div> -->
 <div class="representation-container">
 <div class="tabs-container">
     <div class="tabs">
@@ -51,7 +51,7 @@
 <div class="graphic-representation" id="graphic-representation">
 
   <div *ngIf="selectedTab === 'individual'">
-    <app-individual-form (charTypeChange)="onCharTypeChange($event)"></app-individual-form>
+    <app-individual-form (charTypeChange)="onCharTypeChange($event)" [id]="id" ></app-individual-form>
   </div>
   <div *ngIf="selectedTab === 'turnos'">
     <app-shift-form (charTypeChange)="onCharTypeChange($event)"></app-shift-form>
@@ -61,6 +61,7 @@
     <app-categoric *ngIf="charType === '0'"></app-categoric>
   </div>
 </div>
+<button class="btn-secondary" [disabled]="isDisabled()" (click)="downloadData()">Download Data</button>
 </div>
 
   

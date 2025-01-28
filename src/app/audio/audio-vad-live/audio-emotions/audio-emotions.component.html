@@ -11,11 +11,11 @@
   </div>
 
   <div class="emotions-container">
+   <div class="top-container">
+    <div class="emotions-categoric">
     <div *ngFor="let emotion of emotions_categoric" class="emotion-item">
       <p>{{ emotion.emo }}: {{ emotion.prob.toFixed(2) }}%</p>
-      <!-- Contenedor de la barra con fondo gris -->
       <div class="emotion-bar-container">
-        <!-- Capa interna que se ajusta al porcentaje y tiene el color de la emoción -->
         <div [ngClass]="emotion.colorClass" class="emotion-bar" 
              [ngStyle]="{ 
                'width': (emotion.prob * 100) + '%' 
@@ -23,7 +23,9 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="emotions-dimensional">
     <div *ngFor="let dimension of emotions_dimensional" class="dimension-item">
       <p>{{ dimension.name }}: {{ (dimension.value * 100).toFixed(2) }}%</p>
       <div class="dimension-bar-container">
@@ -34,10 +36,12 @@
         </div>
       </div>
     </div>
+  </div>
+</div> 
     
   <div class="controls">
     <button class="btn-form" (click)="playPause()">Play/Pause</button>
-    <button class="btn-form" (click)="download()">Download</button>
+    <button class="btn-form" (click)="download()" [disabled]=" !isAuthorized ">Download</button>
   </div>
   </div>
  

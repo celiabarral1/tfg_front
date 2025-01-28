@@ -1,0 +1,68 @@
+
+.groups-container {
+    display: grid; /* Activamos Grid Layout */
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas iguales */
+    grid-template-rows: auto; /* Altura automática para las filas */
+    gap: 20px; /* Espaciado entre los elementos */
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    margin: 0 auto; /* Centra el contenedor horizontalmente */
+    padding: 10px; /* Espaciado interno */
+  }
+  
+  .group-depression,
+  .group-anxiety,
+  .group-no-disorder {
+    box-sizing: border-box;
+    padding: 20px;
+    border: 5px solid var(--primary-color);
+    border-radius: 40px;
+    background-color: #d2c8fa;
+    text-align: center;
+  }
+  
+  /* Estilo especial para el bloque "Sin tendencia detectada" */
+  .group-no-disorder {
+    grid-column: 1 / span 2; 
+  }
+  
+  ul {
+    padding: 0;
+    margin: 10px 0 0;
+    list-style: none;
+  }
+  
+  li {
+    background: #e3e3e3;
+    margin: 8px 0;
+    padding: 5px;
+    border-radius: 8px;
+    border: 3px solid var(--primary-color);
+    background-color: var(--third-color);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  li:hover {
+    cursor:pointer;
+    transform: translateY(-6px);
+  }
+  
+  .group-no-disorder ul {
+    display: grid; /* Activa el Grid Layout */
+    grid-template-columns: repeat(2, 1fr); /* Divide en 2 columnas iguales */
+    column-gap: 10px; /* Espaciado entre elementos */
+  }
+
+  .search-container {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .search-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  

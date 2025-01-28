@@ -4,12 +4,17 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiConfigService } from '../@core/common/api/api-config.service';
 
+interface User {
+  username: string;
+  role: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl: string; // URL de tu backend
-  private currentUserSubject = new BehaviorSubject<string | null>(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
 
   constructor(private http: HttpClient, private apiConfig: ApiConfigService) {
     this.apiUrl = this.apiConfig.getApiUrl();
@@ -17,7 +22,7 @@ export class AuthService {
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('access_token');
       if (token) {
-        this.currentUserSubject.next(this.getUsernameFromToken(token));
+        this.currentUserSubject.next(this.getUserFromToken(token));
       }
     }
   }
@@ -30,14 +35,13 @@ export class AuthService {
           if (typeof window !== 'undefined') {
             localStorage.setItem('access_token', response.access_token);
           }
-          this.currentUserSubject.next(this.getUsernameFromToken(response.access_token));
+          this.currentUserSubject.next(this.getUserFromToken(response.access_token));
           return response;
         })
       );
   }
 
   logout() {
-    // Verificar si estamos en el cliente antes de acceder a localStorage
     if (typeof window !== 'undefined') {
       localStorage.removeItem('access_token');
     }
@@ -45,16 +49,29 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    // Verificar si estamos en el cliente antes de acceder a localStorage
     return typeof window !== 'undefined' && !!localStorage.getItem('access_token');
   }
 
-  getUsernameFromToken(token: string): string {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.sub;
+  getUserFromToken(token: string): User {
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return { username: payload.sub.username, role: payload.sub.role };
+    } catch (e) {
+      console.error('Error decoding token:', e);
+      return { username: '', role: '' };
+    }
   }
 
   get currentUser() {
     return this.currentUserSubject.asObservable();
+  }
+
+  getCurrentUserValue(): User | null {
+    return this.currentUserSubject.value;
+  }
+
+  isAuthorized(...roles: string[]): boolean {
+    const currentUser = this.getCurrentUserValue();
+    return currentUser ? roles.includes(currentUser.role) : false;
   }
 }

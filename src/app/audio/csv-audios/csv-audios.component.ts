@@ -16,7 +16,7 @@ export class CsvAudiosComponent {
     const file = input.files?.[0];
     if (file) {
       const csvGestor = new CsvGestor();
-      csvGestor.loadCsvFile(file).then((data) => {
+      csvGestor.loadCsv(file).then((data) => {
         console.log("DATADATADATA", data);
         this.recordings = data;
         console.log(this.recordings , "QUEN PSAS")

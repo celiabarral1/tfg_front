@@ -7,10 +7,30 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService); // Inyecta el servicio de autenticación
   const router = inject(Router); // Inyecta el router para redirigir
 
+  const expectedRole = route.data?.['expectedRole']; // Utiliza la notación de corchetes para acceder a expectedRole
+  const currentUser = authService.getCurrentUserValue(); // Utiliza el nuevo método para obtener el usuario actual
+
+  console.log("expectedRole: ", expectedRole);
+  console.log("currentUser: ", currentUser);
+  console.log("currentUser ROLE: ", currentUser && currentUser.role);
+
   if (authService.isLoggedIn()) {
-    return true; // Si el usuario está logueado, permite la navegación
-  } else {
-    router.navigate(['/login']); // Si no está logueado, redirige al login
+    // Si la ruta no tiene un rol esperado, permite el acceso
+    if (!expectedRole) {
+      return true;
+    }
+
+    // Si la ruta tiene un rol esperado, verifica que el usuario tenga el rol requerido
+    if (currentUser && currentUser.role === expectedRole) {
+      return true;
+    }
+
+    // Si el rol no coincide, redirige a "access-denied"
+    router.navigate(['/access-denied']);
     return false;
   }
+
+  // Si el usuario no está logueado, redirige a "login"
+  router.navigate(['/login']);
+  return false;
 };

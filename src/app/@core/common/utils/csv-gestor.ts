@@ -2,66 +2,124 @@ import Papa from "papaparse";
 import { RecordingEmotions } from "../../../audio/audio-vad-live/model/recording-emotions";
 import { Alignment } from "../../../audio/audio-vad-live/model/alignment";
 
-
+/**
+ * Clase de utlidad que gestiona el tratamiento de generación y carga de los archivos .csv con los que interacciona la aplicación.
+ * Define las estructuras de tanto para generar un .csv como para manipular los datos que aporta uno.
+ */
 export class CsvGestor {
-  static generateCsv(recordingsWithEmotions: RecordingEmotions[]): string {
+  // static generateCsv(recordingsWithEmotions: RecordingEmotions[]): string {
+  //   const headers = [
+  //     'file_name', 'Emotion_1_label', 'Emotion_1_mean', 'Emotion_1_std', 
+  //     'Emotion_2_label', 'Emotion_2_mean', 'Emotion_2_std', 
+  //     'Emotion_3_label', 'Emotion_3_mean', 'Emotion_3_std', 
+  //     'valence', 'arousal', 'dominance', 'user_id', 'timestamp', 'audioblob', 'transcription', 'alignments'
+  //   ];
+
+  //   const rows = recordingsWithEmotions.map(recording => [
+  //     recording.fileName,
+  //     recording.Emotion_1_label,
+  //     recording.Emotion_1_mean,
+  //     recording.Emotion_1_std,
+  //     recording.Emotion_2_label,
+  //     recording.Emotion_2_mean,
+  //     recording.Emotion_2_std,
+  //     recording.Emotion_3_label,
+  //     recording.Emotion_3_mean,
+  //     recording.Emotion_3_std,
+  //     recording.valence,
+  //     recording.arousal,
+  //     recording.dominance,
+  //     recording.userId,
+  //     recording.timestamp,
+  //     recording.audioBlob,
+  //     recording.transcription,
+  //     `"${JSON.stringify(recording.alignments).replace(/"/g, '""')}"` // Convertir alignments a JSON para guardarlo en el CSV
+  //   ]);
+
+  //   // Combine headers and rows into CSV content
+  //   const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
+  //   return csvContent;
+  // }
+
+  /**
+   * Método estático para generar un .csv con la estructura requerida para tratar los datos en el proyecto.
+   * Consta de las siguientes cabeceras : 'file_name', 'Emotion_1_label', 'Emotion_1_mean', 'Emotion_1_std', 'Emotion_2_label', 'Emotion_2_mean', 'Emotion_2_std', 
+   *'Emotion_3_label', 'Emotion_3_mean', 'Emotion_3_std', 'valence', 'arousal', 'dominance', 'user_id', 'timestamp', 'audioblob', 'transcription', 'alignments'.
+   * Representan el nombre del fichero, 3 emociones categóricos con sus respectivas etiquetas, medias y desviaciones, los valores de las emociones
+   * dimensionales, el identificador del usuario, la marca temporal del audio, su transcripción y la alineación de la misma.
+   * Traslada los valores que recibe al formato adecuado para almacenarlos en el archivo.
+   * @param audios conjunto de archivos, audios, acompñados de su análisis emocional
+   * @returns el conjunto de cabecera y datos unidos por ',' , de manera común para un .csv
+   */
+  static generateCsv(audios: any[]): string {
     const headers = [
       'file_name', 'Emotion_1_label', 'Emotion_1_mean', 'Emotion_1_std', 
       'Emotion_2_label', 'Emotion_2_mean', 'Emotion_2_std', 
       'Emotion_3_label', 'Emotion_3_mean', 'Emotion_3_std', 
-      'valence', 'arousal', 'dominance', 'user_id', 'timestamp', 'audioblob', 'transcription', 'alignments'
+      'valence', 'arousal', 'dominance', 'user_id', 'timestamp', 
+      'audioblob', 'transcription', 'alignments'
     ];
 
-    const rows = recordingsWithEmotions.map(recording => [
-      recording.fileName,
-      recording.Emotion_1_label,
-      recording.Emotion_1_mean,
-      recording.Emotion_1_std,
-      recording.Emotion_2_label,
-      recording.Emotion_2_mean,
-      recording.Emotion_2_std,
-      recording.Emotion_3_label,
-      recording.Emotion_3_mean,
-      recording.Emotion_3_std,
-      recording.valence,
-      recording.arousal,
-      recording.dominance,
-      recording.userId,
-      recording.timestamp,
-      recording.audioBlob,
-      recording.transcription,
-      `"${JSON.stringify(recording.alignments).replace(/"/g, '""')}"` // Convertir alignments a JSON para guardarlo en el CSV
+    const rows = audios.map(audio => [
+      audio.fileName,
+      audio.Emotion_1_label,
+      audio.Emotion_1_mean,
+      audio.Emotion_1_std,
+      audio.Emotion_2_label,
+      audio.Emotion_2_mean,
+      audio.Emotion_2_std,
+      audio.Emotion_3_label,
+      audio.Emotion_3_mean,
+      audio.Emotion_3_std,
+      audio.valence,
+      audio.arousal,
+      audio.dominance,
+      audio.userId,
+      audio.timestamp,
+      audio.audioBlob,
+      `"${JSON.stringify(audio.transcription || '').replace(/"/g, '""')}"`, 
+      `"${JSON.stringify(audio.alignments || '').replace(/"/g, '""')}"`
     ]);
 
-    // Combine headers and rows into CSV content
+
+    // Generar contenido CSV
     const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
     return csvContent;
   }
 
-  static downloadCsv(recordingsWithEmotions: RecordingEmotions[]): void {
-    const csvContent = this.generateCsv(recordingsWithEmotions);
+  /**
+   * Método que procede a descargar el csv que se genera en generateCsv
+   * @param audiosWithEmotions los datos de los audios junto a su análisis emocional para plasmar en el .csv
+   */
+  static downloadCsv(audiosWithEmotions: any[], fileName:string): void {
+    const csvContent = this.generateCsv(audiosWithEmotions);
 
     const blob = new Blob([csvContent], { type: 'text/csv' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
 
     link.href = url;
-    link.download = 'recordings_with_emotions.csv';
+    link.download = fileName + '.csv';
     link.click();
 
     URL.revokeObjectURL(url);
   }
 
-  public loadCsvFile(file: File): Promise<RecordingEmotions[]> {
+  /**
+   * Método que abarca desde la apertura del archivo .csv hasta la conversión de los datos al modelo 
+   * de la aplicación.
+   * Utiliza FileReader para leerlo, convierte el contenido en una cadena de texto y lo transforma
+   * en una lista de RecordingEmotions
+   * @param file el fichero a leer.
+   * @returns 
+   */
+  public loadCsv(file: File): Promise<RecordingEmotions[]> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
       
       reader.onload = () => {
-        console.log(reader.result)
         const csvData = reader.result as string;
-        console.log(csvData)
         const parsedData = this.parseCsv(csvData);
-        console.log("QUE DEVUELVE", parsedData)
         resolve(parsedData);
       };
       
@@ -71,11 +129,18 @@ export class CsvGestor {
     });
   }
 
-  // Método para parsear los datos del CSV
+ 
+
+  /** 
+   * Método para transformar los datos aportados por un .csv en el modelo con el que trabaja la app.
+   * Utiliza PapaParse para procesar el contenido y trasladarlo en una lista de RecordingEmotions.
+   * @param csvData Recibe el contenido del .csv como una cadena de texto.
+   * @returns los datos leídos del archivo modelados en una lista de objetos de RecordingEmotions.
+   * @throws {Error} por fallos de formato en los campos.
+  */
   private parseCsv(csvData: string): RecordingEmotions[] {
     const records: RecordingEmotions[] = [];
   
-    // Usamos PapaParse para convertir el CSV en un array de objetos
     Papa.parse(csvData, {
       header: true,
       skipEmptyLines: true,
@@ -86,8 +151,7 @@ export class CsvGestor {
           let alignments: Alignment[] = [];
           if (row.alignments) {
             try {
-              // Verificar si el campo alignments es una cadena JSON válida
-              console.log('Raw alignments:', row.alignments); // Ver el valor crudo de alignments
+              console.log('Raw alignments:', row.alignments); 
               const parsedAlignments = JSON.parse(row.alignments);
               
               if (Array.isArray(parsedAlignments)) {
@@ -125,12 +189,10 @@ export class CsvGestor {
             dominance: parseFloat(row.dominance),
             userId: row.user_id || '',
             timestamp: parseInt(row.timestamp, 10),
-            audioBlob: undefined, // No se tiene el audio en el CSV, se puede cargar después
+            audioBlob: undefined,
             transcription: row.transcription,
-            alignments: Array.isArray(alignments) ? alignments : [] // Asegúrate de que alignments sea un array
+            alignments: Array.isArray(alignments) ? alignments : []
           });
-  
-          console.log("PFFFF", recordingEmotion);
           records.push(recordingEmotion);
         });
       },

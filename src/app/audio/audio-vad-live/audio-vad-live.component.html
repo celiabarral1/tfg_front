@@ -37,7 +37,7 @@
     <!-- Grabaciones -->
    <div class="records">
       <h2>Grabaciones</h2>
-      <button class="btn-secondary" [disabled]="recordingsWithEmotions.length === 0" (click)="downloadAll()">Download All</button>
+      <button class="btn-secondary" [disabled]="recordingsWithEmotions.length === 0 || !isAuthorized " (click)="downloadAll()">Download All</button>
    </div> 
      <div class="record-container">
         <div #recordings class="audios-recorded"></div>

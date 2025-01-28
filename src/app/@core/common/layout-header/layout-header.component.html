@@ -5,9 +5,9 @@
     </a>
   </div>
 
-  <!-- Solo mostrar el menú si no estás en la página de login -->
   <mat-toolbar *ngIf="!isLoginPage" class="menu">
     <a mat-button routerLink="/representation">Representación</a>
+    <a mat-button routerLink="/analysis">Análisis</a>
     <a mat-button routerLink="/audio">Audio</a>
     <a mat-button routerLink="/csv">CSV</a>
     <a mat-button routerLink="/register">Trabajadores</a>

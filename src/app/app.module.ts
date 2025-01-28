@@ -44,6 +44,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
+import { AccessDeniedComponent } from './authentication/access-denied/access-denied.component';
+import { AnalysisComponent } from './analysis/analysis.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +72,9 @@ import { MatDatepickerToggle } from '@angular/material/datepicker';
     ShiftRepresentationComponent,
     ShiftFormComponent,
     GraphicRepresentationComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    AccessDeniedComponent,
+    AnalysisComponent
   ],
   imports: [
     BrowserModule,

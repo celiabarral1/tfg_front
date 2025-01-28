@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IndividualService } from '../individual.service';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
@@ -9,13 +9,14 @@ import { Record } from '../../shared/shared/model/record';
   templateUrl: './individual-form.component.html',
   styleUrls: ['./individual-form.component.scss']
 })
-export class IndividualFormComponent {
+export class IndividualFormComponent implements OnChanges {
+  @Input() id: string | undefined | null;
+  @Output() charTypeChange = new EventEmitter<string>();
+  @ViewChild('startDate') startDate!: ElementRef;
   form: FormGroup;
   selectedOption: string | null = null; 
   options = [];
   isDatesDisabled: boolean = false;
-  @Output() charTypeChange = new EventEmitter<string>();
-  @ViewChild('startDate') startDate!: ElementRef;
 
   constructor(
     private readonly formBuilder:FormBuilder,
@@ -41,6 +42,14 @@ export class IndividualFormComponent {
         console.error('Error al obtener las opciones de tiempo:', error);
       }
     );
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    // Detecta cambios en el `id`
+    if (changes['id'] && changes['id'].currentValue) {
+      console.log('Nuevo ID recibido:', changes['id'].currentValue);
+      this.form.patchValue({ userId: this.id });
+    }
   }
 
   onTimeChange(value: any): void {
