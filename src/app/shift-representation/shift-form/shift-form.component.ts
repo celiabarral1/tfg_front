@@ -26,7 +26,9 @@ isDatesDisabled: boolean = false;
     this.form = this.formBuilder.group({
       shift: ['mañana', Validators.required],   // Ejemplo de campo con validación
       time: [null, Validators.required],
-      charType: ['1', [Validators.required]] // 0 -> categórico, 1 dimensional
+      charType: ['1', [Validators.required]],
+      startDate: [''],
+      endDate: [''],
     });
     }
 
@@ -58,12 +60,10 @@ isDatesDisabled: boolean = false;
     const buttonDate = this.form.get('datePick');
 
     if (value) {
-      // Si hay una opción seleccionada, deshabilitamos los campos de fecha
       startDateControl?.disable();
       endDateControl?.disable();
       this.isDatesDisabled = true;
     } else {
-      // Si no hay selección, habilitamos los campos de fecha
       startDateControl?.enable();
       endDateControl?.enable();
       this.isDatesDisabled = false;
@@ -74,14 +74,11 @@ isDatesDisabled: boolean = false;
   onManualDate(): void {
     const startDateControl = this.form.get('startDate');
     const endDateControl = this.form.get('endDate');
-    const timeControl = this.form.get('time'); // Control de la ventana temporal
+    const timeControl = this.form.get('time'); 
   
-    // Verifica si las fechas de inicio o fin están definidas
     if (startDateControl?.value || endDateControl?.value) {
-      // Si alguna fecha está seleccionada, deshabilita la ventana temporal
       timeControl?.disable();
     } else {
-      // Si no hay fechas seleccionadas, habilita la ventana temporal
       timeControl?.enable();
     }
   }
@@ -91,9 +88,24 @@ isDatesDisabled: boolean = false;
       const shift = this.form.value.shift;
       const time = this.form.value.time;
       const charType = this.form.value.charType;
-      this.charTypeChange.emit(charType); // Para tipo de gráfico
+      const startDate = this.form.value.startDate;
+      const endDate = this.form.value.endDate;
+      this.charTypeChange.emit(charType); 
 
-      this.service.filterByShifts(shift, time).subscribe(
+      const requestData: any = {
+        shift: shift,
+        char_type: charType,
+      };
+
+      if(time) {
+        requestData.time_option = time;
+      } else {
+        requestData.start_date = new Date(startDate).toISOString().split('T')[0]; 
+        requestData.end_date = new Date(endDate).toISOString().split('T')[0]; 
+      }
+
+      console.log(requestData)
+      this.service.filterByShifts(requestData).subscribe(
         (response) => {
           const flattenedData = response.flat();
            const records = flattenedData.map((item: any) => new Record(item));

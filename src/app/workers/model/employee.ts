@@ -1,20 +1,11 @@
 export class Employee {
     id: string;
-    name: string;
-    surname: string;
-    identification: string;
-    workstation: string;
-    hiringDate: Date;
+    rol: string;
     registrationDate: Date;
   
-    constructor(id: string, name: string, surname: string, identification: string, workstation: string, 
-        hiringDate: Date, registrationDate: Date) {
+    constructor(id: string,rol:string,registrationDate: Date) {
       this.id = id;
-      this.name = name;
-      this.surname = surname;
-      this.identification = identification;
-      this.workstation = workstation;
-      this.hiringDate = hiringDate;
+      this.rol = rol;
       this.registrationDate = registrationDate;
     }
   }

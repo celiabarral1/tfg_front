@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ApiConfigService } from "../@core/common/api/api-config.service";
+import { read } from "fs";
 
 @Injectable({
     providedIn: 'root'  // Esto asegura que Angular registre el servicio en el root module
@@ -30,13 +31,8 @@ import { ApiConfigService } from "../@core/common/api/api-config.service";
       return this.http.post(`${this.apiUrl}/filter-records`, requestData);
     }
 
-    filterByShifts(shift: string, timeOption: string): Observable<any> {
-      const payload = {
-        shift: shift,
-        time_option: timeOption
-      };
-
-      return this.http.post(`${this.apiUrl}/filter-shift`, payload);
+    filterByShifts(requestData: any): Observable<any> {
+      return this.http.post(`${this.apiUrl}/filter-shift`, requestData);
   }
 
     

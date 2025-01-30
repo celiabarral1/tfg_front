@@ -17,4 +17,8 @@ export class EmployeeService {
   insertEmployee(employeeToInsert: Employee): Observable<any> { 
     return this.http.post(`${this.apiUrl}/workers/register`, employeeToInsert);
   }
+
+  getRols(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/getRols`); 
+  }
 }

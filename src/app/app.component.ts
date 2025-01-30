@@ -14,7 +14,6 @@ export class AppComponent {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    // Verifica la ruta actual al cargar el componente
     this.router.events.subscribe(() => {
       this.isLoginPage = this.router.url.includes('/login');
     });

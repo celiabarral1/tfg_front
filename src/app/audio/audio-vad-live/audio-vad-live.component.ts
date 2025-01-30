@@ -328,14 +328,14 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
 
   async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
     const request = async () => {
-      const formData = new FormData();
+      const audioData = new FormData();
       const fileName = 'recording' + this.index + '.wav';
       const audioFile = new File([blob], fileName, { type: blob.type });
   
-      formData.append('audioFile', audioFile);
+      audioData.append('audioFile', audioFile);
   
       try {
-        const response = await this.audioService.insertAudio(formData).toPromise();
+        const response = await this.audioService.insertAudio(audioData).toPromise();
         console.log('Audio enviado exitosamente:', response);
 
         
