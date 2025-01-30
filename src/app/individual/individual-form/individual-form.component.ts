@@ -45,9 +45,7 @@ export class IndividualFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    // Detecta cambios en el `id`
     if (changes['id'] && changes['id'].currentValue) {
-      console.log('Nuevo ID recibido:', changes['id'].currentValue);
       this.form.patchValue({ userId: this.id });
     }
   }
@@ -96,32 +94,46 @@ export class IndividualFormComponent implements OnChanges {
       const userId = this.form.value.userId;
       const time = this.form.value.time;
       const charType = this.form.value.charType;
-      this.charTypeChange.emit(charType); // Para tipo de gráfico
+      const startDate = this.form.value.startDate;
+      const endDate = this.form.value.endDate;
+      this.charTypeChange.emit(charType); 
 
-      this.service.filterRecords(userId, time).subscribe(
-        (response) => {
-          const flattenedData = response.flat();
-          console.log(flattenedData)
-          const records = flattenedData.map((item: any, index: number) => {
-            try {
-                console.log(`Processing item at index ${index}:`, item);
-                return new Record(item);
-            } catch (error) {
-                console.error(`Error at index ${index}:`, item, error);
-                throw error; // Rethrow the error to preserve behavior
-            }
+      const requestData: any = {
+        user_id: userId,
+        char_type: charType,
+      };
+
+      if(time) {
+        requestData.time_option = time;
+      } else {
+        requestData.start_date = new Date(startDate).toISOString().split('T')[0]; // Formato YYYY-MM-DD
+        requestData.end_date = new Date(endDate).toISOString().split('T')[0]; 
+      }
+
+      console.log(requestData)
+       this.service.filterRecords(requestData).subscribe(
+      (response) => {
+        const flattenedData = response.flat();
+        const records = flattenedData.map((item: any, index: number) => {
+          try {
+            console.log(`Processing item at index ${index}:`, item);
+            return new Record(item);
+          } catch (error) {
+            console.error(`Error at index ${index}:`, item, error);
+            throw error; // Rethrow the error to preserve behavior
+          }
         });
-        
-           console.log('Datos RECORDS:', records);
-           this.chartDataService.updateChartData(records,time,userId);
-        },
-        (error) => {
-          console.error('Error al hacer la solicitud:', error);
-        }
-      );
-    } else {
-      console.log('Formulario inválido');
-    }
+
+        console.log('Datos RECORDS:', records);
+        this.chartDataService.updateChartData(records, time, userId);
+      },
+      (error) => {
+        console.error('Error al hacer la solicitud:', error);
+      }
+    );
+  } else {
+    console.log('Formulario inválido');
+  }
   }
 
   onCharTypeChange(value: string): void {

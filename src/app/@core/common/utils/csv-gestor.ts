@@ -189,7 +189,7 @@ export class CsvGestor {
             dominance: parseFloat(row.dominance),
             userId: row.user_id || '',
             timestamp: parseInt(row.timestamp, 10),
-            audioBlob: undefined,
+            audioBlob: new Blob(),
             transcription: row.transcription,
             alignments: Array.isArray(alignments) ? alignments : []
           });

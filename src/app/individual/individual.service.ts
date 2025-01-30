@@ -26,14 +26,9 @@ import { ApiConfigService } from "../@core/common/api/api-config.service";
       return this.http.get(`${this.apiUrl}/getEmotions`); 
     }
 
-    filterRecords(userId: number, timeOption: string): Observable<any> {
-      const payload = {
-        user_id: userId,
-        time_option: timeOption
-      };
-
-      return this.http.post(`${this.apiUrl}/filter-records`, payload);
-  }
+    filterRecords(requestData: any): Observable<any> {
+      return this.http.post(`${this.apiUrl}/filter-records`, requestData);
+    }
 
     filterByShifts(shift: string, timeOption: string): Observable<any> {
       const payload = {

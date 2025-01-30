@@ -13,12 +13,12 @@ import { Chart, registerables } from 'chart.js';
 export class CategoricComponent implements OnInit , OnDestroy{
   @ViewChild('canvasCategoric', { static: true }) canvasCategoric!: ElementRef<HTMLDivElement>;
   @ViewChild('canvasAccumulated', { static: true }) canvasAccumulated!: ElementRef<HTMLDivElement>;
-  private chart: any;
-  private graphData: any[] = [];
-  private userId: any;
-  private timePeriod: any;
-  private emotions: any[] = [];
-  private accumulatedChart: any; 
+  public chart: any;
+  public graphData: any[] = [];
+  public userId: any;
+  public timePeriod: any;
+  public emotions: any[] = [];
+  public accumulatedChart: any; 
 
   constructor(private chartDataService: ChartDataService,private readonly service: IndividualService) {
     Chart.register(...registerables);
@@ -54,7 +54,7 @@ export class CategoricComponent implements OnInit , OnDestroy{
   }
 
 
-  private destroyChart(chart: any): void {
+  public destroyChart(chart: any): void {
     if (chart) {
       chart.destroy();
       chart = null;

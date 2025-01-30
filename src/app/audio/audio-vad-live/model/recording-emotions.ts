@@ -22,7 +22,7 @@ export class RecordingEmotions {
     dominance: number;
     userId: number;
     timestamp: number;
-    audioBlob?: Blob;
+    audioBlob!: Blob;
     transcription: string;
     alignments: Alignment[];
   
@@ -63,7 +63,7 @@ export class RecordingEmotions {
       this.dominance = data.dominance;
       this.userId = data.userId;
       this.timestamp = data.timestamp;
-      this.audioBlob = data.audioBlob;
+      this.audioBlob = data.audioBlob || new Blob(); //nunca undefinied
       this.transcription = data.transcription;
       this.alignments = data.alignments;
     }

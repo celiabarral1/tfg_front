@@ -41,15 +41,15 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
   /**
    * Instancia de WaveSurfer para para renderizar la forma de onda captada en tiempo real
    */
-  private waveSurfer: any = null;
+  public waveSurfer: any = null;
   /**
    * Audio
    */
-  private audio: any = null;
+  public audio: any = null;
   /**
    * Conteto de audio de la aplicación.
    */
-  private audioContext: AudioContext | null = null;
+  public audioContext: AudioContext | null = null;
   /**
    * Flujo de medios activo, obtenido del micrófono del usuario
    */
@@ -265,13 +265,18 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       this.audio.stopRecording();
     }
     if (this.audioContext && this.audioContext.state !== 'closed') {
-      this.audioContext.close().then(() => {
-        console.log('AudioContext cerrado correctamente.');
-      }).catch((error) => {
-        console.error('Error al cerrar el AudioContext:', error);
-      });
+      this.audioContext.close()
+        .then(() => {
+          console.log('AudioContext cerrado correctamente.');
+          this.audioContext = null; 
+        })
+        .catch((error) => {
+          console.error('Error al cerrar el AudioContext:', error);
+        });
+    } else {
+      this.audioContext = null; // Si ya estaba cerrado, asegurarse de limpiarlo
     }
-    this.audioContext = null;
+    
   
     if (this.mediaStream) {
       this.mediaStream.getTracks().forEach((track) => track.stop());

@@ -17,7 +17,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
   /**
    * Propiedad para identificar si el perfil de la aplicación puede acceder a ciertas funcionalidades.
    */
-  private isAuthorized: boolean = false;
+  public isAuthorized: boolean = false;
 
   /**
    * Propiedad de entrada que es un blob de audio, el cuál posteriormente se visualizará.
@@ -98,7 +98,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
   /**
    * 
    */
-  private waveSurfer: any;
+  public waveSurfer: any;
   
   /**
    * Constructor del componente.

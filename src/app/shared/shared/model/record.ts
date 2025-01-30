@@ -34,7 +34,8 @@ export class Record {
     
         // Si no es un número ni una cadena numérica, lanza un error.
         throw new Error(`Invalid value for parseDecimal: ${value}`);
-    };      this.Emotion_1_label = data.Emotion_1_label;
+    };      
+      this.Emotion_1_label = data.Emotion_1_label;
       this.Emotion_1_mean = parseDecimal(data.Emotion_1_mean);
       this.Emotion_1_std = parseDecimal(data.Emotion_1_std);
       this.Emotion_2_label = data.Emotion_2_label;

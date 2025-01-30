@@ -41,7 +41,7 @@ export class DimensionalComponent implements OnInit, OnDestroy {
     this.chartDataService.deleteChartData();
   }
 
-  private createChart(): void {
+  createChart(): void {
     this.destroyChart(); // Destruye cualquier gráfico existente
 
     // Crear y adjuntar un nuevo canvas dinámicamente

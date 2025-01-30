@@ -17,12 +17,9 @@ export class CsvAudiosComponent {
     if (file) {
       const csvGestor = new CsvGestor();
       csvGestor.loadCsv(file).then((data) => {
-        console.log("DATADATADATA", data);
         this.recordings = data;
-        console.log(this.recordings , "QUEN PSAS")
         // Asignar las rutas de los audios directamente
         this.extractData();
-        console.log(this.recordings)
       }).catch((error) => {
         console.error('Error al cargar el archivo CSV:', error);
       });
