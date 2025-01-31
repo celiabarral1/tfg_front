@@ -7,14 +7,22 @@
       <div class="col-12 col-sm-4">
         <div class="form-group">
           <label for="id">ID</label>
-          <input type="text" id="id" formControlName="id" />
+            <ng-select
+              id="id"
+              [items]="ids"
+              bindLabel="label"
+              bindValue="value"
+              formControlName="id"
+              placeholder="ID Trabajador..."
+              [searchable]="true"
+            >
+            </ng-select>
+          </div>
           <div *ngIf="registerForm.get('id')?.invalid && registerForm.get('id')?.touched">
             <small class="error">El ID es obligatorio.</small>
           </div>
         </div>
       </div>
-
-    </div>
 
     <div class="col-2 col-sm-6">
       <div class="form-group">
@@ -39,7 +47,8 @@
       <div class="col-12 col-sm-6">
         <div class="form-group">
           <label for="registration_date">Fecha de Alta</label>
-          <input type="date" id="registration_date" formControlName="registration_date" />
+          <input type="date" id="registration_date" formControlName="registration_date" 
+          [min]="dateNow"/>
         </div>
       </div>
     </div>

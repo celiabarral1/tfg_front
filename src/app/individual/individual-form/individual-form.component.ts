@@ -1,8 +1,9 @@
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { IndividualService } from '../individual.service';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
 import { Record } from '../../shared/shared/model/record';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-individual-form',
@@ -12,31 +13,42 @@ import { Record } from '../../shared/shared/model/record';
 export class IndividualFormComponent implements OnChanges {
   @Input() id: string | undefined | null;
   @Output() charTypeChange = new EventEmitter<string>();
-  @ViewChild('startDate') startDate!: ElementRef;
+  @ViewChild('startDate', { static: false }) startDate!: ElementRef;  // Recuperado
+
   form: FormGroup;
   selectedOption: string | null = null; 
   options = [];
   isDatesDisabled: boolean = false;
+  ids= [];
 
   constructor(
-    private readonly formBuilder:FormBuilder,
+    private readonly formBuilder: FormBuilder,
     private readonly service: IndividualService,
-    private readonly chartDataService: ChartDataService ,// Transferencia de datos a gráfico,
+    private readonly chartDataService: ChartDataService,
     private readonly cdr: ChangeDetectorRef
-  ){
+  ) {
     this.form = this.formBuilder.group({
-      userId: ['', Validators.required],   // Ejemplo de campo con validación
-      time: [null, Validators.required],
-      charType: ['1', [Validators.required]] ,// 0 -> categórico, 1 dimensional
+      userId: [null, Validators.required],   
+      time: [null],  
+      charType: ['1', [Validators.required]], 
       startDate: [''],
       endDate: [''],
-    });
-    }
+    }, { validators: [this.dateOrTimeValidator, this.dateRangeValidator] });  
+  }
 
   ngOnInit(): void {
     this.service.getTimePeriods().subscribe(
       (response) => {
         this.options = response; 
+      },
+      (error) => {
+        console.error('Error al obtener las opciones de tiempo:', error);
+      }
+    );
+    this.service.getIds().subscribe(
+      (response) => {
+        this.ids = response; 
+        console.log(response)
       },
       (error) => {
         console.error('Error al obtener las opciones de tiempo:', error);
@@ -50,94 +62,126 @@ export class IndividualFormComponent implements OnChanges {
     }
   }
 
+  dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
+    const time = control.get('time')?.value;
+    const startDate = control.get('startDate')?.value;
+    const endDate = control.get('endDate')?.value;
+
+    if (time || (startDate && endDate)) {
+      return null;  
+    }
+    return { dateOrTimeRequired: true }; 
+  }
+
+  dateRangeValidator(control: AbstractControl): ValidationErrors | null {
+    const startDate = control.get('startDate')?.value;
+    const endDate = control.get('endDate')?.value;
+
+    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+      return { invalidDateRange: true };  
+    }
+    return null;  
+  }
+
   onTimeChange(value: any): void {
-    console.log("change")
     const startDateControl = this.form.get('startDate');
     const endDateControl = this.form.get('endDate');
-    const buttonDate = this.form.get('datePick');
 
     if (value) {
-      // Si hay una opción seleccionada, deshabilitamos los campos de fecha
       startDateControl?.disable();
       endDateControl?.disable();
       this.isDatesDisabled = true;
     } else {
-      // Si no hay selección, habilitamos los campos de fecha
       startDateControl?.enable();
       endDateControl?.enable();
       this.isDatesDisabled = false;
     }
+    this.form.updateValueAndValidity();
     this.cdr.detectChanges();
   }
 
   onManualDate(): void {
-    const startDateControl = this.form.get('startDate');
-    const endDateControl = this.form.get('endDate');
-    const timeControl = this.form.get('time'); // Control de la ventana temporal
-  
-    // Verifica si las fechas de inicio o fin están definidas
-    if (startDateControl?.value || endDateControl?.value) {
-      // Si alguna fecha está seleccionada, deshabilita la ventana temporal
+    const timeControl = this.form.get('time');
+
+    if (this.form.get('startDate')?.value || this.form.get('endDate')?.value) {
       timeControl?.disable();
     } else {
-      // Si no hay fechas seleccionadas, habilita la ventana temporal
       timeControl?.enable();
+    }
+    this.form.updateValueAndValidity();
+  }
+
+  focusStartDate() {  // ← Recuperado
+    if (this.startDate) {
+      this.startDate.nativeElement.focus();
     }
   }
 
-  focusStartDate() {
-    this.startDate.nativeElement.focus();
-  }
-
   onSubmit(): void {
-    if (this.form.valid) {
-      const userId = this.form.value.userId;
-      const time = this.form.value.time;
-      const charType = this.form.value.charType;
-      const startDate = this.form.value.startDate;
-      const endDate = this.form.value.endDate;
-      this.charTypeChange.emit(charType); 
-
-      const requestData: any = {
-        user_id: userId,
-        char_type: charType,
-      };
-
-      if(time) {
-        requestData.time_option = time;
-      } else {
-        requestData.start_date = new Date(startDate).toISOString().split('T')[0]; // Formato YYYY-MM-DD
-        requestData.end_date = new Date(endDate).toISOString().split('T')[0]; 
-      }
-
-      console.log(requestData)
-       this.service.filterRecords(requestData).subscribe(
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      console.log('Formulario inválido:', this.form.errors);
+      return;
+    }
+  
+    const userId = this.form.value.userId;
+    const time = this.form.value.time;
+    const charType = this.form.value.charType;
+    const startDate = this.form.value.startDate;
+    const endDate = this.form.value.endDate;
+    this.charTypeChange.emit(charType); 
+  
+    const requestData: any = {
+      user_id: userId,
+      char_type: charType,
+    };
+  
+    if (time) {
+      requestData.time_option = time;
+    } else {
+      requestData.start_date = new Date(startDate).toISOString().split('T')[0]; 
+      requestData.end_date = new Date(endDate).toISOString().split('T')[0];
+    }
+  
+    console.log(requestData);
+    this.service.filterRecords(requestData).subscribe(
       (response) => {
-        const flattenedData = response.flat();
-        const records = flattenedData.map((item: any, index: number) => {
+        if (response.length === 0) {
+          Swal.fire({
+            icon: 'warning',
+            title: 'No hay datos',
+            text: 'No se encontraron registros para los filtros seleccionados.',
+            confirmButtonText: 'Aceptar'
+          });
+          return;  // Detener ejecución si no hay datos
+        }
+  
+        const records = response.flat().map((item: any, index: number) => {
           try {
             console.log(`Processing item at index ${index}:`, item);
             return new Record(item);
           } catch (error) {
             console.error(`Error at index ${index}:`, item, error);
-            throw error; // Rethrow the error to preserve behavior
+            throw error;
           }
         });
-
+  
         console.log('Datos RECORDS:', records);
         this.chartDataService.updateChartData(records, time, userId);
       },
       (error) => {
         console.error('Error al hacer la solicitud:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Hubo un problema al obtener los datos. Intenta nuevamente.',
+          confirmButtonText: 'Aceptar'
+        });
       }
     );
-  } else {
-    console.log('Formulario inválido');
   }
-  }
-
+  
   onCharTypeChange(value: string): void {
     this.charTypeChange.emit(value); 
   }
-
 }

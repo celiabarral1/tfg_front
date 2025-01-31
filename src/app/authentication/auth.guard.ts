@@ -10,9 +10,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   const expectedRole = route.data?.['expectedRole']; // Utiliza la notación de corchetes para acceder a expectedRole
   const currentUser = authService.getCurrentUserValue(); // Utiliza el nuevo método para obtener el usuario actual
 
-  console.log("expectedRole: ", expectedRole);
-  console.log("currentUser: ", currentUser);
-  console.log("currentUser ROLE: ", currentUser && currentUser.role);
 
   if (authService.isLoggedIn()) {
     // Si la ruta no tiene un rol esperado, permite el acceso

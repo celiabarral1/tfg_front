@@ -76,3 +76,11 @@
         <button type="submit" class="btn-initial">Show</button>
       </form>      
 </div>
+<button type="button" class="btn-initial" (click)="changePopUpState()">Mostrar Participantes</button>
+<div class="popup" *ngIf="showPopup">
+  <div class="popup-content">
+    <button class="close-button" (click)="changePopUpState()">✖</button>
+    <app-analysis [classificationData]="filteredClassification"></app-analysis>
+</div>
+
+

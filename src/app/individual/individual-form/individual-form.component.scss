@@ -1,23 +1,35 @@
-/* Contenedor del formulario */
 .container-form {
-  margin: 0 auto; /* Centrar el formulario */
+  margin: 0 auto;
+  margin-top: 30px;
+  background-color: var(--soft-gray-color);
   padding: 2rem;
   box-sizing: border-box;
-  margin-top: 30px;
-  background-color: var(--soft-gray-color); /* Fondo blanco */
-  border-radius: 50px; /* Bordes redondeados */
-  border: 1px solid #ddd; /* Borde suave */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+  border-radius: 50px;
+  border: 1px solid #ddd;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-/* Estilos generales para el formulario */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Espacio entre los campos */
+  gap: 1.5rem;
 }
 
-/* Estilo para las etiquetas */
+.row:nth-child(2) , .row:nth-child(3){
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+
+.btn-initial:first-of-type {
+  margin-top: 1.3em;
+}
+
 label, legend {
   font-family: 'Arial', sans-serif;
   margin-bottom: 0.5rem;
@@ -26,53 +38,20 @@ label, legend {
   color: var(--primary-color); /* Color de las etiquetas */
 }
 
-/* Estilo común para todos los campos de entrada */
-input {
+input, ng-select {
   padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 20px;
+  border: 0.1rem solid #ccc;
+  border-radius: 1rem;
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
-  margin-top: 5px;
-  transition: border-color 0.3s ease; /* Transición para el borde */
+  background-color: #fff;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
-ng-select {
-  padding: 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 20px;
-  font-size: 1rem;
-  width: 100%;
-  box-sizing: border-box;
-  margin-top: 5px;
-  background-color: #fff; /* Fondo blanco */
-  transition: border-color 0.3s ease; /* Transición para el borde */
-}
-
-.row:nth-child(2) {
-  display: grid;
-  grid-template-columns: 2fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
-  gap: 0.7rem; /* Espacio pequeño entre los elementos */
-  align-items: center; /* Alinea los elementos verticalmente */
-}
-
-.btn-initial:first-of-type {
-  padding: 20px 25px;
-  margin-top: 2em;
-}
-
-.row:nth-child(3) {
-  display: grid;
-  grid-template-columns: 1fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
-  gap: 0.5rem; /* Espacio pequeño entre los elementos */
-  align-items: center; /* Alinea los elementos verticalmente */
-}
-
-/* Estilo para los campos de entrada al enfocarse */
 input:focus,
 ng-select:focus {
-  border: 5px solid var(--primary-color);
+  border: 3px solid var(--primary-color);
   outline: none; /* Elimina el contorno por defecto */
 }
 
@@ -101,3 +80,187 @@ fieldset input[type="radio"] {
   display: inline-block; /* Asegura que el radio button esté alineado a la izquierda */
   margin-top: 0.2rem; /* Añadir un pequeño ajuste en la parte superior si es necesario */
 }
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 16px;
+}
+
+
+::ng-deep .ng-select.ng-select-disabled .ng-select-container,
+.ng-select.ng-select-disabled, 
+input:disabled {
+  background-color: rgba(239, 239, 239, 0.3) !important;
+  cursor: not-allowed;
+}
+
+@media screen and (min-width: 600px) and (max-width: 1780px) {
+  .container-form {
+  padding:1rem;
+  }
+
+  .row:nth-child(2), .row:nth-child(3) {
+    grid-template-columns: 1fr !important; 
+  }
+  input, ng-select {
+    padding: 0.5rem; 
+    line-height: 1.2; 
+    font-size: 0.9rem;
+  }
+  .btn-initial:first-of-type {
+    margin-top: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .container-form {
+  padding:1rem;
+  }
+
+  .row:nth-child(2), .row:nth-child(3) {
+    grid-template-columns: 1fr !important; 
+  }
+  .btn-initial:first-of-type {
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+
+// /* Contenedor del formulario */
+// .container-form {
+//   margin: 0 auto; /* Centrar el formulario */
+//   padding: 2rem;
+//   box-sizing: border-box;
+//   margin-top: 30px;
+//   background-color: var(--soft-gray-color); /* Fondo blanco */
+//   border-radius: 50px; /* Bordes redondeados */
+//   border: 1px solid #ddd; /* Borde suave */
+//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+// }
+
+// /* Estilos generales para el formulario */
+// form {
+//   display: flex;
+//   flex-direction: column;
+//   gap: 1.5rem; /* Espacio entre los campos */
+// }
+
+// /* Estilo para las etiquetas */
+// label, legend {
+//   font-family: 'Arial', sans-serif;
+//   margin-bottom: 0.5rem;
+//   font-weight: bold;
+//   font-size: 1rem;
+//   color: var(--primary-color); /* Color de las etiquetas */
+// }
+
+// /* Estilo común para todos los campos de entrada */
+// input {
+//   padding: 0.75rem;
+//   border: 1px solid #ccc;
+//   border-radius: 20px;
+//   font-size: 1rem;
+//   width: 100%;
+//   box-sizing: border-box;
+//   margin-top: 5px;
+//   transition: border-color 0.3s ease; /* Transición para el borde */
+// }
+
+// ng-select {
+//   padding: 0.75rem;
+//   border: 1px solid #ccc;
+//   border-radius: 20px;
+//   font-size: 1rem;
+//   width: 100%;
+//   box-sizing: border-box;
+//   margin-top: 5px;
+//   background-color: #fff; /* Fondo blanco */
+//   transition: border-color 0.3s ease; /* Transición para el borde */
+// }
+
+// ::ng-deep .ng-select.ng-select-disabled .ng-select-container , .ng-select.ng-select-disabled{
+//   background-color: rgba(239, 239, 239, 0.3) !important;
+// }
+
+
+// .row:nth-child(2) {
+//   display: grid;
+//   grid-template-columns: 2fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
+//   gap: 0.7rem; /* Espacio pequeño entre los elementos */
+//   align-items: center; /* Alinea los elementos verticalmente */
+// }
+
+// .btn-initial:first-of-type {
+//   padding: 20px 25px;
+//   margin-top: 2em;
+// }
+
+// .row:nth-child(3) {
+//   display: grid;
+//   grid-template-columns: 1fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
+//   gap: 0.5rem; /* Espacio pequeño entre los elementos */
+//   align-items: center; /* Alinea los elementos verticalmente */
+// }
+
+// /* Estilo para los campos de entrada al enfocarse */
+// input:focus,
+// ng-select:focus {
+//   border: 5px solid var(--primary-color);
+//   outline: none; /* Elimina el contorno por defecto */
+// }
+
+// /* Estilo específico para el campo radio dentro del fieldset */
+// fieldset {
+//   border: 1px solid #ccc;
+//   padding: 1rem;
+//   border-radius: 20px;
+//   display: block; /* Asegura que el fieldset ocupe todo el ancho */
+//   background-color: #fafafa; /* Fondo suave para el fieldset */
+//   gap: 30px;
+// }
+
+// /* Alineación de los labels con los radio buttons */
+// fieldset label {
+//   display: inline-flex; /* Alinea el radio button y el texto en la misma línea */
+//   align-items: center; /* Centra verticalmente el contenido */
+//   margin-left: 30px;
+//   margin-bottom: 0.5rem; /* Espacio entre las etiquetas */
+//   font-size: 1rem;
+// }
+
+// /* Estilo para los radio buttons dentro del fieldset */
+// fieldset input[type="radio"] {
+//   margin-right: 0.5rem; /* Espacio entre el radio button y el texto */
+//   display: inline-block; /* Asegura que el radio button esté alineado a la izquierda */
+//   margin-top: 0.2rem; /* Añadir un pequeño ajuste en la parte superior si es necesario */
+// }
+
+// .invalid-feedback {
+//   color: #dc3545;
+//   font-size: 16px;
+// }
+
+// /* 📏 Tablets y pantallas medianas (600px - 1024px) */
+// @media screen and (min-width: 600px) and (max-width: 1024px) {
+//   .container-form {
+//     padding: 2rem;
+//     border-radius: 2.5rem;
+//   }
+
+//   /* Fuerza una sola columna en todas las filas */
+//   .row:nth-child(2), 
+//   .row:nth-child(3) {
+//     grid-template-columns: 1fr; /* Cada elemento en una fila */
+//   }
+
+//   input, ng-select {
+//     font-size: 1rem;
+//     padding: 0.8rem;
+//   }
+
+//   .btn-initial {
+//     font-size: 1.1rem;
+//     padding: 1rem 1.5rem;
+//   }
+// }

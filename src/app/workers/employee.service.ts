@@ -21,4 +21,10 @@ export class EmployeeService {
   getRols(): Observable<any> {
     return this.http.get(`${this.apiUrl}/getRols`); 
   }
+
+  getWorkersId(): Observable<any> {
+      return this.http.get(`${this.apiUrl}//workers/getIds`); 
+  }
+
+  
 }

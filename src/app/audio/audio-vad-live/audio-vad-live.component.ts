@@ -9,7 +9,6 @@ import { AudioEmotionsComponent } from './audio-emotions/audio-emotions.componen
 import { AudioUtils } from '../../@core/common/utils/audio-helper';
 import { RecordingEmotions } from './model/recording-emotions';
 import { CsvGestor } from '../../@core/common/utils/csv-gestor';
-import * as annyang from 'annyang';
 import { Alignment } from './model/alignment';
 import { AuthService } from '../../authentication/auth-services';
 
@@ -102,6 +101,11 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
   bufferLen = 1024;
 
   /**
+   * Opciones de tiempo para la detección de silencio.
+   */
+  stopDelayOptions: number[] = [500, 1000, 3000, 5000];
+
+  /**
    * Constructor del componente.
    * @param audioService serviciop para realizar peticiones relacionadas con el procesamiento y obtención de datos sobre un audio.
    * @param viewContainerRef representa la vista actual y es necesario para insertar componente dinámicamente.
@@ -112,7 +116,8 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     private readonly audioService: AudioService,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   /**
@@ -209,44 +214,38 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
    * * @throws {Error} si el usuario niega el acceso al micrófono o si ocurre algún problema de acceso.
    */
   async startRecording(): Promise<void> {
-    this.stopRecording(); // Detenemos cualquier grabación previa
-    this.destroyWaveSurfer(); // Destruimos la instancia actual
-    this.createWaveSurfer(); // Creamos una nueva instancia de WaveSurfer
-    this.closeAudioContext(); // Cerramos el contexto de audio previo
+    this.stopRecording(); 
+    this.destroyWaveSurfer(); 
+    this.createWaveSurfer(); 
+    this.closeAudioContext(); 
   
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       this.mediaStream = stream;
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       const sourceNode = this.audioContext.createMediaStreamSource(stream);
+      this.isRecording = true ;
 
-      // Aclaración parámetros:
-      // fftSize: 1024 -> Transformada Rápida de Fourier (FFT). Convierte la señal de audio en el dominio del tiempo a una representación en el dominio de la frecuencia.
-      // 1024 
+
       this.vad = new VAD({
         source: sourceNode,
         context: this.audioContext,
         fftSize: 1024,
         bufferLen: 1024,
+        voice_stop_delay: 500,
         voice_start: () => {
           console.log('Voz detectada');
-          if (!this.isRecording) {
-            this.isRecording = true;
-            this.audio.startRecording(); // Inicia la grabación cuando se detecta voz
-          }
+          this.cdr.detectChanges();
+          this.audio.startRecording(); 
         },
         voice_stop: () => {
           console.log('Silencio detectado, finalizando grabación actual');
-          if (this.isRecording) {
-            this.audio.stopRecording(); // Detiene la grabación cuando se detecta silencio
-            this.isRecording = false;
-            this.destroyWaveSurfer();
-            this.createWaveSurfer(); // Reinicia la visualización si es necesario
-          }
+          this.audio.stopRecording(); 
+          this.cdr.detectChanges();
+          this.destroyWaveSurfer();
+          this.createWaveSurfer();
         },
-        voice_stop_delay: 500, // Retraso para detectar silencio
       });
-  
   
     } catch (error) {
       console.error('Error al acceder al micrófono:', error);
@@ -262,6 +261,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
   stopRecording(): void {
     if (this.isRecording) {
       this.isRecording = false;
+      this.cdr.detectChanges();
       this.audio.stopRecording();
     }
     if (this.audioContext && this.audioContext.state !== 'closed') {
@@ -461,6 +461,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       URL.revokeObjectURL(audioUrl); // Limpia el objeto URL
     });
   
+    this.cdr.detectChanges();
     console.log("tiene alignmets? ", this.recordingsWithEmotions)
     CsvGestor.downloadCsv(this.recordingsWithEmotions,'recordings_emotions');
     

@@ -44,6 +44,7 @@
     "rxjs": "~7.8.0",
     "speech-recognition-polyfill": "^0.0.5",
     "stream-browserify": "^3.0.0",
+    "sweetalert2": "^11.15.10",
     "tslib": "^2.3.0",
     "vad": "^0.0.1",
     "wavesurfer.js": "^7.8.10",

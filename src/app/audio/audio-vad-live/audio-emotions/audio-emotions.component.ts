@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 import { Alignment } from '../model/alignment';
@@ -13,7 +13,7 @@ import { AuthService } from '../../../authentication/auth-services';
   templateUrl: './audio-emotions.component.html',
   styleUrl: './audio-emotions.component.scss'
 })
-export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
+export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit {
   /**
    * Propiedad para identificar si el perfil de la aplicación puede acceder a ciertas funcionalidades.
    */
@@ -109,6 +109,14 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
     private changeDetector: ChangeDetectorRef,
     private authService: AuthService
   ) {}
+
+  /**
+   * Para que la primera detección de cambios, en este caso del rol 
+   * del usuario, se actualice antes de cargar la vista.
+   */
+  ngOnInit(): void {
+    this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
+  }
   
   /**
    * Una vez inicializadas las vistas del componente, se comprueba que haya un audio de tipo Blob 
@@ -120,7 +128,6 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit {
     if (this.audioBlob) {
       this.createWaveSurfer();
     } 
-    this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
   }
 
   /**

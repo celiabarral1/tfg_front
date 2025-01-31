@@ -10,19 +10,33 @@ import { EmployeeService } from '../employee.service';
 })
 export class RegisterFormComponent implements OnInit{
   registerForm: FormGroup;
-  roles = [];
+  roles: { label: string; value: string }[] = [];
+  dateNow: string;
+  ids = [];
 
   constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+    this.dateNow = new Date().toISOString().split('T')[0];
     this.registerForm = this.fb.group({
-      id: ['', Validators.required],
-      rol: ['', Validators.required],
-      registration_date: ['', Validators.required]
+      id: [null, Validators.required],
+      rol: [null, Validators.required],
+      registration_date: [this.dateNow, Validators.required]
     });
   }
   ngOnInit(): void {
     this.employeeService.getRols().subscribe(
+      (response: { label: string; value: string }[]) => {
+        this.roles = response;
+        if (this.roles.length > 0) {
+          this.registerForm.patchValue({ rol: this.roles[0].value });
+        }
+      },
+      (error) => {
+        console.error('Error al obtener las opciones de tiempo:', error);
+      }
+    );
+    this.employeeService.getWorkersId().subscribe(
       (response) => {
-        this.roles = response; 
+        this.ids = response; 
       },
       (error) => {
         console.error('Error al obtener las opciones de tiempo:', error);

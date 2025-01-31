@@ -37,7 +37,8 @@ export class CategoricComponent implements OnInit , OnDestroy{
   ngOnInit(): void {
     this.service.getEmotions().subscribe(
       (response) => {
-        this.emotions = response; 
+        const orderedEmotions = ['happiness', 'neutral', 'anger', 'disgust', 'fear', 'sadness'];
+        this.emotions = orderedEmotions.filter(e => response.includes(e));
       },
       (error) => {
         console.error('Error al obtener las emociones:', error);
@@ -108,6 +109,22 @@ export class CategoricComponent implements OnInit , OnDestroy{
         options: {
           responsive: true,
           plugins: {
+            tooltip: {
+              callbacks: {
+                label: (context) => {
+                  const rawData = context.raw as number[];
+                  if (Array.isArray(rawData) && rawData.length > 1) {
+                    const index = rawData[1]; 
+
+                    if (index >= 0 && index < this.emotions.length) {
+                      return `Emotions: ${this.emotions[index]}`;
+                    }
+                  }
+
+                  return 'Emotions: Unknown'; 
+                }
+              }
+            },
             zoom: {
               zoom: {
                 wheel: { enabled: true },

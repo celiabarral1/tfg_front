@@ -19,6 +19,10 @@ import { read } from "fs";
       return this.http.get(`${this.apiUrl}/getTimePeriods`); 
     }
 
+    getIds(): Observable<any> {
+      return this.http.get(`${this.apiUrl}/ids`); 
+    }
+
     getShifts(): Observable<any> {
       return this.http.get(`${this.apiUrl}/getShifts`); 
     }

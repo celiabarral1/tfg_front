@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AnalysisService } from './analysis.service';
 import { Classification } from './model/classification';
 import { Router } from '@angular/router';
@@ -16,7 +16,7 @@ export class AnalysisComponent implements OnInit {
   /**
    * Estructura de datos que almacena la clasificación de los trabajadores.
    */
-  classificationData = new Classification();
+  @Input() classificationData = new Classification();
 
   /**
    * Propiedad para poder realizar una búsqueda por id del trabajador.
@@ -31,6 +31,7 @@ export class AnalysisComponent implements OnInit {
   showMoreDepression: boolean = false;
   showMoreAnxiety: boolean = false;
   showMoreNoDisorder: boolean = false;
+  
 
   /**
    * Constructor del componente de análisis de grupos.
@@ -45,18 +46,22 @@ export class AnalysisComponent implements OnInit {
    * @throws {Error} si no se puede realizar la petición con éxito
    */
    ngOnInit(): void {
-    this.analysisService.getClassification().subscribe({
-      next: (response) => {
-        this.classificationData = new Classification(
-          response.no_disorder,
-          response.depression,
-          response.anxiety
-        ); 
-      },
-      error: (error) => {
-        console.error('Error al obtener la clasificación:', error);
+    if(this.classificationData.depression.length===0 && this.classificationData.anxiety.length===0 &&
+      this.classificationData.no_disorder.length===0) {
+        this.analysisService.getClassification().subscribe({
+          next: (response) => {
+            this.classificationData = new Classification(
+              response.no_disorder,
+              response.depression,
+              response.anxiety
+            ); 
+          },
+          error: (error) => {
+            console.error('Error al obtener la clasificación:', error);
+          }
+        });
       }
-    });
+    
   }
   
   /**

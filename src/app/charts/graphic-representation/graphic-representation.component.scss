@@ -17,6 +17,7 @@
   
   .charts {
     flex: 2; /* Ocupa dos partes del espacio disponible */
+    height: fit-content;
     max-width: 70%; /* Limita el ancho máximo de los gráficos */
     background-color: #fff; /* Color de fondo */
     padding: 1rem; /* Espaciado interno */
@@ -211,5 +212,15 @@ h2 {
   .btn-secondary:disabled:hover {
     background-color: inherit; 
     cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
+  }
+  
+  @media screen and (max-width: 600px) {
+    .individual-container {
+      display: flex; /* Activa el diseño en línea con Flexbox */
+      direction: column; /* Espaciado interno para el contenedor */
+    }
+    
+
+    
   }
   
