@@ -32,11 +32,11 @@ import { read } from "fs";
     }
 
     filterRecords(requestData: any): Observable<any> {
-      return this.http.post(`${this.apiUrl}/filter-records`, requestData);
+      return this.http.post(`${this.apiUrl}/records/id`, requestData);
     }
 
     filterByShifts(requestData: any): Observable<any> {
-      return this.http.post(`${this.apiUrl}/filter-shift`, requestData);
+      return this.http.post(`${this.apiUrl}/records/shift`, requestData);
   }
 
     

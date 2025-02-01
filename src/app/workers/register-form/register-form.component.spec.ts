@@ -1,76 +1,79 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RegisterFormComponent } from './register-form.component';
 import { EmployeeService } from '../employee.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChangeDetectorRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { of, throwError } from 'rxjs';
-import { NgSelectModule } from '@ng-select/ng-select';
-
-// Mock de EmployeeService
-const mockEmployeeService = {
-  getRols: jasmine.createSpy('getRols').and.returnValue(of(['Admin', 'User'])),
-  insertEmployee: jasmine.createSpy('insertEmployee').and.returnValue(of({ success: true })),
-};
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { of } from 'rxjs';
+import { Employee } from '../model/employee';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 fdescribe('RegisterFormComponent', () => {
   let component: RegisterFormComponent;
   let fixture: ComponentFixture<RegisterFormComponent>;
+  let employeeService: jasmine.SpyObj<EmployeeService>;
 
   beforeEach(async () => {
+    const employeeServiceSpy = jasmine.createSpyObj('EmployeeService', ['getRols', 'getWorkersId', 'insertEmployee']);
+
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule, NgSelectModule],
       declarations: [RegisterFormComponent],
+      imports: [ReactiveFormsModule, FormsModule],
       providers: [
         FormBuilder,
-        { provide: EmployeeService, useValue: mockEmployeeService },
-        { provide: ChangeDetectorRef, useValue: { detectChanges: () => {} } },
+        { provide: EmployeeService, useValue: employeeServiceSpy }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(RegisterFormComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    employeeService = TestBed.inject(EmployeeService) as jasmine.SpyObj<EmployeeService>;
   });
 
-  it('should create', () => {
+  it('debería crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize and fetch roles', () => {
+  it('debería inicializar el formulario con valores por defecto', () => {
+    expect(component.registerForm).toBeDefined();
+    expect(component.registerForm.get('registration_date')?.value).toBe(new Date().toISOString().split('T')[0]);
+  });
+
+  it('debería cargar roles e IDs en ngOnInit', () => {
+    const mockRoles = [{ label: 'Admin', value: 'admin' }];
+    const mockIds = ['123', '456'];
+    employeeService.getRols.and.returnValue(of(mockRoles));
+    employeeService.getWorkersId.and.returnValue(of(mockIds));
+
     component.ngOnInit();
-    expect(mockEmployeeService.getRols).toHaveBeenCalled();
-    expect(component.roles.length).toBeGreaterThan(0);
+    expect(employeeService.getRols).toHaveBeenCalled();
+    expect(employeeService.getWorkersId).toHaveBeenCalled();
+    expect(component.roles).toEqual(mockRoles);
+    expect(component.ids).toEqual(jasmine.arrayContaining(mockIds));
+
   });
 
-  it('should submit valid form', () => {
+  it('debería convertir datos del formulario en una instancia de Employee', () => {
+    const formValue = { id: '123', rol: 'admin', registration_date: '2024-01-01' };
+    const employee = component.parseForm(formValue);
+    expect(employee).toEqual(new Employee('123', 'admin', new Date('2024-01-01')));
+  });
+
+  it('debería llamar a insertEmployee cuando el formulario es válido', () => {
     spyOn(console, 'log');
-    component.registerForm.setValue({
-      id: '123',
-      rol: 'Admin',
-      registration_date: '2023-01-01',
-    });
+    const mockEmployee = new Employee('123', 'admin', new Date('2024-01-01'));
+    employeeService.insertEmployee.and.returnValue(of(mockEmployee));
 
-    mockEmployeeService.insertEmployee.and.returnValue(of({ success: true }));
+    component.registerForm.setValue({ id: '123', rol: 'admin', registration_date: '2024-01-01' });
     component.onSubmit();
 
-    expect(mockEmployeeService.insertEmployee).toHaveBeenCalled();
-    expect(console.log).toHaveBeenCalledWith('Employee registered successfully:', { success: true });
+    expect(employeeService.insertEmployee).toHaveBeenCalledWith(mockEmployee);
+    expect(console.log).toHaveBeenCalledWith('Employee registered successfully:', mockEmployee);
   });
 
-  it('should log error on failed submission', () => {
-    spyOn(console, 'error');
-    mockEmployeeService.insertEmployee.and.returnValue(throwError(() => new Error('Error inserting employee')));
-    component.registerForm.setValue({
-      id: '123',
-      rol: 'Admin',
-      registration_date: '2023-01-01',
-    });
-
+  it('debería no registrar un empleado si el formulario es inválido', () => {
+    spyOn(console, 'log');
+    component.registerForm.setValue({ id: '', rol: 'admin', registration_date: '2024-01-01' });
     component.onSubmit();
-
-    expect(console.error).toHaveBeenCalledWith('Error registering employee:', jasmine.any(Error));
+    expect(console.log).toHaveBeenCalledWith('Formulario inválido');
   });
 });

@@ -74,7 +74,7 @@ import { AnalysisComponent } from './analysis/analysis.component';
     GraphicRepresentationComponent,
     DatePickerComponent,
     AccessDeniedComponent,
-    AnalysisComponent
+    AnalysisComponent,
   ],
   imports: [
     BrowserModule,

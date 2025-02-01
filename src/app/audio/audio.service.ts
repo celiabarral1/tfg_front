@@ -13,8 +13,8 @@ export class AudioService {
     this.apiUrl = this.apiConfig.getApiUrl();  // Usamos el ApiConfigService para obtener la URL base
   }
 
-  insertAudio(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiUrl}/insertAudio`, formData);
+  getDataAudio(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/audio/getData`, formData);
   }
 
   sendAudios(formData: FormData): Observable<any> {

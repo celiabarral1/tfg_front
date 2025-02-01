@@ -35,7 +35,6 @@ fdescribe('CategoricComponent', () => {
     fixture = TestBed.createComponent(CategoricComponent);
     component = fixture.componentInstance;
     
-    // Mock de los elementos del DOM
     component.canvasCategoric = new ElementRef(document.createElement('div'));
     component.canvasAccumulated = new ElementRef(document.createElement('div'));
 

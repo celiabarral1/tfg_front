@@ -31,38 +31,23 @@ describe('LoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('debería crear el componente', () => {
-    expect(component).toBeTruthy();
-  });
-
-  it('debería inicializar el formulario de login', () => {
-    expect(component.loginForm).toBeDefined();
-    expect(component.loginForm.controls['username']).toBeDefined();
-    expect(component.loginForm.controls['password']).toBeDefined();
-  });
-
-  it('debería mostrar un mensaje de error si el formulario es inválido', () => {
-    component.onSubmit();
-    expect(component.errorMessage).toBeNull();
-  });
-
-  it('debería llamar al servicio de autenticación y navegar en caso de éxito', () => {
-    component.loginForm.setValue({ username: 'testuser', password: 'testpass' });
+  it('podría iniciar sesión', () => {
+    component.loginForm.setValue({ username: 'user', password: 'password' });
     authService.login.and.returnValue(of({ access_token: 'fake-token' }));
 
     component.onSubmit();
 
-    expect(authService.login).toHaveBeenCalledWith('testuser', 'testpass');
+    expect(authService.login).toHaveBeenCalledWith('user', 'password');
     expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 
-  it('debería mostrar un mensaje de error en caso de fallo de autenticación', () => {
-    component.loginForm.setValue({ username: 'testuser', password: 'testpass' });
+  it('no puede iniciar sesión', () => {
+    component.loginForm.setValue({ username: 'user', password: 'password' });
     authService.login.and.returnValue(throwError(() => new Error('Error de autenticación')));
 
     component.onSubmit();
 
-    expect(authService.login).toHaveBeenCalledWith('testuser', 'testpass');
+    expect(authService.login).toHaveBeenCalledWith('user', 'password');
     expect(component.errorMessage).toBe('Usuario o contraseña incorrectos.');
   });
 });

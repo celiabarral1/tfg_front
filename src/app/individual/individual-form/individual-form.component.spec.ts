@@ -1,88 +1,103 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { IndividualFormComponent } from './individual-form.component';
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { IndividualService } from '../individual.service';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ChangeDetectorRef, ElementRef, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { of } from 'rxjs';
-import { NgSelectModule } from '@ng-select/ng-select';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import Swal from 'sweetalert2';
 
-// Mock de IndividualService
-const mockIndividualService = {
-  getTimePeriods: jasmine.createSpy('getTimePeriods').and.returnValue(of(['Last Week', 'Last Month'])),
-  filterRecords: jasmine.createSpy('filterRecords').and.returnValue(of([])),
-};
-
-// Mock de ChartDataService
-const mockChartDataService = {
-  updateChartData: jasmine.createSpy('updateChartData'),
-};
-
-fdescribe('IndividualFormComponent', () => {
+describe('IndividualFormComponent', () => {
   let component: IndividualFormComponent;
   let fixture: ComponentFixture<IndividualFormComponent>;
+  let individualService: jasmine.SpyObj<IndividualService>;
+  let chartDataService: jasmine.SpyObj<ChartDataService>;
+  let cdr: jasmine.SpyObj<ChangeDetectorRef>;
 
   beforeEach(async () => {
+    const individualServiceSpy = jasmine.createSpyObj('IndividualService', ['getTimePeriods', 'getIds', 'filterRecords']);
+    const chartDataServiceSpy = jasmine.createSpyObj('ChartDataService', ['updateChartData']);
+    const cdrSpy = jasmine.createSpyObj('ChangeDetectorRef', ['detectChanges']);
+
     await TestBed.configureTestingModule({
-      imports: [ReactiveFormsModule, FormsModule, NgSelectModule], // Importamos NgSelectModule
       declarations: [IndividualFormComponent],
+      imports: [ReactiveFormsModule, FormsModule],
       providers: [
         FormBuilder,
-        { provide: IndividualService, useValue: mockIndividualService },
-        { provide: ChartDataService, useValue: mockChartDataService },
-        { provide: ChangeDetectorRef, useValue: { detectChanges: () => {} } },
+        { provide: IndividualService, useValue: individualServiceSpy },
+        { provide: ChartDataService, useValue: chartDataServiceSpy },
+        { provide: ChangeDetectorRef, useValue: cdrSpy }
       ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA], // Esto evita el error con ng-select
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(IndividualFormComponent);
     component = fixture.componentInstance;
-    component.startDate = new ElementRef(document.createElement('input'));
-    fixture.detectChanges();
+    individualService = TestBed.inject(IndividualService) as jasmine.SpyObj<IndividualService>;
+    chartDataService = TestBed.inject(ChartDataService) as jasmine.SpyObj<ChartDataService>;
+    cdr = TestBed.inject(ChangeDetectorRef) as jasmine.SpyObj<ChangeDetectorRef>;
   });
 
-  it('should create', () => {
+  it('crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize and fetch time periods', () => {
+  it('inicializa', () => {
+    expect(component.form).toBeDefined();
+    expect(component.form.get('userId')).toBeDefined();
+    expect(component.form.get('charType')).toBeDefined();
+    individualService.getTimePeriods.and.returnValue(of(['option1', 'option2']));
+    individualService.getIds.and.returnValue(of(['id1', 'id2']));
     component.ngOnInit();
-    expect(mockIndividualService.getTimePeriods).toHaveBeenCalled();
-    expect(component.options.length).toBeGreaterThan(0);
+    expect(individualService.getTimePeriods).toHaveBeenCalled();
+    expect(individualService.getIds).toHaveBeenCalled();
   });
 
-
-  it('should disable/enable time selection on date input', () => {
-    component.form.controls['startDate'].setValue('2023-01-01');
-    component.onManualDate();
-    expect(component.form.controls['time'].disabled).toBeTrue();
-
-    component.form.controls['startDate'].setValue('');
-    component.onManualDate();
-    expect(component.form.controls['time'].disabled).toBeFalse();
+  it('cambia id', () => {
+    component.id = '1';
+    component.ngOnChanges({ id: { currentValue: '', previousValue: null, firstChange: true, isFirstChange: () => true } });
+    expect(component.form.get('userId')?.value).toBe('1');
   });
 
-  it('should submit valid form', () => {
-    spyOn(component.charTypeChange, 'emit');
-    component.form.setValue({
-      userId: '123',
-      time: 'Last Week',
-      charType: '1',
-      startDate: '',
-      endDate: '',
-    });
-
-    component.onSubmit();
-
-    expect(mockIndividualService.filterRecords).toHaveBeenCalled();
-    expect(component.charTypeChange.emit).toHaveBeenCalledWith('1');
+  it('debería marcar error si no se selecciona tiempo o fechas', () => {
+    component.form.patchValue({ userId: '123', time: null, startDate: '', endDate: '' });
+    component.form.markAllAsTouched();
+    component.form.updateValueAndValidity(); 
+    console.log('Errores actuales del formulario:', component.form.errors);
+    expect(component.dateOrTimeValidator(component.form)).toEqual({ dateOrTimeRequired: true });
   });
 
-  it('should emit charType change', () => {
+  it('debería permitir fechas válidas', () => {
+    component.form.patchValue({ startDate: '2024-01-01', endDate: '2024-01-02' });
+    expect(component.dateValidator(component.form)).toBeNull();
+  });
+
+  it('debería marcar error si la fecha de inicio es mayor que la de fin', () => {
+    component.form.patchValue({ startDate: '2026-08-09', endDate: '2024-02-02' });
+    component.form.markAllAsTouched();
+    component.form.updateValueAndValidity(); 
+    expect(component.dateValidator(component.form)).toEqual({ invalidDateRange: true });
+  });
+
+  it('debería actualizar tipo de gráfico al cambiar de selección', () => {
     spyOn(component.charTypeChange, 'emit');
     component.onCharTypeChange('0');
     expect(component.charTypeChange.emit).toHaveBeenCalledWith('0');
+  });
+
+  it('debería llamar a Swal cuando no hay registros', () => {
+    spyOn(Swal, 'fire');
+    individualService.filterRecords.and.returnValue(of([]));
+    component.onSubmit();
+    expect(Swal.fire).toHaveBeenCalled();
+  });
+
+  it('debería llamar a updateChartData si hay registros', () => {
+    const mockRecords = [{ user_id: 1, valence: 0.5 }];
+    individualService.filterRecords.and.returnValue(of(mockRecords));
+    spyOn(component, 'onSubmit').and.callThrough();
+    component.onSubmit();
+    expect(chartDataService.updateChartData).toHaveBeenCalled();
   });
 });

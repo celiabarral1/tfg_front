@@ -335,7 +335,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       audioData.append('audioFile', audioFile);
   
       try {
-        const response = await this.audioService.insertAudio(audioData).toPromise();
+        const response = await this.audioService.getDataAudio(audioData).toPromise();
         console.log('Audio enviado exitosamente:', response);
 
         
@@ -344,12 +344,13 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
         const emodimensional = response.emotions.emodimensional;
         this.addDimensional(emodimensional, componentRef.instance);
         const alignmentsResponse = response.alignments;
-        const alignments = alignmentsResponse.map((alignment: [string, number, number]) => {
-          return new Alignment(alignment[0], alignment[1], alignment[2]);
+        console.log('respuesta ',alignmentsResponse)
+        const alignments = alignmentsResponse.map((alignment: any) => {
+          return new Alignment( alignment.end, alignment.start, alignment.word);
         });
-
-        console.log(alignments)
+        
         componentRef.instance.alignments = alignments;
+
 
         const recordingWithEmotion = this.createRecordingWithEmotion(fileName,emocategoric,emodimensional,response.userId,blob,
           response.transcription,alignments);
@@ -392,7 +393,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     alignments: Alignment[] 
   ): Promise<RecordingEmotions> {
     // const audioBase64 = await this.audioUtils.convertBlobToBase64(audioBlob); // Convertir el blob a base64
-  
+    console.log('antes de crear ', alignments)
     return new RecordingEmotions({
       fileName: fileName,
       Emotion_1_label: emocategoric[0]?.emo || '',

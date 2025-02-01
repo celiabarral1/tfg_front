@@ -31,10 +31,35 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
    */
   @Input() audioIndex : number | undefined;
 
+  private isShowing: boolean = false;
+
   /**
-   * Estructura que contiene los datos de la transcripción del audio y su alineación temporal con el mismo.
+   * Propiedad de entrada que recibe los `alignments` y los transforma si es necesario.
+   * Se asegura de que cada objeto tenga `word`, `start` y `end` correctamente formateados.
+   * @decorator @Input
    */
-  @Input() alignments: Alignment[] = [];
+  @Input() set alignments(value: Alignment[]) {
+    if (!value || !Array.isArray(value)) {
+      console.error('alignments debe ser un array:', value);
+      this._alignments = [];
+      return;
+    }
+    console.log('valores ', value)
+    // Procesar cada alignment
+    this._alignments = value.map(a => ({
+      word: a.word || '', // Asegurar que `word` es un string válido
+      start: parseFloat(a.start?.toString()) || 0, // Convertir a número
+      end: parseFloat(a.end?.toString()) || 0 // Convertir a número
+    }));
+
+    console.log('Alignments procesados:', this._alignments);
+    
+    this.changeDetector.detectChanges(); // Forzar actualización en la vista
+  }
+
+  get alignments(): Alignment[] {
+    return this._alignments;
+  }
 
   /**
   * Propiedad de entrada que gestiona la lista de emociones categóricas del audio.
@@ -86,6 +111,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
 
   private _emotions_categoric: any[] = [];
   private _emotions_dimensional: any[] = [];
+  private _alignments: Alignment[] = [];
   
   /**
    * Representa al elemento del html asociado al componente que contendrá la forma de onda del audio.
@@ -172,6 +198,51 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
       console.error('audioBlob o waveformContainer no están definidos');
     }
   }
+
+  showAlignment(): void {
+    if (!this.waveSurfer) return;
+  
+    const regionsPlugin = this.waveSurfer.registerPlugin(RegionsPlugin.create());
+  
+    if (!this.isShowing) {
+      this._alignments.forEach(alignment => {
+        const isSilence = alignment.word.trim() === '';
+  
+        const region = regionsPlugin.addRegion({
+          start: alignment.start,
+          end: alignment.end, // Usa la duración real
+          color: isSilence ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 255, 0, 0.5)', // Blanco para silencios, verde para fonemas
+          drag: false,
+          resize: false
+        });
+  
+        if (!isSilence) {
+          // Crear la etiqueta dentro de la región
+          const label = document.createElement('div');
+          label.style.position = 'absolute';
+          label.style.fontSize = '12px';
+          label.style.color = 'black';
+          label.style.backgroundColor = 'rgba(255,255,255,0.7)';
+          label.style.borderRadius = '4px';
+          label.style.padding = '2px 5px';
+          label.innerText = alignment.word;
+  
+          // Ajustar posición relativa dentro de la región
+          region.element.appendChild(label);
+          label.style.left = '50%';
+          label.style.top = '50%';
+          label.style.transform = 'translate(-50%, -50%)';
+        }
+      });
+  
+      this.isShowing = true;
+    } else {
+      // Eliminar todas las regiones si ya estaban visibles
+      regionsPlugin.getRegions().forEach((region: { remove: () => any; }) => region.remove());
+      this.isShowing = false;
+    }
+  }
+  
 
   /**
    * 

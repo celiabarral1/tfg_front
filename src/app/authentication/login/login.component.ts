@@ -27,6 +27,7 @@ export class LoginComponent {
         next: () => this.router.navigate(['/']),
         error: (err) => {
           this.errorMessage = 'Usuario o contraseña incorrectos.';
+          this.loginForm.reset();
           console.error(err);
         }
       });

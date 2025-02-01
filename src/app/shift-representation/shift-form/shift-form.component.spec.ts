@@ -19,7 +19,7 @@ const mockChartDataService = {
   updateChartData: jasmine.createSpy('updateChartData'),
 };
 
-fdescribe('ShiftFormComponent', () => {
+describe('ShiftFormComponent', () => {
   let component: ShiftFormComponent;
   let fixture: ComponentFixture<ShiftFormComponent>;
 

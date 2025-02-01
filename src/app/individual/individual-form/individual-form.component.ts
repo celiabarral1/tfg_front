@@ -33,7 +33,7 @@ export class IndividualFormComponent implements OnChanges {
       charType: ['1', [Validators.required]], 
       startDate: [''],
       endDate: [''],
-    }, { validators: [this.dateOrTimeValidator, this.dateRangeValidator] });  
+    }, { validators: [this.dateOrTimeValidator, this.dateValidator] });  
   }
 
   ngOnInit(): void {
@@ -63,42 +63,75 @@ export class IndividualFormComponent implements OnChanges {
   }
 
   dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
+    const userId = control.get('userId')?.value;
     const time = control.get('time')?.value;
-    const startDate = control.get('startDate')?.value;
-    const endDate = control.get('endDate')?.value;
+    const startDateControl = control.get('startDate');
+    const endDateControl = control.get('endDate');
+    console.log('Ejecutando validador dateOrTimeValidator:', { userId, time, startDate: startDateControl?.value, endDate: endDateControl?.value });
 
-    if (time || (startDate && endDate)) {
-      return null;  
+    // No validar fechas si el usuario no ha seleccionado un ID válido
+    if (!userId) {
+      return null;
     }
+  
+    // No activar el error si los campos aún no han sido tocados
+    if (!time && !startDateControl?.touched && !endDateControl?.touched) {
+      return null;
+    }
+  
+    if (time || (startDateControl?.value && endDateControl?.value)) {
+      return null;
+    }
+  
+    this.form.updateValueAndValidity();
     return { dateOrTimeRequired: true }; 
   }
+  
 
-  dateRangeValidator(control: AbstractControl): ValidationErrors | null {
-    const startDate = control.get('startDate')?.value;
-    const endDate = control.get('endDate')?.value;
-
-    if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
+  dateValidator(control: AbstractControl): ValidationErrors | null {
+    const userId = control.get('userId')?.value;
+    const startDateControl = control.get('startDate');
+    const endDateControl = control.get('endDate');
+  
+    if (!userId) {
+      return null;
+    }
+  
+    if (!startDateControl?.touched && !endDateControl?.touched) {
+      return null;
+    }
+  
+    if (startDateControl?.value && endDateControl?.value && new Date(startDateControl.value) > new Date(endDateControl.value)) {
       return { invalidDateRange: true };  
     }
+    this.form.updateValueAndValidity();
     return null;  
   }
+  
+  
 
   onTimeChange(value: any): void {
     const startDateControl = this.form.get('startDate');
     const endDateControl = this.form.get('endDate');
-
-    if (value) {
-      startDateControl?.disable();
-      endDateControl?.disable();
-      this.isDatesDisabled = true;
-    } else {
-      startDateControl?.enable();
-      endDateControl?.enable();
-      this.isDatesDisabled = false;
+  
+    if (this.form.get('time')?.dirty) {  
+      if (value) {  
+        startDateControl?.disable();
+        endDateControl?.disable();
+        this.isDatesDisabled = true;
+      } else {
+        startDateControl?.enable();
+        endDateControl?.enable();
+        this.isDatesDisabled = false;
+      }
     }
+  
     this.form.updateValueAndValidity();
     this.cdr.detectChanges();
   }
+  
+  
+  
 
   onManualDate(): void {
     const timeControl = this.form.get('time');

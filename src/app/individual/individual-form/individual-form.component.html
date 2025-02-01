@@ -67,8 +67,7 @@
             * La fecha de fin no puede ser anterior a la fecha de inicio.
           </div>
           
-          <!-- Error: Debe haber "Time" o fechas completas -->
-          <div class="invalid-feedback d-block" *ngIf="form.errors?.['dateOrTimeRequired'] && form.touched">
+          <div class="invalid-feedback d-block" *ngIf=" form.get('userId')?.valid && form.errors?.['dateOrTimeRequired'] && form.touched">
             * Debes seleccionar una ventana temporal o proporcionar fecha de inicio y fin.
           </div>
         </div>
@@ -85,6 +84,6 @@
         </fieldset>
       </div>
     </div>
-    <button type="submit" class="btn-initial">Show</button>
+    <button type="submit" class="btn-initial" >Show</button>
   </form>      
 </div>

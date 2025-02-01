@@ -28,7 +28,6 @@ fdescribe('DimensionalComponent', () => {
     fixture = TestBed.createComponent(DimensionalComponent);
     component = fixture.componentInstance;
     
-    // Mock de los elementos del DOM
     component.canvasContainer = new ElementRef(document.createElement('div'));
     fixture.detectChanges();
   });
@@ -37,12 +36,12 @@ fdescribe('DimensionalComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize and fetch graph data', () => {
+  it('should initialize without data', () => {
     component.ngOnInit();
     expect(component.graphData).toEqual([]);
   });
 
-  it('should destroy chart on ngOnDestroy', () => {
+  it('should destroy chart', () => {
     spyOn(component as any, 'destroyChart');
     component.ngOnDestroy();
     expect((component as any).destroyChart).toHaveBeenCalled();
@@ -53,7 +52,7 @@ fdescribe('DimensionalComponent', () => {
     spyOn(component as any, 'destroyChart');
     spyOn(Chart.prototype, 'destroy');
     component.graphData = [
-      { timestamp: 1700000000, arousal: '0.5', valence: '0.8', dominance: '0.3' }
+      { timestamp: 1700000000, arousal: '0.5', valence: '0.8', dominance: '-0.3' }
     ];
     component.createChart();
     expect((component as any).chart).toBeDefined();
