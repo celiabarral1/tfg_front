@@ -12,6 +12,8 @@
     align-items: center; /* Centra horizontalmente */
     height: 60vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
     padding-top: 100px;
+    text-align: justify; /* Justifica el texto */
+    text-align-last: center; /* Centra la última línea del texto */
 }
 
 .inicial-container button{
@@ -34,20 +36,25 @@ h1 {
     margin: 0 250px;
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 2048px) {
+    .principal-container{
+      background-size: 80%;
+  }
+    .inicial-container {
+      display: flex;
+      flex-direction: column; /* Organiza los elementos en una columna */
+  //   justify-content: center; /* Centra verticalmente */  
+      align-items: center; /* Centra horizontalmente */
+      padding-top: 100px;
+  }
+
     .card-container {
-      grid-template-columns: repeat(2, 1fr); /* Mantiene dos tarjetas por fila */
+      grid-template-columns: 1fr; /* Mantiene dos tarjetas por fila */
       justify-content: center;
+      margin:10px;
     }
   }
-  
-  /* Media query para pantallas muy pequeñas */
-  @media (max-width: 480px) {
-    .card-container {
-      grid-template-columns: 1fr; /* Una tarjeta por fila en pantallas muy pequeñas */
-      justify-content: center;
-    }
-  }
+
 // .card-container {
 //     display: flex; /* Usa flexbox para organizar las tarjetas */
 //     flex-wrap: wrap; /* Permite que las tarjetas se ajusten a nuevas filas */

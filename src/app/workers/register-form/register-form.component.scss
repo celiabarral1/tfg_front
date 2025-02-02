@@ -86,4 +86,18 @@
     border: 1px solid #ccc;
   }
   
-  
+  @media (max-width: 1024px) {
+    .container-form {
+      margin: 0 auto;   /* Centrar el formulario */
+      padding: 2rem;
+      width: 100%;
+    }
+    
+    form {
+      gap: 1rem;
+    }
+    
+    ng-select , input{
+      font-size: 0.75rem;
+    }
+  }

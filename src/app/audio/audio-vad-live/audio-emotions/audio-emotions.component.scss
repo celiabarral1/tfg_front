@@ -14,22 +14,14 @@ section {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
   padding: 20px;              /* Espaciado interno */
   background-color: #ffffff;  /* Fondo blanco */
-  // width: 100%;
-  border: 1px solid #e0e0e0;  /* Borde sutil */
-  border-radius: 12px;        /* Bordes más redondeados */
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra sutil */
-  padding: 20px;              /* Espaciado interno */
-  background-color: #ffffff;  /* Fondo blanco */
 }
 
 .audio-container {
-  width: 75%;
   width: 75%;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   overflow-y: auto;
-  padding-right: 20px;
   padding-right: 20px;
 }
 
@@ -52,30 +44,11 @@ section {
   margin-top: auto;
 }
 
-button {
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
 //   gap: 15px;
 //   justify-content: flex-start;
 //   margin-top: auto;
 // }
-
-button {
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
 
 
 .emotions-container {
@@ -225,4 +198,23 @@ button {
 }
 .color-valence {
   background-color: #2ecc71; /* Verde */
+}
+
+@media (max-width: 576px) {
+  .audio-container {
+    width: 90%;
+  }
+
+  .audio-recording {
+    flex-direction: column;
+  }
+
+  .emotions-container {
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .emotion-item p , .dimension-item p{
+    font-size: 9px;
+  }
 }

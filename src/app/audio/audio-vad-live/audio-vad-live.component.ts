@@ -161,7 +161,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       container: this.waveformRef.nativeElement,
       waveColor: 'rgb(97, 80, 234)' ,
       progressColor: 'rgb(100, 0, 100)',
-      height: this.getWaveformHeight(),
+      height: 200,
     });
   
     this.audio = this.waveSurfer.registerPlugin(

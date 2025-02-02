@@ -1,3 +1,9 @@
 .container-fluid {
     margin: 3em;
 }
+
+@media (max-width: 2048px) {
+    .container-fluid {
+        margin: 3em 2em;
+    }
+}

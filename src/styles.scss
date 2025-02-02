@@ -40,33 +40,6 @@ html, body {
   color: #353535;
 }
 
-
-// body {
-//     margin: 0; /* Elimina márgenes predeterminados */
-//     padding: 0; /* Elimina relleno predeterminado */
-//     height: 100vh; /* Establece la altura al 100% del viewport */
-//     background: var(--background-color);
-    
-//     // background: #fae8e6;
-//     font-family: Arial, sans-serif; /* Fuente predeterminada para la app */
-//     font-size: 22px;
-//     color: #353535;
-//   }
-
-
-// body {
-//     margin: 0; /* Elimina márgenes predeterminados */
-//     padding: 0; /* Elimina relleno predeterminado */
-//     height: 100vh; /* Establece la altura al 100% del viewport */
-//     background: var(--background-color);
-    
-//     // background: #fae8e6;
-//     font-family: Arial, sans-serif; /* Fuente predeterminada para la app */
-//     font-size: 22px;
-//     color: #353535;
-//   }
-
-
 h2 , h3, h4 {
     font-family: "fontSans", sans-serif;
     letter-spacing: 0.05em;
@@ -78,66 +51,19 @@ main {
   flex-grow: 1; /* Asegura que main ocupe el espacio disponible */
 }
 
-main {
-  flex-grow: 1; /* Asegura que main ocupe el espacio disponible */
-}
-
-/* Asegura que el botón se mantenga alineado con los radio buttons */
-
-// button {
-//     font-family: 'FraktionMono',monospace ;
-//     text-transform: uppercase;
-//     font-size: 14px;
-//     letter-spacing: 0.05em;
-//     background-color: #555;
-//     color: white;
-//     cursor: pointer;
-//     transition: background-color 0.3s ease;
-//     align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
-//     padding: 10px 20px;
-//     border: none;
-//     border-radius: 5px;
-//     box-sizing: border-box;
-//     transition: border-color 0.3s ease;
-//   }
-  
-//   button:hover {
-//     background-color: #666;
-//   }
-
-// button {
-//     font-family: 'FraktionMono',monospace ;
-//     text-transform: uppercase;
-//     font-size: 14px;
-//     letter-spacing: 0.05em;
-//     background-color: #555;
-//     color: white;
-//     cursor: pointer;
-//     transition: background-color 0.3s ease;
-//     align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
-//     padding: 10px 20px;
-//     border: none;
-//     border-radius: 5px;
-//     box-sizing: border-box;
-//     transition: border-color 0.3s ease;
-//   }
-  
-//   button:hover {
-//     background-color: #666;
-//   }
 
 /* Definir la clase btn-form */
 .btn-form {
     font-family: 'FraktionMono',monospace ;
     text-transform: uppercase;
-    font-size: clamp(14px, 4vw, 20px); 
+    font-size: 14px; 
     letter-spacing: 0.05em;
     background-color: #555;
     color: white;
     cursor: pointer;
     transition: background-color 0.3s ease;
     align-self: flex-start; /* Alinea el botón con el inicio de los elementos */
-    padding: clamp(10px, 3vw, 15px) clamp(20px, 5vw, 30px);
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     box-sizing: border-box;
@@ -174,6 +100,16 @@ main {
   color: var(--background-color);
 }
 
+.btn-initial:disabled {
+  pointer-events: none; /* Desactiva la interacción con el botón */
+  opacity: 0.7; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
+  background-color: #D1D1D1;
+}
+
+.btn-initial:disabled:hover {
+  background-color: inherit; /* Mantiene el color de fondo igual en hover */
+  cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
+}
 /* Definir la clase btn-secondary */
 .btn-secondary {
   font-family: 'FraktionMono', monospace;
@@ -195,6 +131,17 @@ main {
   background-color: #876AF1; /* Color de fondo al pasar el ratón */
   color: var(--background-color);
 }
+
+.btn-secondary:disabled {
+  pointer-events: none; /* Desactiva la interacción con el botón */
+  opacity: 0.5; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
+}
+
+.btn-secondary:disabled:hover {
+  background-color: inherit; /* Mantiene el color de fondo igual en hover */
+  cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
+}
+
 
 /* Estilo para el input tipo file */
 input[type="file"] {
@@ -226,3 +173,49 @@ input[type="file"]:hover {
 input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
+
+@media (max-width: 768px) { 
+  .btn-initial {
+    font-size: 12px;
+    padding: 10px 25px;
+    border: 2px solid var(--primary-color);
+  }
+
+  .btn-form {
+    font-size: 8px;
+    padding: 5px 10px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  h4 {
+    font-size: 16px;
+  }
+}
+
+
+@media (max-width: 1024px) { 
+  .btn-secondary {
+    font-family: 'FraktionMono', monospace;
+    text-transform: uppercase;
+    font-size: 8px;
+    color: var(--primary-color);
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    padding: 5px 15px;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, color 0.2s ease;
+  }
+
+}
+
+

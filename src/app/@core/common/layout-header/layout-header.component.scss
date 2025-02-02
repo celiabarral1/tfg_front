@@ -1,133 +1,62 @@
-/* Contenedor principal */
 .menu-container {
   display: flex;
-  justify-content: space-between; /* Alinea los elementos a los extremos */
-  align-items: center; /* Alinea verticalmente */
-  padding: 0 1rem; /* Espaciado lateral */
+  justify-content: space-between;
+  padding: 2rem; /* 10px se ha convertido en rem */
+  margin: 0 5rem;
 }
 
+  .logo-image {
+    width: 15rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
+  }
 
+
+/* Menú de navegación */
 .menu {
-  display: flex;             /* Habilita el uso de flexbox */
-  justify-content: center;   /* Centra los elementos horizontalmente */
-  align-items: center;       /* Centra los elementos verticalmente */
-  margin-top: 40px;
-  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 3rem; /* 20px se ha convertido en rem (20px / 16px base = 1.25rem) */
+  // margin-top: 2rem;
 }
 
 .menu a {
   font-family: 'FraktionMono',monospace ;
   text-transform: uppercase;
-  font-size: 18px;
-  margin: 0 15px;
+  font-size: 1rem; /* Tamaño de texto relativo */
 }
 
-.logo-container {
-  margin-left: 10%;
-  
-  margin-top: 40px;
- 
-}
-
-.logo-image {
-  width: 300px; /* Ajusta el tamaño del logo (más pequeño) */
-  height: auto; /* Mantiene la relación de aspecto */
-}
-
-.login{
-  margin-top: 2%;
-  margin-right: 10%;
-}
-
+/* Estilo para el botón hamburguesa */
 .hamburger-menu {
-  display: none; /* Ocultamos el botón por defecto */
+  display: none;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  width: 30px;
-  height: 25px;
-  background: none;
-  border: none;
-  cursor: pointer;
+  gap: 0.3125rem; /* 5px se ha convertido en rem (5px / 16px base = 0.3125rem) */
 }
 
 .hamburger-menu .bar {
-  width: 30px;
-  height: 4px;
-  background-color: black;
-  border-radius: 5px;
+  width: 1.875rem; /* 30px se ha convertido en rem (30px / 16px base = 1.875rem) */
+  height: 0.25rem; /* 4px se ha convertido en rem (4px / 16px base = 0.25rem) */
+  background-color: white;
 }
 
-/* Media Query para móviles */
-@media (max-width: 576px) {
-  .hamburger-menu {
-    display: flex; /* Muestra el botón en pantallas pequeñas */
-  }
+/* Para pantallas pequeñas */
+@media (max-width: 1024px) { /* 768px se ha convertido en rem (768px / 16px base = 48rem) */
   .menu {
-    flex-direction: column; /* Coloca el menú en columna para pantallas pequeñas */
-    align-items: flex-start; /* Alinea los elementos a la izquierda */
+    display: none; /* Ocultar menú en pantallas pequeñas */
+  }
+  
+  .menu-container{
+    padding:0.5rem;
+    margin: 0 auto;
   }
 
-  .menu a {
-    font-size: 1.2rem; /* Aumenta ligeramente el tamaño del texto */
-    margin: 0.5rem 0; /* Reduce el espacio entre los elementos del menú */
-  }
-
-  .logo-container {
-    margin-left: 0;
-    margin-top: 20px;
-    text-align: center; /* Centra el logo en pantallas pequeñas */
+  .hamburger-menu {
+    display: flex; /* Mostrar el menú hamburguesa */
   }
 
   .logo-image {
-    width: 70%; /* Hace el logo más pequeño en pantallas pequeñas */
-    max-width: 250px;
+    width: 5rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
   }
 
-  .login {
-    margin-top: 2%;
-    margin-right: 0;
+  .menu-container.active .menu {
+    display: block; /* Mostrar menú cuando se activa el hamburguesa */
   }
 }
-
-/* Media Query para tablets */
-@media (max-width: 768px) {
-  .hamburger-menu {
-    display: flex; /* Muestra el botón en pantallas pequeñas */
-  }
-
-  .menu {
-    display: none; /* Oculta el menú por defecto */
-    flex-direction: column;
-    width: 100%;
-    align-items: flex-start;
-  }
-
-  .menu a {
-    font-size: 1.2rem;
-    margin: 1rem 0; /* Reduce el margen entre los elementos */
-  }
-
-  .logo-container {
-    margin-left: 0;
-    margin-top: 20px;
-    text-align: center;
-  }
-
-  .logo-image {
-    width: 70%;
-    max-width: 250px;
-  }
-
-  .login {
-    margin-top: 2%;
-    margin-right: 0;
-  }
-
-  .menu.show {
-    display: flex; /* Muestra el menú cuando la clase "show" esté activa */
-  }
-}
-
-
-

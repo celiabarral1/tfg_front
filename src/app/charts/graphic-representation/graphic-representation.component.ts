@@ -49,7 +49,6 @@ export class GraphicRepresentationComponent  implements OnInit {
       return;
     }
 
-    // Usar CsvGestor para descargar los datos
     CsvGestor.downloadCsv(this.graphData,'data_emotions');
   }
 

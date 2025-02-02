@@ -20,7 +20,6 @@ div[class^="emotions"] {
   display: flex;
   align-items: center;
   justify-content: space-between; /* Distribuye los elementos de la izquierda y derecha */
-  width: calc(100% - 80px); /* Ajusta el ancho para compensar el padding (20px a cada lado) */
   gap: 40px;
   background-color: var(--soft-gray-color);
   border-radius: 40px;
@@ -37,15 +36,6 @@ div[class^="emotions"] {
   gap: 10px;
 }
 
-.btn-secondary:disabled {
-  pointer-events: none; /* Desactiva la interacción con el botón */
-  opacity: 0.5; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
-}
-
-.btn-secondary:disabled:hover {
-  background-color: inherit; /* Mantiene el color de fondo igual en hover */
-  cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
-}
 
 .btn-secondary{
   margin-right: 100px;
@@ -86,11 +76,12 @@ justify-content: space-between; /* Distribuye el espacio entre el título, graba
 align-items: center; /* Alinea verticalmente los elementos */
 }
 
-@media screen and (max-width: 1024px) {
+@media (max-width: 1024px) {
   .main-info {
     flex-direction: column;
     justify-content: center; /* Distribuye los elementos de la izquierda y derecha */
-    width: calc(100% - 80px); /* Ajusta el ancho para compensar el padding (20px a cada lado) */
+    text-justify: distribute;
+    align-content: center;
     gap: 5px;
     background-color: var(--soft-gray-color);
     border-radius: 40px;
@@ -101,12 +92,19 @@ align-items: center; /* Alinea verticalmente los elementos */
     width: 100%;
     // height: 50vh;
   }
-  h1{
-    font-size: 20px;
+
+  .buttons {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    align-items: center; /* Centra los botones verticalmente */
+    margin-bottom: 0px;
+    align-items: center;
   }
-  .btn-initial {
-    padding: 5px;
+
+  .btn-secondary {
+    margin-right: 0;
   }
+
   .left-container{
     width: 90%; /* Asegura que ambos contenedores ocupen el 90% del ancho */
     margin-bottom: 20px; /* Separar los contenedores */

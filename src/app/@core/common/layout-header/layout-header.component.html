@@ -4,11 +4,6 @@
       <img src="img/logo_white.png" alt="WebEmotions Logo" class="logo-image">
     </a>
   </div>
-  <button class="hamburger-menu" (click)="toggleMenu()">
-    <span class="bar"></span>
-    <span class="bar"></span>
-    <span class="bar"></span>
-  </button>
 
   <mat-toolbar *ngIf="!isLoginPage" class="menu">
     <a mat-button routerLink="/representation">Representación</a>
@@ -17,14 +12,12 @@
     <a mat-button routerLink="/csv">CSV</a>
     <a mat-button routerLink="/register">Trabajadores</a>
   </mat-toolbar>
-  
 
-  <div *ngIf="!isLoggedIn && !isLoginPage && !menuOpen" class="login">
+  <div *ngIf="!isLoggedIn && !isLoginPage" class="login">
     <button class="btn-secondary" routerLink="/login">Login</button>
   </div>
 
-  <div *ngIf="isLoggedIn && !isLoginPage" class="login" >
+  <div *ngIf="isLoggedIn && !isLoginPage" class="login">
     <button class="btn-secondary" (click)="logout()">Logout</button>
   </div>
-
 </div>

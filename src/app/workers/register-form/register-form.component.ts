@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from '../model/employee';
 import { EmployeeService } from '../employee.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-register-form',
@@ -58,14 +59,28 @@ export class RegisterFormComponent implements OnInit{
 
       this.employeeService.insertEmployee(employeeToInsert).subscribe(
         (response) => {
-          console.log('Employee registered successfully:', response);  // Cambia Worker a Employee
+          console.log('Employee registered successfully:', response);  
+          Swal.fire({
+            icon: 'success',
+            title: 'Alta completada',
+            text: 'Trabajador dado de alta en WebEmotions.',
+            confirmButtonText: 'Aceptar'
+          });
+          this.registerForm.reset();
         },
         (error) => {
-          console.error('Error registering employee:', error);  // Cambia Worker a Employee
+          console.error('Error registering employee:', error);  
         }
       );
     } else {
       console.log('Formulario inválido');
+      Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'Hubo un problema al dar de alta al usuario. Intenta nuevamente.',
+                confirmButtonText: 'Aceptar'
+      });
+      this.registerForm.reset();
     }
   }
 
