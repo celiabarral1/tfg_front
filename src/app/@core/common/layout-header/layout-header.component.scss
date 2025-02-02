@@ -4,8 +4,6 @@
   justify-content: space-between; /* Alinea los elementos a los extremos */
   align-items: center; /* Alinea verticalmente */
   padding: 0 1rem; /* Espaciado lateral */
-  
-  
 }
 
 
@@ -40,3 +38,96 @@
   margin-top: 2%;
   margin-right: 10%;
 }
+
+.hamburger-menu {
+  display: none; /* Ocultamos el botón por defecto */
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 30px;
+  height: 25px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-menu .bar {
+  width: 30px;
+  height: 4px;
+  background-color: black;
+  border-radius: 5px;
+}
+
+/* Media Query para móviles */
+@media (max-width: 576px) {
+  .hamburger-menu {
+    display: flex; /* Muestra el botón en pantallas pequeñas */
+  }
+  .menu {
+    flex-direction: column; /* Coloca el menú en columna para pantallas pequeñas */
+    align-items: flex-start; /* Alinea los elementos a la izquierda */
+  }
+
+  .menu a {
+    font-size: 1.2rem; /* Aumenta ligeramente el tamaño del texto */
+    margin: 0.5rem 0; /* Reduce el espacio entre los elementos del menú */
+  }
+
+  .logo-container {
+    margin-left: 0;
+    margin-top: 20px;
+    text-align: center; /* Centra el logo en pantallas pequeñas */
+  }
+
+  .logo-image {
+    width: 70%; /* Hace el logo más pequeño en pantallas pequeñas */
+    max-width: 250px;
+  }
+
+  .login {
+    margin-top: 2%;
+    margin-right: 0;
+  }
+}
+
+/* Media Query para tablets */
+@media (max-width: 768px) {
+  .hamburger-menu {
+    display: flex; /* Muestra el botón en pantallas pequeñas */
+  }
+
+  .menu {
+    display: none; /* Oculta el menú por defecto */
+    flex-direction: column;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .menu a {
+    font-size: 1.2rem;
+    margin: 1rem 0; /* Reduce el margen entre los elementos */
+  }
+
+  .logo-container {
+    margin-left: 0;
+    margin-top: 20px;
+    text-align: center;
+  }
+
+  .logo-image {
+    width: 70%;
+    max-width: 250px;
+  }
+
+  .login {
+    margin-top: 2%;
+    margin-right: 0;
+  }
+
+  .menu.show {
+    display: flex; /* Muestra el menú cuando la clase "show" esté activa */
+  }
+}
+
+
+

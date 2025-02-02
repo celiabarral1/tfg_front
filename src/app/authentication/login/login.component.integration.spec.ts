@@ -1,53 +1,67 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { ReactiveFormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
-import { of, throwError } from 'rxjs';
+import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { AuthService } from '../auth-services';
-import { LoginComponent } from './login.component';
+import { ApiConfigService } from '../../@core/common/api/api-config.service';
 
-describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-  let authService: jasmine.SpyObj<AuthService>;
-  let router: jasmine.SpyObj<Router>;
 
-  beforeEach(async () => {
-    const authServiceSpy = jasmine.createSpyObj('AuthService', ['login']);
-    const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
+describe('Gestión de Sesión - Integración', () => {
+  let authService: AuthService;
+  let httpMock: HttpTestingController;
+  let apiUrl: string;
 
-    await TestBed.configureTestingModule({
-      declarations: [LoginComponent],
-      imports: [ReactiveFormsModule],
-      providers: [
-        { provide: AuthService, useValue: authServiceSpy },
-        { provide: Router, useValue: routerSpy }
-      ]
-    }).compileComponents();
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [AuthService, ApiConfigService]
+    });
 
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    authService = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
-    router = TestBed.inject(Router) as jasmine.SpyObj<Router>;
-    fixture.detectChanges();
+    authService = TestBed.inject(AuthService);
+    httpMock = TestBed.inject(HttpTestingController);
+    apiUrl = TestBed.inject(ApiConfigService).getApiUrl();
   });
 
-  it('podría iniciar sesión', () => {
-    component.loginForm.setValue({ username: 'user', password: 'password' });
-    authService.login.and.returnValue(of({ access_token: 'fake-token' }));
-
-    component.onSubmit();
-
-    expect(authService.login).toHaveBeenCalledWith('user', 'password');
-    expect(router.navigate).toHaveBeenCalledWith(['/']);
+  afterEach(() => {
+    httpMock.verify();
+    localStorage.clear();
   });
 
-  it('no puede iniciar sesión', () => {
-    component.loginForm.setValue({ username: 'user', password: 'password' });
-    authService.login.and.returnValue(throwError(() => new Error('Error de autenticación')));
+  it('usuario inicia sesión y se recibe token', () => {
+    const mockResponse = { access_token: 'token' };
 
-    component.onSubmit();
+    authService.login('101', 'password1').subscribe(response => {
+      expect(response.access_token).toBe(mockResponse.access_token);
+      expect(localStorage.getItem('access_token')).toBe(mockResponse.access_token);
+    });
 
-    expect(authService.login).toHaveBeenCalledWith('user', 'password');
-    expect(component.errorMessage).toBe('Usuario o contraseña incorrectos.');
+    const req = httpMock.expectOne(`${apiUrl}/login`);
+    expect(req.request.method).toBe('POST');
+    req.flush(mockResponse);
   });
+
+  it('comprobar token y rol', () => {
+    const token = btoa(JSON.stringify({ sub: { username: '101', role: 'operator' } }));
+    const jwt = `header.${token}.signature`;
+    localStorage.setItem('access_token', jwt);
+
+    const user = authService.getUserFromToken(jwt);
+    expect(user.username).toBe('101');
+    expect(user.role).toBe('operator');
+  });
+
+  it('usuario no inicia sesión con credenciales incorrectas', () => {
+      const mockErrorResponse = { status: 401, statusText: 'Unauthorized' };
+  
+      authService.login('user', 'wrongpassword').subscribe({
+        next: () => fail('Debe fallar con credenciales incorrectas'),
+        error: (error) => {
+          expect(error.status).toBe(401);
+          expect(error.statusText).toBe('Unauthorized');
+        }
+      });
+  
+      const req = httpMock.expectOne(`${apiUrl}/login`);
+      expect(req.request.method).toBe('POST');
+      req.flush({ msg: 'Invalid credentials' }, mockErrorResponse);
+    });
+
 });

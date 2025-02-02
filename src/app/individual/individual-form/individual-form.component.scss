@@ -97,15 +97,17 @@ input:disabled {
 @media screen and (min-width: 600px) and (max-width: 1780px) {
   .container-form {
   padding:1rem;
+  width: 80%;
   }
 
   .row:nth-child(2), .row:nth-child(3) {
     grid-template-columns: 1fr !important; 
   }
+  
   input, ng-select {
     padding: 0.5rem; 
     line-height: 1.2; 
-    font-size: 0.9rem;
+    font-size: 0.6rem;
   }
   .btn-initial:first-of-type {
     margin-top: 0;

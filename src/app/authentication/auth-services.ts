@@ -55,6 +55,8 @@ export class AuthService {
   getUserFromToken(token: string): User {
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
+      
+      console.log(payload.sub.username,payload.sub.role )
       return { username: payload.sub.username, role: payload.sub.role };
     } catch (e) {
       console.error('Error decoding token:', e);

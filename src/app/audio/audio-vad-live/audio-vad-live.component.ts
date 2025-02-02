@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild, Inject, OnDestroy, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, Inject, OnDestroy, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
 import { AudioService } from '../audio.service';
@@ -22,7 +22,7 @@ import { AuthService } from '../../authentication/auth-services';
   styleUrl: './audio-vad-live.component.scss'
 })
 
-export class AudioVadLiveComponent implements OnInit, OnDestroy {
+export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   /**
    * Propiedad que representa el elemento del HTML que contiene la onda que se visualiza en tiempo real. 
    */
@@ -119,13 +119,19 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private cdr: ChangeDetectorRef
   ) {}
+  ngAfterViewInit(): void {
+    if (this.waveformRef && this.waveformRef.nativeElement) {
+      this.createWaveSurfer();
+      // window.addEventListener('resize', this.updateWaveformSize.bind(this));
+    }
+  }
 
   /**
    * Cuando se inicializa el componente, se crea la onda de audio en tiempo real
    * y se verifica si el usuario tiene un rol adecuado.
    */
   ngOnInit(): void {
-    this.createWaveSurfer();
+    // this.createWaveSurfer();
     this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
   }
 
@@ -155,7 +161,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       container: this.waveformRef.nativeElement,
       waveColor: 'rgb(97, 80, 234)' ,
       progressColor: 'rgb(100, 0, 100)',
-      height: 500,// Para hacerlo responsivo si es necesario
+      height: this.getWaveformHeight(),
     });
   
     this.audio = this.waveSurfer.registerPlugin(
@@ -186,6 +192,13 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy {
       console.log('WaveSurfer destruido.');
     }
   }
+  getWaveformHeight(): number {
+    const windowHeight = window.innerHeight;
+    // Puedes ajustar este valor según tus necesidades (ejemplo: 20% de la altura de la pantalla)
+    return windowHeight * 0.3;  // 30% del alto de la pantalla
+  }
+
+
   
   /**
    * Se encarga de cerrar bien todo lo relacionado con la capturación de audio mediante

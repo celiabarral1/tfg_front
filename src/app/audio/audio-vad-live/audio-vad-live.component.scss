@@ -27,6 +27,7 @@ div[class^="emotions"] {
   margin-bottom: 100px;
   padding: 20px; /* Agrega el padding deseado */
   box-sizing: border-box; /* Asegura que el padding no agrande el contenedor */
+  overflow: hidden;
 }
 
 .buttons {
@@ -83,4 +84,45 @@ p {
 display: flex;
 justify-content: space-between; /* Distribuye el espacio entre el título, grabaciones y botón */
 align-items: center; /* Alinea verticalmente los elementos */
+}
+
+@media screen and (max-width: 1024px) {
+  .main-info {
+    flex-direction: column;
+    justify-content: center; /* Distribuye los elementos de la izquierda y derecha */
+    width: calc(100% - 80px); /* Ajusta el ancho para compensar el padding (20px a cada lado) */
+    gap: 5px;
+    background-color: var(--soft-gray-color);
+    border-radius: 40px;
+    margin-bottom: 100px;
+    padding: 0; /* Agrega el padding deseado */
+    box-sizing: border-box; /* Asegura que el padding no agrande el contenedor */
+    overflow: hidden;
+    width: 100%;
+    // height: 50vh;
+  }
+  h1{
+    font-size: 20px;
+  }
+  .btn-initial {
+    padding: 5px;
+  }
+  .left-container{
+    width: 90%; /* Asegura que ambos contenedores ocupen el 90% del ancho */
+    margin-bottom: 20px; /* Separar los contenedores */
+  }
+  .right-container {
+    width: 90%; /* Asegura que ambos contenedores ocupen el 90% del ancho */
+    margin-bottom: 20px; /* Separar los contenedores */
+    margin-left:0;
+    margin-right: 0;
+  }
+  
+  .right-container {
+    order: 2; /* Asegura que el right-container esté debajo de left-container */
+  }
+
+  .buttons {
+    margin-top: 0;
+  }
 }

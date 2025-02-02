@@ -22,6 +22,8 @@ export class LayoutHeaderComponent implements OnInit {
    */
   isLoginPage: boolean = false;
 
+  menuOpen = false;
+
   /**
    * Constructor.
    * @param authService servicio que gestiona el estado de sesión del usuario.
@@ -50,5 +52,9 @@ export class LayoutHeaderComponent implements OnInit {
     this.authService.logout();
     this.isLoggedIn = false;
     this.router.navigate(['/']);
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 }

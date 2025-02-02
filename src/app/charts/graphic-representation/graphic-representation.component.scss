@@ -1,226 +1,307 @@
-.individual-container {
-    display: flex; /* Activa el diseño en línea con Flexbox */
-    align-items: flex-start; /* Alinea los elementos al inicio del eje vertical */
-    gap: 1rem; /* Espacio entre el formulario y los gráficos */
-    padding: 1rem; /* Espaciado interno para el contenedor */
-  }
+// .individual-container {
+//     display: flex; /* Activa el diseño en línea con Flexbox */
+//     align-items: flex-start; /* Alinea los elementos al inicio del eje vertical */
+//     gap: 1rem; /* Espacio entre el formulario y los gráficos */
+//     padding: 1rem; /* Espaciado interno para el contenedor */
+//   }
   
-  .form {
-    flex: 1; /* Ocupa una parte del espacio disponible */
-    max-width: 30%; /* Limita el ancho máximo del formulario */
-    background-color: #f9f9f9; /* Color de fondo para diferenciar */
-    padding: 1rem; /* Espaciado interno */
-    border: 1px solid #ddd; /* Borde para separar visualmente */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
-  }
+//   .form {
+//     flex: 1; /* Ocupa una parte del espacio disponible */
+//     max-width: 30%; /* Limita el ancho máximo del formulario */
+//     background-color: #f9f9f9; /* Color de fondo para diferenciar */
+//     padding: 1rem; /* Espaciado interno */
+//     border: 1px solid #ddd; /* Borde para separar visualmente */
+//     border-radius: 8px; /* Bordes redondeados */
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+//   }
   
-  .charts {
-    flex: 2; /* Ocupa dos partes del espacio disponible */
-    height: fit-content;
-    max-width: 70%; /* Limita el ancho máximo de los gráficos */
-    background-color: #fff; /* Color de fondo */
-    padding: 1rem; /* Espaciado interno */
-    border: 3px solid var(--soft-gray-color) ; /* Borde */
-    border-radius: 8px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-  }
+//   .charts {
+//     flex: 2; /* Ocupa dos partes del espacio disponible */
+//     height: fit-content;
+//     max-width: 70%; /* Limita el ancho máximo de los gráficos */
+//     background-color: #fff; /* Color de fondo */
+//     padding: 1rem; /* Espaciado interno */
+//     border: 3px solid var(--soft-gray-color) ; /* Borde */
+//     border-radius: 8px; /* Bordes redondeados */
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
+//   }
   
-  .canvas-container {
-    display: flex;
-    flex-direction: column; /* Coloca los gráficos uno debajo del otro */
-    gap: 1rem; /* Espacio entre los gráficos */
-  }
+//   .canvas-container {
+//     display: flex;
+//     flex-direction: column; /* Coloca los gráficos uno debajo del otro */
+//     gap: 1rem; /* Espacio entre los gráficos */
+//   }
   
-  .container-categoric {
-    flex: 1; /* El gráfico categoric ocupa el espacio disponible */
-  }
+//   .container-categoric {
+//     flex: 1; /* El gráfico categoric ocupa el espacio disponible */
+//   }
   
-  .container-accumulated {
-    flex: 0 0 50%; /* El gráfico accumulated ocupa el 50% del espacio disponible */
-    max-height: 300px; /* Limita la altura del gráfico accumulated */
-  }
+//   .container-accumulated {
+//     flex: 0 0 50%; /* El gráfico accumulated ocupa el 50% del espacio disponible */
+//     max-height: 300px; /* Limita la altura del gráfico accumulated */
+//   }
   
-  canvas {
-    width: 100%; /* El canvas ocupa todo el espacio disponible */
-    height: auto; /* Mantiene la proporción */
-  }
+//   canvas {
+//     width: 100%; /* El canvas ocupa todo el espacio disponible */
+//     height: auto; /* Mantiene la proporción */
+//   }
   
-  .cards-container {
-    display: flex;
-    flex-direction: row; /* Alineación vertical */
-    justify-content: center; /* Centrar horizontalmente */
-    align-items: center; /* Centrar verticalmente */
-    gap: 60px; /* Espaciado entre tarjetas */
-    margin: 100px 200px;
-    padding: 50px;
-    border: 5px solid var(--primary-color);
-    background-color: rgba(97, 80, 234, 0.1);
-    border-radius: 50px;
-}
+//   .cards-container {
+//     display: flex;
+//     flex-direction: row; /* Alineación vertical */
+//     justify-content: center; /* Centrar horizontalmente */
+//     align-items: center; /* Centrar verticalmente */
+//     gap: 60px; /* Espaciado entre tarjetas */
+//     margin: 100px 200px;
+//     padding: 50px;
+//     border: 5px solid var(--primary-color);
+//     background-color: rgba(97, 80, 234, 0.1);
+//     border-radius: 50px;
+// }
 
-.custom-card {
-    width: 40%; /* 75% del ancho de la ventana */
-    height: 60vh; /* 30% de la altura de la ventana */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Espaciado entre los elementos */
-    align-items: center; /* Centrar contenido horizontalmente */
-    border: 3px solid var(--primary-color);
-    border-radius: 40px; /* Bordes redondeados */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
-    background-color: var(--background-color);
-    overflow: hidden; /* Ocultar contenido que sobresalga */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
-    cursor: pointer;
-    padding: 1%;
-}
+// .custom-card {
+//     width: 40%; /* 75% del ancho de la ventana */
+//     height: 60vh; /* 30% de la altura de la ventana */
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between; /* Espaciado entre los elementos */
+//     align-items: center; /* Centrar contenido horizontalmente */
+//     border: 3px solid var(--primary-color);
+//     border-radius: 40px; /* Bordes redondeados */
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+//     background-color: var(--background-color);
+//     overflow: hidden; /* Ocultar contenido que sobresalga */
+//     transition: transform 0.3s ease, box-shadow 0.3s ease; /* Animaciones suaves */
+//     cursor: pointer;
+//     padding: 1%;
+// }
 
-h2 {
-  color: var(--primary-color);
-}
+// h2 {
+//   color: var(--primary-color);
+// }
 
-.custom-card:nth-child(1) {
-  align-self: flex-start; /* Alinear la primera tarjeta a la izquierda */
-}
+// .custom-card:nth-child(1) {
+//   align-self: flex-start; /* Alinear la primera tarjeta a la izquierda */
+// }
 
-.custom-card:nth-child(2) {
-  align-self: flex-end; /* Alinear la segunda tarjeta a la derecha */
-  margin-top: 30vh; /* Ajustar este valor según sea necesario */
-}
+// .custom-card:nth-child(2) {
+//   align-self: flex-end; /* Alinear la segunda tarjeta a la derecha */
+//   margin-top: 30vh; /* Ajustar este valor según sea necesario */
+// }
 
 
-.custom-card:hover {
-    transform: translateY(-5px); /* Efecto de elevación */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
-}
+// .custom-card:hover {
+//     transform: translateY(-5px); /* Efecto de elevación */
+//     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+// }
 
-.card-header {
-    width: 100%;
-    height: 10%; /* O cualquier altura que prefieras */
-    padding: 10px 15px;
-    display: flex; /* Activar flexbox */
-    align-items: center; /* Centrar solo verticalmente */
-    text-align: left; /* Mantiene el texto alineado horizontalmente a la izquierda */
-    font-family: 'FraktionMono', monospace;
-    text-transform: uppercase;
-    font-size: 18px;
-    border-bottom: 1px solid #ddd;
-    margin-left: 25px;
-}
+// .card-header {
+//     width: 100%;
+//     height: 10%; /* O cualquier altura que prefieras */
+//     padding: 10px 15px;
+//     display: flex; /* Activar flexbox */
+//     align-items: center; /* Centrar solo verticalmente */
+//     text-align: left; /* Mantiene el texto alineado horizontalmente a la izquierda */
+//     font-family: 'FraktionMono', monospace;
+//     text-transform: uppercase;
+//     font-size: 18px;
+//     border-bottom: 1px solid #ddd;
+//     margin-left: 25px;
+// }
 
-.card-content {
-    flex: 1; /* Ocupa el espacio restante */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 15px; /* Espaciado interno */
-    text-align: center;
-    font-size: 14px; /* Tamaño de fuente del texto */
-}
+// .card-content {
+//     flex: 1; /* Ocupa el espacio restante */
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     justify-content: center;
+//     padding: 15px; /* Espaciado interno */
+//     text-align: center;
+//     font-size: 14px; /* Tamaño de fuente del texto */
+// }
 
-.card-content img {
-    width: 80%; /* Imagen más pequeña */
-    height: auto; /* Mantener proporción */
-    margin-bottom: 20px; /* Espaciado inferior */
-}
+// .card-content img {
+//     width: 80%; /* Imagen más pequeña */
+//     height: auto; /* Mantener proporción */
+//     margin-bottom: 20px; /* Espaciado inferior */
+// }
 
-.card-content p {
-    margin: 0;
-    line-height: 1.5; /* Espaciado entre líneas */
-}
+// .card-content p {
+//     margin: 0;
+//     line-height: 1.5; /* Espaciado entre líneas */
+// }
 
-.card-bottom {
-  align-self: flex-end; 
-}
+// .card-bottom {
+//   align-self: flex-end; 
+// }
   
-  .tabs-container {
-    margin-top: 20px; /* Espacio superior para las tabs */
-    display: flex;
-    justify-content: center; /* Centra las tabs en el contenedor */
-    // background-color: var(--soft-gray-color);
-  }
+//   .tabs-container {
+//     margin-top: 20px; /* Espacio superior para las tabs */
+//     display: flex;
+//     justify-content: center; /* Centra las tabs en el contenedor */
+//     // background-color: var(--soft-gray-color);
+//   }
   
-  .tabs {
-    display: flex; /* Utiliza flexbox para alinearlos en fila */
-    justify-content: space-around; /* Distribuye el espacio entre los botones */
-    width: 30%;
-  }
+//   .tabs {
+//     display: flex; /* Utiliza flexbox para alinearlos en fila */
+//     justify-content: space-around; /* Distribuye el espacio entre los botones */
+//     width: 30%;
+//   }
   
-  .tab {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #f0f0f0;
-    border: 2px var(--dark-gray-color);
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    flex: 1; /* Esto hace que las tabs ocupen el mismo espacio */
-    margin: 20px 0;
-  }
+//   .tab {
+//     padding: 10px 20px;
+//     font-size: 16px;
+//     cursor: pointer;
+//     background-color: #f0f0f0;
+//     border: 2px var(--dark-gray-color);
+//     border-radius: 4px;
+//     transition: background-color 0.3s;
+//     flex: 1; /* Esto hace que las tabs ocupen el mismo espacio */
+//     margin: 20px 0;
+//   }
   
-  .tab:hover {
-    background-color: #ddd;
-  }
+//   .tab:hover {
+//     background-color: #ddd;
+//   }
   
-  .tab.active {
-    background-color: var(--primary-color); /* Color activo */
-    color: white;
-  }
+//   .tab.active {
+//     background-color: var(--primary-color); /* Color activo */
+//     color: white;
+//   }
   
-  .graphic-representation {
-    display: flex;
-    justify-content: space-between; /* Alinea los elementos a los extremos */
-    gap: 20px; /* Espacio entre el formulario y los gráficos */
-    padding: 20px;
-    background-color: var(--dark-gray-color);
-  }
+//   .graphic-representation {
+//     display: flex;
+//     justify-content: space-between; /* Alinea los elementos a los extremos */
+//     gap: 20px; /* Espacio entre el formulario y los gráficos */
+//     padding: 20px;
+//     background-color: var(--dark-gray-color);
+//   }
   
-  .graphic-representation .charts {
-    width: 60%; /* Asigna el 70% del espacio para los gráficos */
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    border-radius: 50px;
-  }
+//   .graphic-representation .charts {
+//     width: 60%; /* Asigna el 70% del espacio para los gráficos */
+//     display: flex;
+//     flex-direction: column;
+//     gap: 20px;
+//     border-radius: 50px;
+//   }
   
-  .graphic-representation > div {
-    width: 30%; /* Asigna el 30% del espacio para el formulario */
-    display: flex;
-    flex-direction: column;
-    margin: 0 20px;
-  }
+//   .graphic-representation > div {
+//     width: 30%; /* Asigna el 30% del espacio para el formulario */
+//     display: flex;
+//     flex-direction: column;
+//     margin: 0 20px;
+//   }
   
-  .app-individual-form, .app-shift-form {
-    margin-bottom: 20px;
-  }
+//   .app-individual-form, .app-shift-form {
+//     margin-bottom: 20px;
+//   }
   
-  .charts app-dimensional, .charts app-categoric {
-    width: 100%;
-  }
+//   .charts app-dimensional, .charts app-categoric {
+//     width: 100%;
+//   }
   
-  .btn-secondary {
-    position: absolute;  
-  }
+//   .btn-secondary {
+//     position: absolute;  
+//   }
   
-  .btn-secondary:disabled {
-    pointer-events: none; /* Desactiva la interacción con el botón */
-    opacity: 0.5; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
-  }
+//   .btn-secondary:disabled {
+//     pointer-events: none; /* Desactiva la interacción con el botón */
+//     opacity: 0.5; /* Opcional: cambia la opacidad para indicar que está deshabilitado */
+//   }
   
-  .btn-secondary:disabled:hover {
-    background-color: inherit; 
-    cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
-  }
+//   .btn-secondary:disabled:hover {
+//     background-color: inherit; 
+//     cursor: not-allowed; /* Cambia el cursor a uno que indique que no se puede interactuar */
+//   }
   
-  @media screen and (max-width: 600px) {
-    .individual-container {
-      display: flex; /* Activa el diseño en línea con Flexbox */
-      direction: column; /* Espaciado interno para el contenedor */
-    }
+//   @media screen and (max-width: 1024px) {
+//     .individual-container {
+//       display: flex;
+//       flex-direction: column; /* Cambiar a columna para que el formulario esté arriba y los gráficos debajo */
+//       gap: 1rem; /* Espacio entre los elementos */
+//       padding: 1rem; /* Espaciado interno */
+//     }
     
-
+//     .form {
+//       flex: 1; /* Hace que el formulario ocupe todo el espacio disponible */
+//       max-width: 100%; /* Asegura que el formulario ocupe el 100% del ancho disponible */
+//       background-color: #f9f9f9;
+//       padding: 1rem;
+//       border: 1px solid #ddd;
+//       border-radius: 8px;
+//       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     }
     
-  }
+//     .charts {
+//       flex: 1; /* Hace que los gráficos ocupen todo el espacio disponible */
+//       max-width: 100%; /* Asegura que los gráficos ocupen el 100% del ancho disponible */
+//       height: auto;
+//       background-color: #fff;
+//       padding: 1rem;
+//       border: 3px solid var(--soft-gray-color);
+//       border-radius: 8px;
+//       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+//     }
+    
+//     .canvas-container {
+//       display: flex;
+//       flex-direction: column; /* Coloca los gráficos uno debajo del otro */
+//       gap: 1rem; /* Espacio entre los gráficos */
+//     }
+  
+//     .container-categoric, .container-accumulated {
+//       width: 100%; /* Los gráficos ocupan el 100% del ancho disponible */
+//       height: auto; /* Mantiene la proporción de los gráficos */
+//     }
+    
+//     .tabs-container {
+//       margin-top: 20px; /* Espacio superior para las tabs */
+//       display: flex;
+//       justify-content: center; /* Centra las tabs en el contenedor */
+//     }
+    
+//     .tabs {
+//       display: flex; /* Utiliza flexbox para alinearlos en fila */
+//       justify-content: space-around; /* Distribuye el espacio entre los botones */
+//       width: 100%; /* Las tabs ocupan todo el ancho disponible */
+//     }
+    
+//     .tab {
+//       padding: 10px 20px;
+//       font-size: 14px; /* Ajusta el tamaño de la fuente para pantallas pequeñas */
+//       cursor: pointer;
+//       background-color: #f0f0f0;
+//       border: 2px solid var(--dark-gray-color);
+//       border-radius: 4px;
+//       transition: background-color 0.3s;
+//       flex: 1;
+//       margin: 10px 0;
+//     }
+    
+//     .tab.active {
+//       background-color: var(--primary-color);
+//       color: white;
+//     }
+    
+//     .graphic-representation {
+//       flex-direction: column; /* Cambia la dirección a columna en pantallas pequeñas */
+//       gap: 1rem; /* Espacio entre el formulario y los gráficos */
+//       padding: 20px;
+//     }
+    
+//     .btn-secondary {
+//       width: 100%; /* Hace que el botón ocupe todo el ancho disponible */
+//       margin-top: 1rem; /* Espacio encima del botón */
+//     }
+    
+//     .btn-secondary:disabled {
+//       pointer-events: none;
+//       opacity: 0.5;
+//     }
+    
+//     .btn-secondary:disabled:hover {
+//       background-color: inherit;
+//       cursor: not-allowed;
+//     }
+//   }
   
