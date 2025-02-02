@@ -181,7 +181,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
 
     console.log('WaveSurfer creado.');
   }
-  
+   
   /**
    * Destruye la onda de audio.
    */
