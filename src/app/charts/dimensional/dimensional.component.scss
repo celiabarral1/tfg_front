@@ -1,21 +1,21 @@
-/* Contenedor del canvas */
-.canvas-container {
-    display: flex;
-    justify-content: center; /* Centra el canvas horizontalmente */
-    align-items: top; /* Centra el canvas verticalmente */
-    margin: 0px; /* Elimina márgenes extra */
-    padding: 0; /* Elimina el padding extra */
-    box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño del contenedor */
-  }
+// /* Contenedor del canvas */
+// .canvas-container {
+//     display: flex;
+//     justify-content: center; /* Centra el canvas horizontalmente */
+//     align-items: top; /* Centra el canvas verticalmente */
+//     margin: 0px; /* Elimina márgenes extra */
+//     padding: 0; /* Elimina el padding extra */
+//     box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño del contenedor */
+//   }
   
-  /* Estilo para el canvas */
-  .canvas_dimensional {
-    width: 100%; /* Hace que el canvas ocupe todo el ancho disponible */
-    height: auto; /* Hace que el canvas ocupe toda la altura disponible */
-    max-width: 100%; /* Asegura que el canvas no se estire más allá del 100% del contenedor */
-    max-height: 100%; /* Asegura que el canvas no se estire más allá del 100% del contenedor */
-    object-fit: contain; /* Mantiene la proporción del canvas sin distorsionarlo */
-    margin-top: 30px;
+//   /* Estilo para el canvas */
+//   .canvas_dimensional {
+//     width: 100%; /* Hace que el canvas ocupe todo el ancho disponible */
+//     height: auto; /* Hace que el canvas ocupe toda la altura disponible */
+//     max-width: 100%; /* Asegura que el canvas no se estire más allá del 100% del contenedor */
+//     max-height: 100%; /* Asegura que el canvas no se estire más allá del 100% del contenedor */
+//     object-fit: contain; /* Mantiene la proporción del canvas sin distorsionarlo */
+//     margin-top: 30px;
     
-  }
+//   }
   

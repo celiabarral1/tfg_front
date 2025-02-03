@@ -9,7 +9,6 @@ import { authGuard } from './authentication/auth.guard';
 import { RegisterFormComponent } from './workers/register-form/register-form.component';
 import { ShiftRepresentationComponent } from './shift-representation/shift-representation.component';
 import { GraphicRepresentationComponent } from './charts/graphic-representation/graphic-representation.component';
-import { DatePickerComponent } from './shared/date-picker/date-picker.component';
 import { AccessDeniedComponent } from './authentication/access-denied/access-denied.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 
@@ -26,7 +25,6 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent } , 
   { path: 'register', component: RegisterFormComponent, canActivate: [authGuard] },
   { path: 'shift', component: ShiftRepresentationComponent, canActivate: [authGuard] },
-  { path: 'datepicker', component: DatePickerComponent, canActivate: [authGuard] },
   { path: 'access-denied', component: AccessDeniedComponent }
 ];
 

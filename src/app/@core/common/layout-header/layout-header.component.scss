@@ -24,39 +24,50 @@
   font-size: 1rem; /* Tamaño de texto relativo */
 }
 
-/* Estilo para el botón hamburguesa */
-.hamburger-menu {
-  display: none;
-  flex-direction: column;
-  gap: 0.3125rem; /* 5px se ha convertido en rem (5px / 16px base = 0.3125rem) */
-}
 
-.hamburger-menu .bar {
-  width: 1.875rem; /* 30px se ha convertido en rem (30px / 16px base = 1.875rem) */
-  height: 0.25rem; /* 4px se ha convertido en rem (4px / 16px base = 0.25rem) */
-  background-color: white;
-}
 
 /* Para pantallas pequeñas */
 @media (max-width: 1024px) { /* 768px se ha convertido en rem (768px / 16px base = 48rem) */
+
   .menu {
-    display: none; /* Ocultar menú en pantallas pequeñas */
+    gap:0px;
   }
-  
   .menu-container{
     padding:0.5rem;
-    margin: 0 auto;
-  }
-
-  .hamburger-menu {
-    display: flex; /* Mostrar el menú hamburguesa */
+    justify-content: flex-end;
+    margin: 2rem 1rem;
   }
 
   .logo-image {
-    width: 5rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
+    width: 10rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
   }
 
-  .menu-container.active .menu {
-    display: block; /* Mostrar menú cuando se activa el hamburguesa */
+  .menu a {
+    font-size: 0.7rem; /* Tamaño de texto relativo */
   }
+  
+
 }
+
+@media (max-width: 768px) { 
+
+  .menu {
+    gap:0px;
+  }
+
+  .menu-container{
+    padding:0.5rem;
+    justify-content: flex-end;
+    margin: 2rem 1rem;
+  }
+
+  .logo-image {
+    width: 8rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
+  }
+
+  .menu a {
+    font-size: 0.5rem; /* Tamaño de texto relativo */
+  }
+  
+}
+

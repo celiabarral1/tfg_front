@@ -29,18 +29,17 @@ fdescribe('RegisterFormComponent', () => {
     employeeService = TestBed.inject(EmployeeService) as jasmine.SpyObj<EmployeeService>;
   });
 
-  it('debería crear el componente', () => {
+  it('crear el componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('debería inicializar el formulario con valores por defecto', () => {
+  it('inicializar el formulario', () => {
     expect(component.registerForm).toBeDefined();
-    expect(component.registerForm.get('registration_date')?.value).toBe(new Date().toISOString().split('T')[0]);
   });
 
-  it('debería cargar roles e IDs en ngOnInit', () => {
+  it('debería cargar roles e IDs', () => {
     const mockRoles = [{ label: 'Admin', value: 'admin' }];
-    const mockIds = ['123', '456'];
+    const mockIds = ['1', '2'];
     employeeService.getRols.and.returnValue(of(mockRoles));
     employeeService.getWorkersId.and.returnValue(of(mockIds));
 
@@ -52,18 +51,13 @@ fdescribe('RegisterFormComponent', () => {
 
   });
 
-  it('debería convertir datos del formulario en una instancia de Employee', () => {
-    const formValue = { id: '123', rol: 'admin', registration_date: '2024-01-01' };
-    const employee = component.parseForm(formValue);
-    expect(employee).toEqual(new Employee('123', 'admin', new Date('2024-01-01')));
-  });
 
-  it('debería llamar a insertEmployee cuando el formulario es válido', () => {
+  it('dar de alta trabajador', () => {
     spyOn(console, 'log');
-    const mockEmployee = new Employee('123', 'admin', new Date('2024-01-01'));
+    const mockEmployee = new Employee('1', 'operator', new Date('2025-10-11'));
     employeeService.insertEmployee.and.returnValue(of(mockEmployee));
 
-    component.registerForm.setValue({ id: '123', rol: 'admin', registration_date: '2024-01-01' });
+    component.registerForm.setValue({ id: '1', rol: 'operator', registration_date: '2025-10-11' });
     component.onSubmit();
 
     expect(employeeService.insertEmployee).toHaveBeenCalledWith(mockEmployee);

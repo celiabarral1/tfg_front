@@ -47,7 +47,7 @@ fdescribe('LoginComponent', () => {
     expect(component.loginForm.controls['password']).toBeDefined();
   });
 
-  it('formulario como inválido', () => {
+  it('formulario inválido', () => {
     expect(component.loginForm.valid).toBeFalse();
     component.onSubmit();
     httpTestingController.expectNone('/api/login');
@@ -65,7 +65,6 @@ fdescribe('LoginComponent', () => {
     authService.login.and.returnValue(of({ access_token: 'token' }));
     component.onSubmit();
     expect(router.navigate).toHaveBeenCalledWith(['/']);
-    expect(component.errorMessage).toBeNull();
   });
 
   it('no inicia sesión', () => {

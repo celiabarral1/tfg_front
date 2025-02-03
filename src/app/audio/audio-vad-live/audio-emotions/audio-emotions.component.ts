@@ -3,6 +3,7 @@ import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
 import { Alignment } from '../model/alignment';
 import { AuthService } from '../../../authentication/auth-services';
+import { EmotionTranslationService } from '../../../shared/shared/emotions-translate.service';
 
 /**
  * Componente dedicado a la gestión y visualización de un audio y sus datos emocionales asociados.
@@ -133,7 +134,8 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
    */
   constructor(
     private changeDetector: ChangeDetectorRef,
-    private authService: AuthService
+    private authService: AuthService,
+    private emotionTranslationService: EmotionTranslationService
   ) {}
 
   /**
@@ -278,4 +280,10 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     }
   }
 
+  /**
+   * Método para traducir la emoción al español
+   */
+  translateEmotion(emotion: string): string {
+    return this.emotionTranslationService.translateEmotion(emotion);
+  }
 }

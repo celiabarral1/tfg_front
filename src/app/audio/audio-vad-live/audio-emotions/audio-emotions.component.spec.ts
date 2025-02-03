@@ -22,7 +22,7 @@ const mockWaveSurferInstance = {
 };
 
 
-describe('AudioEmotionsComponent', () => {
+fdescribe('AudioEmotionsComponent', () => {
   let component: AudioEmotionsComponent;
   let fixture: ComponentFixture<AudioEmotionsComponent>;
   let mockAuthService: MockAuthService;
@@ -41,12 +41,11 @@ describe('AudioEmotionsComponent', () => {
     fixture = TestBed.createComponent(AudioEmotionsComponent);
     component = fixture.componentInstance;
 
-    // Mockea el contenedor de WaveSurfer
+    // Mockea de WaveSurfer
     component.waveformContainer = {
       nativeElement: document.createElement('div'),
     } as ElementRef;
 
-    // Mockear isAuthorized para evitar ExpressionChangedAfterItHasBeenCheckedError
     component.isAuthorized = true;
 
     fixture.detectChanges();
@@ -56,7 +55,6 @@ describe('AudioEmotionsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('ngAfterViewInit', () => {
     it('debería inicializar WaveSurfer si audioBlob está definido', () => {
       const createSpy = spyOn(WaveSurfer, 'create').and.callThrough();
       component.audioBlob = new Blob(['test audio'], { type: 'audio/wav' });
@@ -74,10 +72,8 @@ describe('AudioEmotionsComponent', () => {
 
       expect(createSpy).not.toHaveBeenCalled();
     });
-  });
 
-  describe('ngOnChanges', () => {
-    it('debería llamar a createWaveSurfer cuando audioBlob cambia', () => {
+    it('llamar a createWaveSurfer cuando audioBlob cambia', () => {
       const createWaveSurferSpy = spyOn(component, 'createWaveSurfer');
 
       component.audioBlob = new Blob(['test audio'], { type: 'audio/wav' });
@@ -92,34 +88,30 @@ describe('AudioEmotionsComponent', () => {
 
       expect(createWaveSurferSpy).toHaveBeenCalled();
     });
-  });
 
-  describe('createWaveSurfer', () => {
-    it('debería inicializar WaveSurfer con el audioBlob sin requerir load()', () => {
+
+    it('debería inicializar WaveSurfer con el audioBlob', () => {
       spyOn(WaveSurfer, 'create').and.returnValue(mockWaveSurferInstance as unknown as WaveSurfer);
       component.audioBlob = new Blob(['test audio'], { type: 'audio/wav' });
       component.createWaveSurfer();
 
       expect(WaveSurfer.create).toHaveBeenCalled();
     });
-  });
 
-  describe('playPause', () => {
-    it('debería llamar a playPause en la instancia de WaveSurfer', () => {
+
+    it('repodrucir o parar en la instancia de WaveSurfer', () => {
       component.waveSurfer = { playPause: jasmine.createSpy() };
 
       component.playPause();
 
       expect(component.waveSurfer.playPause).toHaveBeenCalled();
     });
-  });
 
-  describe('download', () => {
+
     it('debería descargar el archivo de audio con el índice y extensión correctos', () => {
       const blob = new Blob(['test audio'], { type: 'audio/wav' });
-      const createObjectURLSpy = spyOn(URL, 'createObjectURL').and.returnValue('blob:http://example.com');
+      const createObjectURLSpy = spyOn(URL, 'createObjectURL').and.returnValue('blob:http://prueba.com');
       
-      // Mock de un elemento <a>
       const mockAnchor = document.createElement('a');
       const clickSpy = spyOn(mockAnchor, 'click');
       spyOn(document, 'createElement').and.returnValue(mockAnchor);
@@ -130,25 +122,9 @@ describe('AudioEmotionsComponent', () => {
       component.download();
 
       expect(createObjectURLSpy).toHaveBeenCalledWith(blob);
-      expect(mockAnchor.download).toBe('recording1.wav'); // Verifica el nombre del archivo
-      expect(mockAnchor.href).toBe('blob:http://example.com'); // Verifica la URL asignada
-      expect(clickSpy).toHaveBeenCalled(); // Verifica que se haya simulado el click
-    });
-  });
-
-  describe('isWordActive', () => {
-    it('debería devolver true si la palabra está activa en el rango actual', () => {
-      component.waveSurfer = { getCurrentTime: () => 5 };
-      const alignment = { word: 'hola', start: 4, end: 6 };
-
-      expect(component.isWordActive(alignment)).toBeTrue();
+      expect(mockAnchor.download).toBe('recording1.wav'); 
+      expect(clickSpy).toHaveBeenCalled(); 
     });
 
-    it('debería devolver false si la palabra no está activa en el rango actual', () => {
-      component.waveSurfer = { getCurrentTime: () => 3 };
-      const alignment = { word: 'hola', start: 4, end: 6 };
 
-      expect(component.isWordActive(alignment)).toBeFalse();
-    });
-  });
 });

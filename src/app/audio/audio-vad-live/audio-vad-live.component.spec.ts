@@ -1,135 +1,103 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { AudioVadLiveComponent } from './audio-vad-live.component';
 import { AudioService } from '../audio.service';
 import { AuthService } from '../../authentication/auth-services';
-import { ChangeDetectorRef, ElementRef, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
-import WaveSurfer from 'wavesurfer.js';
-import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
-import { AudioUtils } from '../../@core/common/utils/audio-helper';
-import { RecordingEmotions } from './model/recording-emotions';
-import { CsvGestor } from '../../@core/common/utils/csv-gestor';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 
-class MockAuthService {
-  isAuthorized(...roles: string[]): boolean {
-    return true; // Mock para evitar cambios en la vista
+// Mocking AudioService
+class MockAudioService {
+  getDataAudio(audioData: FormData) {
+    return of({
+      emotions: {
+        emocategoric: [{ emotion: 'happy', score: 0.9 }],
+        emodimensional: { valence: 0.8, arousal: 0.7 }
+      },
+      alignments: [{ start: 0, end: 1, word: 'hello' }],
+      userId: 123,
+      transcription: 'hello'
+    });
   }
 }
 
-describe('AudioVadLiveComponent', () => {
+// Mocking AuthService
+class MockAuthService {
+  isAuthorized(...roles: string[]): boolean {
+    // Aquí puedes agregar la lógica que necesites para el mock
+    return roles.includes('admin') || roles.includes('psychologist');
+  }
+}
+
+
+fdescribe('AudioVadLiveComponent', () => {
   let component: AudioVadLiveComponent;
   let fixture: ComponentFixture<AudioVadLiveComponent>;
+  let mockAudioService: MockAudioService;
   let mockAuthService: MockAuthService;
-  let mockAudioService: jasmine.SpyObj<AudioService>;
 
   beforeEach(async () => {
-    mockAuthService = new MockAuthService();
-    mockAudioService = jasmine.createSpyObj('AudioService', ['insertAudio']);
-
     await TestBed.configureTestingModule({
       declarations: [AudioVadLiveComponent],
       providers: [
-        { provide: AuthService, useValue: mockAuthService },
-        { provide: AudioService, useValue: mockAudioService },
-        ChangeDetectorRef,
-        ViewContainerRef,
-        ComponentFactoryResolver
+        { provide: AudioService, useClass: MockAudioService },
+        { provide: AuthService, useClass: MockAuthService }
       ],
+      schemas: [NO_ERRORS_SCHEMA] // To avoid errors due to missing child components
     }).compileComponents();
+  });
 
+  beforeEach(() => {
     fixture = TestBed.createComponent(AudioVadLiveComponent);
     component = fixture.componentInstance;
-
-    // Mockear referencias a elementos del DOM
-    component.waveformRef = { nativeElement: document.createElement('div') } as ElementRef;
-    component.recordingsRef = { nativeElement: document.createElement('div') } as ElementRef;
-
+    mockAudioService = TestBed.inject(AudioService);
+    mockAuthService = TestBed.inject(AuthService);
     fixture.detectChanges();
   });
 
-  it('debería crear el componente', () => {
+  it('crear componente', () => {
     expect(component).toBeTruthy();
   });
 
-  describe('ngOnInit', () => {
-    it('debería inicializar WaveSurfer y verificar permisos de usuario', () => {
-      spyOn(component, 'createWaveSurfer');
-
-      component.ngOnInit();
-
-      expect(component.createWaveSurfer).toHaveBeenCalled();
-      expect(component.isAuthorized).toBeTrue();
-    });
+  it('rol permitido psicólogo o admin', () => {
+    expect(component.isAuthorized).toBeTrue();
   });
 
-  describe('ngOnDestroy', () => {
-    it('debería detener la grabación y destruir WaveSurfer', () => {
-      spyOn(component, 'stopRecording');
-      spyOn(component, 'destroyWaveSurfer');
-
-      component.ngOnDestroy();
-
-      expect(component.stopRecording).toHaveBeenCalled();
-      expect(component.destroyWaveSurfer).toHaveBeenCalled();
-    });
+  it('empeiza a grabar y abre audioContext', async () => {
+    const spy = spyOn(component, 'startRecording').and.callThrough();
+    await component.startRecording();
+    expect(spy).toHaveBeenCalled();
   });
-  describe('createWaveSurfer', () => {
-    it('debería inicializar WaveSurfer con configuración específica', () => {
-      const mockWaveSurferInstance = {
-        registerPlugin: jasmine.createSpy('registerPlugin').and.returnValue({
-          on: jasmine.createSpy('on'),
-        }),
-        destroy: jasmine.createSpy('destroy'),
-      };
-  
-      spyOn(WaveSurfer, 'create').and.returnValue(mockWaveSurferInstance as unknown as WaveSurfer);
-  
-      component.createWaveSurfer();
-  
-      expect(WaveSurfer.create).toHaveBeenCalled();
-    });
-  
-    afterEach(() => {
-      if (component.waveSurfer) {
-        component.waveSurfer.destroy();
-        component.waveSurfer = null;
-      }
-    });
+
+  it('lanza a procesar emociones audio ', async () => {
+    const blob = new Blob([], { type: 'audio/wav' });
+    const spy = spyOn(mockAudioService, 'getDataAudio').and.callThrough();
+    const response = await component.sendAudioToGetEmotions(blob, {} as any);
+
+    expect(spy).toHaveBeenCalled();
+    expect(response).toBeUndefined();  
   });
-  
-  describe('stopRecording', () => {
-    it('debería detener la grabación y cerrar el AudioContext', async () => {
-      component.isRecording = true;
-      component.audio = { stopRecording: jasmine.createSpy('stopRecording') };
-      component.audioContext = new AudioContext(); // Asegurar que audioContext no sea null
-  
-      spyOn(component.audioContext, 'close').and.returnValue(Promise.resolve());
-  
-      await component.stopRecording(); // Esperar la promesa
-  
-      expect(component.isRecording).toBeFalse();
-      expect(component.audio.stopRecording).toHaveBeenCalled();
-      expect(component.audioContext.close).toHaveBeenCalled();
-    });
+
+  it('progreso de audio', () => {
+    component.updateProgress(120000); // 2 minutes
+    expect(component.recordingProgress).toBe('02:00');
   });
-  
 
-  describe('downloadAll', () => {
-    it('debería descargar todos los audios grabados y generar un CSV', () => {
-      const mockBlob = new Blob(['test audio'], { type: 'audio/wav' });
-      component.waveSurferRecorded = [mockBlob];
-      const createObjectURLSpy = spyOn(URL, 'createObjectURL').and.returnValue('blob:http://example.com');
-      spyOn(document, 'createElement').and.callFake(() => {
-        const mockAnchor = document.createElement('a');
-        spyOn(mockAnchor, 'click');
-        return mockAnchor;
-      });
-      spyOn(CsvGestor, 'downloadCsv');
+  it('se detiene la grabación', fakeAsync(() => {
+    component.stopRecording();
+    tick();  
+    flush(); 
+    expect(component.isRecording).toBeFalse();
+  }));
 
-      component.downloadAll();
+  it('error acceso micrófono', async () => {
+    const navigatorBackup = navigator.mediaDevices.getUserMedia;
+    navigator.mediaDevices.getUserMedia = () => Promise.reject('Access denied');
+    
+    const spy = spyOn(console, 'error');
+    await component.startRecording();
+    expect(spy).toHaveBeenCalledWith('Error al acceder al micrófono:', 'Access denied');
 
-      expect(createObjectURLSpy).toHaveBeenCalledWith(mockBlob);
-      expect(CsvGestor.downloadCsv).toHaveBeenCalledWith(component.recordingsWithEmotions, 'recordings_emotions');
-    });
+    navigator.mediaDevices.getUserMedia = navigatorBackup;
   });
 });

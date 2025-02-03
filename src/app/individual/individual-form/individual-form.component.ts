@@ -64,28 +64,40 @@ export class IndividualFormComponent implements OnChanges {
 
   dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
     const userId = control.get('userId')?.value;
-    const time = control.get('time')?.value;
+    const timeControl = control.get('time');
     const startDateControl = control.get('startDate');
     const endDateControl = control.get('endDate');
-    console.log('Ejecutando validador dateOrTimeValidator:', { userId, time, startDate: startDateControl?.value, endDate: endDateControl?.value });
-
-    // No validar fechas si el usuario no ha seleccionado un ID válido
+  
+    const time = timeControl?.value;
+    const startDate = startDateControl?.value;
+    const endDate = endDateControl?.value;
+  
+    // Si no hay usuario seleccionado, no validar nada aún
     if (!userId) {
       return null;
     }
   
-    // No activar el error si los campos aún no han sido tocados
-    if (!time && !startDateControl?.touched && !endDateControl?.touched) {
+    // Si el usuario no ha interactuado con al menos uno de los campos, no mostrar error
+    const isAnyFieldTouched = timeControl?.dirty || startDateControl?.dirty || endDateControl?.dirty;
+    if (!isAnyFieldTouched) {
       return null;
     }
   
-    if (time || (startDateControl?.value && endDateControl?.value)) {
+    // Si se ha introducido una ventana temporal o ambas fechas, la validación es correcta
+    if (time || (startDate && endDate)) {
       return null;
     }
   
-    this.form.updateValueAndValidity();
-    return { dateOrTimeRequired: true }; 
+    // Si el usuario había tocado `time` pero lo dejó vacío, también es inválido
+    if (timeControl?.dirty && !time) {
+      return { dateOrTimeRequired: true };
+    }
+  
+    // Si ninguno de los campos requeridos tiene un valor, mostrar error
+    return { dateOrTimeRequired: true };
   }
+  
+  
   
 
   dateValidator(control: AbstractControl): ValidationErrors | null {
@@ -111,40 +123,36 @@ export class IndividualFormComponent implements OnChanges {
   
 
   onTimeChange(value: any): void {
-    const startDateControl = this.form.get('startDate');
-    const endDateControl = this.form.get('endDate');
-  
-    if (this.form.get('time')?.dirty) {  
-      if (value) {  
-        startDateControl?.disable();
-        endDateControl?.disable();
-        this.isDatesDisabled = true;
-      } else {
-        startDateControl?.enable();
-        endDateControl?.enable();
-        this.isDatesDisabled = false;
-      }
-    }
-  
-    this.form.updateValueAndValidity();
-    this.cdr.detectChanges();
-  }
-  
-  
-  
+  const startDateControl = this.form.get('startDate');
+  const endDateControl = this.form.get('endDate');
 
-  onManualDate(): void {
-    const timeControl = this.form.get('time');
-
-    if (this.form.get('startDate')?.value || this.form.get('endDate')?.value) {
-      timeControl?.disable();
-    } else {
-      timeControl?.enable();
-    }
-    this.form.updateValueAndValidity();
+  if (value) {  
+    startDateControl?.disable();
+    endDateControl?.disable();
+    this.isDatesDisabled = true;
+  } else {
+    startDateControl?.enable();
+    endDateControl?.enable();
+    this.isDatesDisabled = false;
   }
 
-  focusStartDate() {  // ← Recuperado
+  this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true }); // ← Actualiza validaciones
+  this.cdr.detectChanges();
+}
+
+onManualDate(): void {
+  const timeControl = this.form.get('time');
+
+  if (this.form.get('startDate')?.value || this.form.get('endDate')?.value) {
+    timeControl?.disable();
+  } else {
+    timeControl?.enable();
+  }
+
+  this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true });
+}
+
+  focusStartDate() {  
     if (this.startDate) {
       this.startDate.nativeElement.focus();
     }

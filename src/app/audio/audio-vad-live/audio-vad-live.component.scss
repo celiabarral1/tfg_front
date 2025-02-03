@@ -76,6 +76,7 @@ justify-content: space-between; /* Distribuye el espacio entre el título, graba
 align-items: center; /* Alinea verticalmente los elementos */
 }
 
+
 @media (max-width: 1024px) {
   .main-info {
     flex-direction: column;

@@ -8,7 +8,7 @@ import { IndividualFormComponent } from '../individual/individual-form/individua
 import { IndividualService } from '../individual/individual.service';
 import Swal from 'sweetalert2';
 
-fdescribe('IndividualFormComponent - Integration', () => {
+describe('IndividualFormComponent - Integration', () => {
   let component: IndividualFormComponent;
   let fixture: ComponentFixture<IndividualFormComponent>;
   let httpMock: HttpTestingController;

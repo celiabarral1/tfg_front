@@ -1,35 +1,22 @@
 .container-form {
-  margin: 0 auto;
-  margin-top: 30px;
-  background-color: var(--soft-gray-color);
+  margin: 0 auto; /* Centrar el formulario */
   padding: 2rem;
   box-sizing: border-box;
-  border-radius: 50px;
-  border: 1px solid #ddd;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  margin-top: 30px;
+  background-color: var(--soft-gray-color); /* Fondo blanco */
+  border-radius: 50px; /* Bordes redondeados */
+  border: 1px solid #ddd; /* Borde suave */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
+/* Estilos generales para el formulario */
 form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem; /* Espacio entre los campos */
 }
 
-.row:nth-child(2) , .row:nth-child(3){
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-  align-items: center;
-}
-
-
-.btn-initial:first-of-type {
-  margin-top: 1.3em;
-}
-
+/* Estilo para las etiquetas */
 label, legend {
   font-family: 'Arial', sans-serif;
   margin-bottom: 0.5rem;
@@ -38,20 +25,54 @@ label, legend {
   color: var(--primary-color); /* Color de las etiquetas */
 }
 
-input, ng-select {
+/* Estilo común para todos los campos de entrada */
+input {
   padding: 0.75rem;
-  border: 0.1rem solid #ccc;
-  border-radius: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
   font-size: 1rem;
   width: 100%;
   box-sizing: border-box;
-  background-color: #fff;
-  transition: border-color 0.3s ease, background-color 0.3s ease;
+  margin-top: 5px;
+  transition: border-color 0.3s ease; /* Transición para el borde */
 }
 
+ng-select {
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
+  background-color: #fff; /* Fondo blanco */
+  transition: border-color 0.3s ease; /* Transición para el borde */
+}
+
+.row:nth-child(2) {
+  display: grid;
+  grid-template-columns: 2fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
+  gap: 0.5rem; /* Espacio pequeño entre los elementos */
+  align-items: center; /* Alinea los elementos verticalmente */
+}
+
+.btn-initial:first-of-type {
+  padding: 20px 25px;
+  margin-top: 2em;
+}
+
+
+.row:nth-child(3) {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
+  gap: 0.5rem; /* Espacio pequeño entre los elementos */
+  align-items: center; /* Alinea los elementos verticalmente */
+}
+
+/* Estilo para los campos de entrada al enfocarse */
 input:focus,
 ng-select:focus {
-  border: 3px solid var(--primary-color);
+  border-color: #f4c6c0; /* Color de borde al enfocar */
   outline: none; /* Elimina el contorno por defecto */
 }
 
@@ -81,188 +102,224 @@ fieldset input[type="radio"] {
   margin-top: 0.2rem; /* Añadir un pequeño ajuste en la parte superior si es necesario */
 }
 
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  border-radius: 20px;
+}
+
+.popup-content {
+  background: white;
+  width: 50%;
+  max-height: 80vh; 
+  overflow-y: auto; 
+  padding: 20px;
+  border-radius: 20px;
+  border: 2px solid var(--soft-gray-color);
+  position: relative;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
+.is-invalid {
+  border-color: #dc3545;
+}
+
 .invalid-feedback {
   color: #dc3545;
   font-size: 16px;
 }
 
 
-::ng-deep .ng-select.ng-select-disabled .ng-select-container,
-.ng-select.ng-select-disabled, 
-input:disabled {
-  background-color: rgba(239, 239, 239, 0.3) !important;
-  cursor: not-allowed;
-}
-
-@media screen and (min-width: 600px) and (max-width: 1780px) {
-  .container-form {
-  padding:1rem;
-  width: 80%;
+@media (max-width: 768px) {
+  .row:nth-child(2), 
+  .row:nth-child(3) {
+    grid-template-columns: 1fr; /* Cada elemento en una fila */
+  }
+  label, legend , fieldset label{
+    font-size: 16px;
   }
 
-  .row:nth-child(2), .row:nth-child(3) {
-    grid-template-columns: 1fr !important; 
+  .btn-initial:first-of-type {
+    margin-top: 0.2rem;
   }
   
-  input, ng-select {
-    padding: 0.5rem; 
-    line-height: 1.2; 
-    font-size: 0.6rem;
-  }
-  .btn-initial:first-of-type {
+  ng-select  {
+    padding: 0.5rem;
+    font-size: 0.8rem;
     margin-top: 0;
   }
-}
-
-@media screen and (max-width: 600px) {
+  input {
+    font-size: 0.8rem;
+  }
+  form {
+    gap: 0.5rem;
+  }
   .container-form {
-  padding:1rem;
+    padding: 1rem;
+  }
+  fieldset {
+    padding:0
   }
 
-  .row:nth-child(2), .row:nth-child(3) {
-    grid-template-columns: 1fr !important; 
-  }
-  .btn-initial:first-of-type {
-    margin-top: 0;
-    width: 100%;
-  }
+  
 }
 
+@media (min-width: 768px) and (max-width: 1024px) {
+  label, legend , fieldset label{
+    font-size: 16px;
+  }
 
-// /* Contenedor del formulario */
+  ng-select  {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+    margin-top: 0;
+  }
+  input {
+    font-size: 0.8rem;
+  }
+  form {
+    gap: 0.5rem;
+  }
+  .container-form {
+    padding: 1rem;
+  }
+
+  
+@media (min-width: 1024px) {
+.btn-initial:first-of-type {
+  padding: 20px 25px;
+  margin-top: 2em;
+}
+}
+  
+  // .row:nth-child(2), 
+  // .row:nth-child(3) {
+  //   grid-template-columns: 1fr; /* Cada elemento en una fila */
+  // }
+}
+
+// @media (min-width: 1024px) and (max-width: 2048px) {
+//   label, legend , fieldset label{
+//     font-size: 16px;
+//   }
+
+//   ng-select  {
+//     padding: 0.5rem;
+//     font-size: 0.8rem;
+//   }
+//   input {
+//     font-size: 0.8rem;
+//   }
+//   form {
+//     gap: 0.12rem;
+//   }
+  
+// }
+/* Contenedor del formulario */
 // .container-form {
-//   margin: 0 auto; /* Centrar el formulario */
-//   padding: 2rem;
-//   box-sizing: border-box;
-//   margin-top: 30px;
-//   background-color: var(--soft-gray-color); /* Fondo blanco */
-//   border-radius: 50px; /* Bordes redondeados */
-//   border: 1px solid #ddd; /* Borde suave */
-//   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
-// }
-
-// /* Estilos generales para el formulario */
-// form {
-//   display: flex;
-//   flex-direction: column;
-//   gap: 1.5rem; /* Espacio entre los campos */
-// }
-
-// /* Estilo para las etiquetas */
-// label, legend {
-//   font-family: 'Arial', sans-serif;
-//   margin-bottom: 0.5rem;
-//   font-weight: bold;
-//   font-size: 1rem;
-//   color: var(--primary-color); /* Color de las etiquetas */
-// }
-
-// /* Estilo común para todos los campos de entrada */
-// input {
-//   padding: 0.75rem;
-//   border: 1px solid #ccc;
-//   border-radius: 20px;
-//   font-size: 1rem;
-//   width: 100%;
-//   box-sizing: border-box;
-//   margin-top: 5px;
-//   transition: border-color 0.3s ease; /* Transición para el borde */
-// }
-
-// ng-select {
-//   padding: 0.75rem;
-//   border: 1px solid #ccc;
-//   border-radius: 20px;
-//   font-size: 1rem;
-//   width: 100%;
-//   box-sizing: border-box;
-//   margin-top: 5px;
-//   background-color: #fff; /* Fondo blanco */
-//   transition: border-color 0.3s ease; /* Transición para el borde */
-// }
-
-// ::ng-deep .ng-select.ng-select-disabled .ng-select-container , .ng-select.ng-select-disabled{
-//   background-color: rgba(239, 239, 239, 0.3) !important;
-// }
-
-
-// .row:nth-child(2) {
-//   display: grid;
-//   grid-template-columns: 2fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
-//   gap: 0.7rem; /* Espacio pequeño entre los elementos */
-//   align-items: center; /* Alinea los elementos verticalmente */
-// }
-
-// .btn-initial:first-of-type {
-//   padding: 20px 25px;
-//   margin-top: 2em;
-// }
-
-// .row:nth-child(3) {
-//   display: grid;
-//   grid-template-columns: 1fr 1fr; /* Define dos columnas, la primera (Ventana Temporal) ocupa el doble de espacio */
-//   gap: 0.5rem; /* Espacio pequeño entre los elementos */
-//   align-items: center; /* Alinea los elementos verticalmente */
-// }
-
-// /* Estilo para los campos de entrada al enfocarse */
-// input:focus,
-// ng-select:focus {
-//   border: 5px solid var(--primary-color);
-//   outline: none; /* Elimina el contorno por defecto */
-// }
-
-// /* Estilo específico para el campo radio dentro del fieldset */
-// fieldset {
-//   border: 1px solid #ccc;
-//   padding: 1rem;
-//   border-radius: 20px;
-//   display: block; /* Asegura que el fieldset ocupe todo el ancho */
-//   background-color: #fafafa; /* Fondo suave para el fieldset */
-//   gap: 30px;
-// }
-
-// /* Alineación de los labels con los radio buttons */
-// fieldset label {
-//   display: inline-flex; /* Alinea el radio button y el texto en la misma línea */
-//   align-items: center; /* Centra verticalmente el contenido */
-//   margin-left: 30px;
-//   margin-bottom: 0.5rem; /* Espacio entre las etiquetas */
-//   font-size: 1rem;
-// }
-
-// /* Estilo para los radio buttons dentro del fieldset */
-// fieldset input[type="radio"] {
-//   margin-right: 0.5rem; /* Espacio entre el radio button y el texto */
-//   display: inline-block; /* Asegura que el radio button esté alineado a la izquierda */
-//   margin-top: 0.2rem; /* Añadir un pequeño ajuste en la parte superior si es necesario */
-// }
-
-// .invalid-feedback {
-//   color: #dc3545;
-//   font-size: 16px;
-// }
-
-// /* 📏 Tablets y pantallas medianas (600px - 1024px) */
-// @media screen and (min-width: 600px) and (max-width: 1024px) {
-//   .container-form {
+//     // max-width: 400px; /* Aumento el ancho máximo para más espacio */
+//     margin: 0 auto;   /* Centrar el formulario */
 //     padding: 2rem;
-//     border-radius: 2.5rem;
+//     box-sizing: border-box;
+//     margin-top: 30px;
+//     background-color: #ffffff; /* Fondo blanco */
+//     border-radius: 8px; /* Bordes redondeados */
+//     border: 1px solid #ddd; /* Borde suave */
+//     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    
 //   }
-
-//   /* Fuerza una sola columna en todas las filas */
-//   .row:nth-child(2), 
-//   .row:nth-child(3) {
-//     grid-template-columns: 1fr; /* Cada elemento en una fila */
+  
+//   /* Estilos generales para el formulario */
+//   form {
+//     display: flex;
+//     flex-direction: column;
+//     gap: 1.5rem; /* Espacio entre los campos */
 //   }
-
-//   input, ng-select {
+  
+//   /* Estilo para las etiquetas */
+//   label, legend {
+//     font-family: 'Arial', sans-serif;
+//     margin-bottom: 0.5rem;
+//     font-weight: bold;
 //     font-size: 1rem;
-//     padding: 0.8rem;
+//     color: #333; /* Color de las etiquetas */
 //   }
-
-//   .btn-initial {
-//     font-size: 1.1rem;
-//     padding: 1rem 1.5rem;
+  
+//   /* Estilo común para todos los campos de entrada */
+//   input,
+//   ng-select{
+//     padding: 0.75rem;
+//     border: 1px solid #ccc;
+//     border-radius: 4px;
+//     font-size: 1rem;
+//     width: 100%;
+//     box-sizing: border-box;
+//     margin-top: 5px;
+//     transition: border-color 0.3s ease; /* Transición para el borde */
 //   }
-// }
+  
+//   button {
+//     width: 100%;
+//   }
+  
+//   /* Estilo para los campos de entrada al enfocarse */
+//   input:focus,
+//   ng-select:focus {
+//     border-color: #f4c6c0; /* Color de borde al enfocar */
+//     outline: none; /* Elimina el contorno por defecto */
+//   }
+  
+//   /* Estilo específico para el campo radio dentro del fieldset */
+//   fieldset {
+//     border: 1px solid #ccc;
+//     padding: 1rem;
+//     border-radius: 4px;
+//     display: block; /* Asegura que el fieldset ocupe todo el ancho */
+//     background-color: #fafafa; /* Fondo suave para el fieldset */
+//   }
+  
+//   /* Alineación de los labels con los radio buttons */
+//   fieldset label {
+//     display: inline-flex; /* Alinea el radio button y el texto en la misma línea */
+//     align-items: center; /* Centra verticalmente el contenido */
+//     margin-bottom: 0.5rem; /* Espacio entre las etiquetas */
+//     font-size: 1rem;
+//   }
+  
+//   /* Estilo para los radio buttons dentro del fieldset */
+//   fieldset input[type="radio"] {
+//     margin-right: 0.5rem; /* Espacio entre el radio button y el texto */
+//     display: inline-block; /* Asegura que el radio button esté alineado a la izquierda */
+//     margin-top: 0.2rem; /* Añadir un pequeño ajuste en la parte superior si es necesario */
+//   }
+  
+  
+  
+//   /* Estilo para los selectores ng-select */
+//   ng-select {
+//     display: block;
+//     padding: 0.75rem;
+//     border-radius: 4px;
+//     border: 1px solid #ccc;
+//   }
+  
+  

@@ -39,7 +39,6 @@ import { RegisterFormComponent } from './workers/register-form/register-form.com
 import { ShiftRepresentationComponent } from './shift-representation/shift-representation.component';
 import { ShiftFormComponent } from './shift-representation/shift-form/shift-form.component';
 import { GraphicRepresentationComponent } from './charts/graphic-representation/graphic-representation.component';
-import { DatePickerComponent } from './shared/date-picker/date-picker.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -72,7 +71,6 @@ import { AnalysisComponent } from './analysis/analysis.component';
     ShiftRepresentationComponent,
     ShiftFormComponent,
     GraphicRepresentationComponent,
-    DatePickerComponent,
     AccessDeniedComponent,
     AnalysisComponent,
   ],

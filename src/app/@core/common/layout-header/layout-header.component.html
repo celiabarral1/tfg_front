@@ -14,10 +14,10 @@
   </mat-toolbar>
 
   <div *ngIf="!isLoggedIn && !isLoginPage" class="login">
-    <button class="btn-secondary" routerLink="/login">Login</button>
+    <button class="btn-secondary" routerLink="/login">Entrar</button>
   </div>
 
   <div *ngIf="isLoggedIn && !isLoginPage" class="login">
-    <button class="btn-secondary" (click)="logout()">Logout</button>
+    <button class="btn-secondary" (click)="logout()">Salir</button>
   </div>
 </div>

@@ -6,15 +6,13 @@ import { of } from 'rxjs';
 import { ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
 
-// Mock de ChartDataService
 const mockChartDataService = {
   chartData$: of({ data: [], time: '', userId: '' }),
   deleteChartData: jasmine.createSpy('deleteChartData'),
 };
 
-// Mock de IndividualService
 const mockIndividualService = {
-  getEmotions: jasmine.createSpy('getEmotions').and.returnValue(of(['joy', 'anger', 'sadness'])),
+  getEmotions: jasmine.createSpy('getEmotions').and.returnValue(of(['happiness', 'anger', 'sadness'])),
 };
 
 fdescribe('CategoricComponent', () => {
@@ -61,8 +59,8 @@ fdescribe('CategoricComponent', () => {
   it('should create chart', () => {
     spyOn(component, 'destroyChart');
     spyOn(Chart.prototype, 'destroy');
-    component.graphData = [{ timestamp: 1700000000, Emotion_1_label: 'joy', Emotion_2_label: 'anger', Emotion_3_label: 'sadness' }];
-    component.emotions = ['joy', 'anger', 'sadness'];
+    component.graphData = [{ timestamp: 1700000000, Emotion_1_label: 'happiness', Emotion_2_label: 'anger', Emotion_3_label: 'sadness' }];
+    component.emotions = ['happiness', 'anger', 'sadness'];
     component.createChart();
     expect(component.chart).toBeDefined();
     expect(component.destroyChart).toHaveBeenCalled();
@@ -71,10 +69,10 @@ fdescribe('CategoricComponent', () => {
   it('should create accumulated study chart', () => {
     spyOn(component, 'destroyChart');
     component.graphData = [
-      { Emotion_1_label: 'joy', Emotion_2_label: 'joy', Emotion_3_label: 'anger' },
-      { Emotion_1_label: 'sadness', Emotion_2_label: 'joy', Emotion_3_label: 'joy' },
+      { Emotion_1_label: 'happiness', Emotion_2_label: 'happiness', Emotion_3_label: 'anger' },
+      { Emotion_1_label: 'sadness', Emotion_2_label: 'happiness', Emotion_3_label: 'anger' },
     ];
-    component.emotions = ['joy', 'anger', 'sadness'];
+    component.emotions = ['happiness', 'anger', 'sadness'];
     component.createAccumulatedStudyChart();
     expect(component.accumulatedChart).toBeDefined();
     expect(component.destroyChart).toHaveBeenCalled();

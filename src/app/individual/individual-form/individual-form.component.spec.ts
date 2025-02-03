@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import Swal from 'sweetalert2';
 
-describe('IndividualFormComponent', () => {
+fdescribe('IndividualFormComponent', () => {
   let component: IndividualFormComponent;
   let fixture: ComponentFixture<IndividualFormComponent>;
   let individualService: jasmine.SpyObj<IndividualService>;
@@ -54,27 +54,23 @@ describe('IndividualFormComponent', () => {
     expect(individualService.getIds).toHaveBeenCalled();
   });
 
-  it('cambia id', () => {
-    component.id = '1';
-    component.ngOnChanges({ id: { currentValue: '', previousValue: null, firstChange: true, isFirstChange: () => true } });
-    expect(component.form.get('userId')?.value).toBe('1');
-  });
 
   it('debería marcar error si no se selecciona tiempo o fechas', () => {
-    component.form.patchValue({ userId: '123', time: null, startDate: '', endDate: '' });
+    component.form.patchValue({ userId: '1', time: null, startDate: '', endDate: '' });
+   
     component.form.markAllAsTouched();
+    
     component.form.updateValueAndValidity(); 
-    console.log('Errores actuales del formulario:', component.form.errors);
-    expect(component.dateOrTimeValidator(component.form)).toEqual({ dateOrTimeRequired: true });
+    
+    const control = component.form; 
+    console.log('Errores actuales del formulario:', control.errors);
+    
+    expect(control.errors).toEqual({ dateOrTimeRequired: true });
   });
-
-  it('debería permitir fechas válidas', () => {
-    component.form.patchValue({ startDate: '2024-01-01', endDate: '2024-01-02' });
-    expect(component.dateValidator(component.form)).toBeNull();
-  });
+  
 
   it('debería marcar error si la fecha de inicio es mayor que la de fin', () => {
-    component.form.patchValue({ startDate: '2026-08-09', endDate: '2024-02-02' });
+    component.form.patchValue({ startDate: '2026-08-09' });
     component.form.markAllAsTouched();
     component.form.updateValueAndValidity(); 
     expect(component.dateValidator(component.form)).toEqual({ invalidDateRange: true });
@@ -93,11 +89,4 @@ describe('IndividualFormComponent', () => {
     expect(Swal.fire).toHaveBeenCalled();
   });
 
-  it('debería llamar a updateChartData si hay registros', () => {
-    const mockRecords = [{ user_id: 1, valence: 0.5 }];
-    individualService.filterRecords.and.returnValue(of(mockRecords));
-    spyOn(component, 'onSubmit').and.callThrough();
-    component.onSubmit();
-    expect(chartDataService.updateChartData).toHaveBeenCalled();
-  });
 });

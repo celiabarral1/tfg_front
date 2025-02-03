@@ -5,7 +5,6 @@ import { of } from 'rxjs';
 import { ElementRef } from '@angular/core';
 import { Chart } from 'chart.js';
 
-// Mock de ChartDataService
 const mockChartDataService = {
   chartData$: of({ data: [], time: '', userId: '' }),
   deleteChartData: jasmine.createSpy('deleteChartData'),
@@ -32,23 +31,23 @@ fdescribe('DimensionalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('crear componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize without data', () => {
+  it('inicializa sin datos', () => {
     component.ngOnInit();
     expect(component.graphData).toEqual([]);
   });
 
-  it('should destroy chart', () => {
+  it('destrye correctamente el gráfico', () => {
     spyOn(component as any, 'destroyChart');
     component.ngOnDestroy();
     expect((component as any).destroyChart).toHaveBeenCalled();
     expect(mockChartDataService.deleteChartData).toHaveBeenCalled();
   });
 
-  it('should create chart', () => {
+  it('crea un gráfico con datos dimensionales', () => {
     spyOn(component as any, 'destroyChart');
     spyOn(Chart.prototype, 'destroy');
     component.graphData = [
@@ -58,4 +57,6 @@ fdescribe('DimensionalComponent', () => {
     expect((component as any).chart).toBeDefined();
     expect((component as any).destroyChart).toHaveBeenCalled();
   });
+
+
 });

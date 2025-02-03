@@ -14,7 +14,7 @@
    <div class="top-container">
     <div class="emotions-categoric">
     <div *ngFor="let emotion of emotions_categoric" class="emotion-item">
-      <p>{{ emotion.emo }}: {{ emotion.prob.toFixed(2) }}%</p>
+      <p>{{  translateEmotion(emotion.emo) }}: {{ emotion.prob.toFixed(2) }}%</p>
       <div class="emotion-bar-container">
         <div [ngClass]="emotion.colorClass" class="emotion-bar" 
              [ngStyle]="{ 
@@ -27,7 +27,7 @@
 
   <div class="emotions-dimensional">
     <div *ngFor="let dimension of emotions_dimensional" class="dimension-item">
-      <p>{{ dimension.name }}: {{ (dimension.value * 100).toFixed(2) }}%</p>
+      <p>{{ translateEmotion(dimension.name) }}: {{ (dimension.value * 100).toFixed(2) }}%</p>
       <div class="dimension-bar-container">
         <div 
           [ngClass]="dimension.colorClass" 
@@ -40,9 +40,9 @@
 </div> 
     
   <div class="controls">
-    <button class="btn-form" (click)="playPause()">Play/Pause</button>
+    <button class="btn-form" (click)="playPause()">Reproducir/Parar</button>
     <!-- <button class="btn-form" (click)="showAlignment()" [disabled]=" !isAuthorized ">Ver transcipción</button> -->
-    <button class="btn-form" (click)="download()" [disabled]=" !isAuthorized ">Download</button>
+    <button class="btn-form" (click)="download()" [disabled]=" !isAuthorized ">Descargar</button>
   </div>
   </div>
  

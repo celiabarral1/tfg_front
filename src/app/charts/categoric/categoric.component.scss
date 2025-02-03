@@ -37,12 +37,15 @@
 //   object-fit: contain; /* Mantiene la proporción del canvas sin distorsionarlo */
 // }
 
-.canvas-accumulated {
-  width: 50%; /* Ajusta el ancho según lo necesites */
-  height: 400px; /* Ajusta la altura según lo necesites */
-  margin-left: 0; /* Asegura que el canvas se pegue a la izquierda */
-  margin-right: 0; /* Opcional: elimina el margen derecho */
+@media (min-width:1024px) {
+  .canvas-accumulated {
+    width: 50%; /* Ajusta el ancho según lo necesites */
+    height: 400px; /* Ajusta la altura según lo necesites */
+    margin-left: 0; /* Asegura que el canvas se pegue a la izquierda */
+    margin-right: 0; /* Opcional: elimina el margen derecho */
+  }
 }
+
 
 /** EMOTIONS COLORS **/
 .color-joy {
@@ -74,3 +77,4 @@
   color: #FFF8E7; /* Beige */
   background-color: #FFF8E7; /* Beige */
 }
+

@@ -65,8 +65,6 @@ fdescribe('AnalysisComponent', () => {
       expect(component.filteredNoDisorder).toEqual([2]);
     });
 
-
-  describe('botoón leer más', () => {
     it('leer más depresión', () => {
       component.showMore('depression');
       expect(component.showMoreDepression).toBeTrue();
@@ -81,14 +79,23 @@ fdescribe('AnalysisComponent', () => {
       component.showMore('noDisorder');
       expect(component.showMoreNoDisorder).toBeTrue();
     });
-  });
+
     it('navega con el id', () => {
       const routerSpy = spyOn(router, 'navigate');
-      const id = 123;
+      const id = 1;
 
       component.routeToRepresentation(id);
 
       expect(routerSpy).toHaveBeenCalledWith(['/representation', id]);
+    });
+
+    it('no hay datos pero si grupos', () => {
+      const empty = new Classification();
+      component.classificationData = empty;
+
+      expect(component.classificationData.anxiety).toEqual([]);
+      expect(component.classificationData.depression).toEqual([]);
+      expect(component.classificationData.no_disorder).toEqual([]);
     });
 
 });

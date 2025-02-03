@@ -61,7 +61,9 @@
     <app-categoric *ngIf="charType === '0'"></app-categoric>
   </div>
 </div>
-<button class="btn-secondary" [disabled]="isDisabled()" (click)="downloadData()">Download Data</button>
+<div class="inferior-container">
+  <button class="btn-secondary" [disabled]="isDisabled()" (click)="downloadData()">Download Data</button>
+</div>
 </div>
 
   
