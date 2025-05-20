@@ -8,10 +8,18 @@ import { Alignment } from '../audio-vad-live/model/alignment';
   templateUrl: './csv-audios.component.html',
   styleUrls: ['./csv-audios.component.scss']
 })
+/**
+ * Componente para gestionar la inferencia diferida de audios
+ */
 export class CsvAudiosComponent {
   recordings: RecordingEmotions[] = [];
   
 
+  /**
+   * Método que maneja la subida de archicos.
+   * Hace uso del CSVGestor, que transforma los datos subidos en Records
+   * @param event 
+   */
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
@@ -45,14 +53,17 @@ export class CsvAudiosComponent {
     }
   }
   
-
+/**
+ * Procesa los alineamientos obtenidos del csv para parsearlos al modelo de datos correspondiente,
+ * Alignment
+ */
   processAlignments(alignments: Alignment[]): Alignment[] {
     const alignments_final: Alignment[] = [];
     alignments.forEach(a => {
-      const word = a.word; // accediendo correctamente a la propiedad 'word'
-      const start = parseFloat(a.start.toString()); // asegurándose de convertir a número
-      const end = parseFloat(a.end.toString()); // asegurándose de convertir a número
-      alignments_final.push({ word, start, end }); // agregando el objeto procesado al array final
+      const word = a.word; 
+      const start = parseFloat(a.start.toString());
+      const end = parseFloat(a.end.toString()); 
+      alignments_final.push({end , start, word }); 
     });
     return alignments_final;
   }

@@ -7,39 +7,6 @@ import { Alignment } from "../../../audio/audio-vad-live/model/alignment";
  * Define las estructuras de tanto para generar un .csv como para manipular los datos que aporta uno.
  */
 export class CsvGestor {
-  // static generateCsv(recordingsWithEmotions: RecordingEmotions[]): string {
-  //   const headers = [
-  //     'file_name', 'Emotion_1_label', 'Emotion_1_mean', 'Emotion_1_std', 
-  //     'Emotion_2_label', 'Emotion_2_mean', 'Emotion_2_std', 
-  //     'Emotion_3_label', 'Emotion_3_mean', 'Emotion_3_std', 
-  //     'valence', 'arousal', 'dominance', 'user_id', 'timestamp', 'audioblob', 'transcription', 'alignments'
-  //   ];
-
-  //   const rows = recordingsWithEmotions.map(recording => [
-  //     recording.fileName,
-  //     recording.Emotion_1_label,
-  //     recording.Emotion_1_mean,
-  //     recording.Emotion_1_std,
-  //     recording.Emotion_2_label,
-  //     recording.Emotion_2_mean,
-  //     recording.Emotion_2_std,
-  //     recording.Emotion_3_label,
-  //     recording.Emotion_3_mean,
-  //     recording.Emotion_3_std,
-  //     recording.valence,
-  //     recording.arousal,
-  //     recording.dominance,
-  //     recording.userId,
-  //     recording.timestamp,
-  //     recording.audioBlob,
-  //     recording.transcription,
-  //     `"${JSON.stringify(recording.alignments).replace(/"/g, '""')}"` // Convertir alignments a JSON para guardarlo en el CSV
-  //   ]);
-
-  //   // Combine headers and rows into CSV content
-  //   const csvContent = [headers, ...rows].map(row => row.join(',')).join('\n');
-  //   return csvContent;
-  // }
 
   /**
    * Método estático para generar un .csv con la estructura requerida para tratar los datos en el proyecto.

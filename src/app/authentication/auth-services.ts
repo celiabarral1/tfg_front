@@ -12,13 +12,22 @@ interface User {
 @Injectable({
   providedIn: 'root'
 })
+
+/**
+ * Servicio encargado de gestionar la vida de una sesión
+ * 
+ */
 export class AuthService {
-  private apiUrl: string; // URL de tu backend
+  private apiUrl: string; 
   private currentUserSubject = new BehaviorSubject<User | null>(null);
 
+  /**
+   * Comprueba si existe un token asociado al usaurio, es decir si hay alguien en sesión
+   * @param http protocolo 
+   * @param apiConfig proporciona la url base de la aplicación
+   */
   constructor(private http: HttpClient, private apiConfig: ApiConfigService) {
-    this.apiUrl = this.apiConfig.getApiUrl();
-    // Verificar si estamos en el cliente antes de acceder a localStorage
+    this.apiUrl = this.apiConfig.getApiUrl()
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('access_token');
       if (token) {
@@ -27,6 +36,13 @@ export class AuthService {
     }
   }
 
+  /**
+   * Realiza la petición de inicar sesión para un usuario y una contraseña.
+   * Si todo es correcto, recibe un token, con el que gestiona la sesión.
+   * @param username usuario que quiere iniciar sesión
+   * @param password contraseña para intentar iniciar sesión
+   * @returns 
+   */
   login(username: string, password: string) {
     return this.http.post<{ access_token: string }>(`${this.apiUrl}/login`, { username, password })
       .pipe(

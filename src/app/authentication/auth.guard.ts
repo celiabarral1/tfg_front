@@ -3,31 +3,35 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './auth-services';
 
+/**
+ * Guardia que controla mediante una función, para la ruta que recibe si hay un usuario loggeado o no
+ *  y si tiene el rol necesario.
+ * @param route 
+ * @param state 
+ * @returns true si está loggeado y false si no
+ */
 export const authGuard: CanActivateFn = (route, state) => {
-  const authService = inject(AuthService); // Inyecta el servicio de autenticación
-  const router = inject(Router); // Inyecta el router para redirigir
+  const authService = inject(AuthService); 
+  const router = inject(Router); 
 
-  const expectedRole = route.data?.['expectedRole']; // Utiliza la notación de corchetes para acceder a expectedRole
-  const currentUser = authService.getCurrentUserValue(); // Utiliza el nuevo método para obtener el usuario actual
+  /**
+   * Obtiene el rol del usuario que está en sesión, para comprobar si tieen permisos para acceder.
+   */
+  const expectedRole = route.data?.['expectedRole']; 
+  const currentUser = authService.getCurrentUserValue();
 
 
   if (authService.isLoggedIn()) {
-    // Si la ruta no tiene un rol esperado, permite el acceso
     if (!expectedRole) {
       return true;
     }
-
-    // Si la ruta tiene un rol esperado, verifica que el usuario tenga el rol requerido
     if (currentUser && currentUser.role === expectedRole) {
       return true;
     }
-
-    // Si el rol no coincide, redirige a "access-denied"
     router.navigate(['/access-denied']);
     return false;
   }
 
-  // Si el usuario no está logueado, redirige a "login"
   router.navigate(['/login']);
   return false;
 };

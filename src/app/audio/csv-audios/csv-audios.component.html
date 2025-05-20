@@ -4,7 +4,6 @@
       junto con los audios que se mencionan en el .csv y podrás visualizar las emociones asociadas a cada audio
     </p>
     <input type="file" (change)="onFileSelected($event)" accept=".csv" />
-    <!-- <input type="file" (change)="onAudioSelected($event)" accept=".wav" multiple /> -->
   </div>
   
   <div *ngIf="recordings.length > 0">

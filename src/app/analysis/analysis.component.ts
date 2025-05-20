@@ -32,6 +32,13 @@ export class AnalysisComponent implements OnInit {
   showMoreAnxiety: boolean = false;
   showMoreNoDisorder: boolean = false;
   
+  /**
+   * Las siguientes tres propiedas se utilizan para gestionar la apariencia de un botón de "Leer menos".
+   * Si el grupo s eha extendido y se quiere recudir, sea más fácil de manejar.
+   */
+  showLessDepression: boolean = true;
+  showLessAnxiety: boolean = true;
+  showLessNoDisorder: boolean = true;
 
   /**
    * Constructor del componente de análisis de grupos.
@@ -117,4 +124,16 @@ export class AnalysisComponent implements OnInit {
     }
   }
 
+  /**
+   * Método para manejar si se deben mostrar todos los ids o solo los primeros
+   */
+  toggleShow(group: string): void {
+    if (group === 'depression') {
+      this.showLessDepression = !this.showLessDepression;
+    } else if (group === 'anxiety') {
+      this.showLessAnxiety = !this.showLessAnxiety;
+    } else if (group === 'noDisorder') {
+      this.showLessNoDisorder = !this.showLessNoDisorder;
+    }
+  }
 }

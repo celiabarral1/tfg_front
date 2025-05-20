@@ -20,4 +20,8 @@ export class AudioService {
   sendAudios(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/getAudios`, formData);
   }
+
+  getAvalaibleModels() : Observable<any> {
+    return this.http.get(`${this.apiUrl}/audio/getAvalaibleModels`);
+  }
 }

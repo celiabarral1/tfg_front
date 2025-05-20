@@ -1,0 +1,83 @@
+<div class="container-form">
+    <h2>Configuración</h2>
+<form  [formGroup]="form" (ngSubmit)="save()">
+    <mat-accordion multi="true">
+
+        <!-- Panel 1: Configuración General -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>General</mat-panel-title>
+            </mat-expansion-panel-header>
+
+
+        </mat-expansion-panel>
+
+        <!-- Panel 2: Trabajadores -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Representación</mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="row">
+                <div class="col-6 col-sm-4">
+                    <div class="form-group">
+                        <label for="id">Número de trabajadores</label>
+                        <ng-select id="nWorkers" [items]="numWorkers" bindLabel="label" bindValue="value"
+                            formControlName="nWorkers" placeholder="Seleccione..." [searchable]="true">
+                        </ng-select>
+                    </div>
+                </div>
+
+                <div class="col-6 col-sm-4">
+                    <div class="form-group">
+                        <label for="id">Nº de muestras</label>
+                        <ng-select id="nSamples" [items]="numSamples" bindLabel="label" bindValue="value"
+                            formControlName="nSamples" placeholder="Seleccione..." [searchable]="true">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="shifts mt-3">
+                <label for="id">Turnos</label>
+                <div>
+
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+        <!-- Panel 3: Audio -->
+        <mat-expansion-panel>
+            <mat-expansion-panel-header>
+                <mat-panel-title>Inferencia</mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="row">
+                <div class="col-6 col-sm-4">
+                    <div class="form-group">
+                        <!-- pillarlos desde el back -->
+                        <label for="id">Modelo de inferencia</label>
+                        <ng-select id="models" [items]="inferenceModels" bindLabel="label" bindValue="value"
+                            formControlName="models" placeholder="Seleccione..." [searchable]="true" appendTo="body">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6 col-sm-4">
+                    <div class="form-group">
+                        <label for="id">Intervalo de silencio (s)</label>
+                        <ng-select id="delay" [items]="delays" bindLabel="label" bindValue="value"
+                            formControlName="delay" placeholder="Seleccione..." [searchable]="true">
+                        </ng-select>
+                    </div>
+                </div>
+            </div>
+        </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <!-- Botón de guardar al final -->
+    <div class="text-center mt-3">
+        <button class="btn-secondary" type="submit">Guardar toda la configuración</button>
+    </div>
+</form>
+</div>

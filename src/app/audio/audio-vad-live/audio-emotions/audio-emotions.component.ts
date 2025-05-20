@@ -56,6 +56,11 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     console.log('Alignments procesados:', this._alignments);
     
     this.changeDetector.detectChanges(); // Forzar actualización en la vista
+
+    // if(this.waveSurfer) {
+
+    //   this.showAlignment();
+    // }
   }
 
   get alignments(): Alignment[] {
@@ -180,46 +185,48 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   createWaveSurfer(): void {
     if (this.audioBlob && this.waveformContainer) {
       const recordedUrl = URL.createObjectURL(this.audioBlob);
-
+  
       this.waveSurfer = WaveSurfer.create({
-        container: this.waveformContainer.nativeElement, // Contenedor donde se renderiza la forma de onda.
-        waveColor: 'rgb(204, 102, 0)', // Color de la onda.
-        progressColor: 'rgb(100, 50, 0)', // Color del progreso de reproducción.
-        url: recordedUrl, // URL del archivo de audio que se reproducirá.
-        barWidth: 2, // Ancho de las barras de la forma de onda.
-        barGap: 1, // Espaciado entre las barras.
-        barRadius: 2, // Radio de las barras.
-        plugins: [RegionsPlugin.create()], // Plugins adicionales, como las regiones de la forma de onda.
+        container: this.waveformContainer.nativeElement,
+        waveColor: 'rgb(204, 102, 0)',
+        progressColor: 'rgb(100, 50, 0)',
+        url: recordedUrl,
+        barWidth: 2,
+        barGap: 1,
+        barRadius: 2,
+        plugins: [
+          RegionsPlugin.create()  // Asegúrate de que el plugin está aquí
+        ],
       });
-
+  
       this.waveSurfer.on('audioprocess', () => {
-        this.changeDetector.detectChanges(); // Actualizar la vista.
+        this.changeDetector.detectChanges();
       });
-
     } else {
       console.error('audioBlob o waveformContainer no están definidos');
     }
   }
+  
 
   showAlignment(): void {
-    if (!this.waveSurfer) return;
-  
-    const regionsPlugin = this.waveSurfer.registerPlugin(RegionsPlugin.create());
+    if (!this.waveSurfer || typeof this.waveSurfer.addRegion !== 'function') {
+      console.error('El plugin de regiones no está disponible');
+      return;
+    }
   
     if (!this.isShowing) {
       this._alignments.forEach(alignment => {
         const isSilence = alignment.word.trim() === '';
   
-        const region = regionsPlugin.addRegion({
+        const region = this.waveSurfer.addRegion({
           start: alignment.start,
-          end: alignment.end, // Usa la duración real
-          color: isSilence ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 255, 0, 0.5)', // Blanco para silencios, verde para fonemas
+          end: alignment.end,
+          color: isSilence ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 255, 0, 0.5)',
           drag: false,
           resize: false
         });
   
         if (!isSilence) {
-          // Crear la etiqueta dentro de la región
           const label = document.createElement('div');
           label.style.position = 'absolute';
           label.style.fontSize = '12px';
@@ -228,8 +235,6 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
           label.style.borderRadius = '4px';
           label.style.padding = '2px 5px';
           label.innerText = alignment.word;
-  
-          // Ajustar posición relativa dentro de la región
           region.element.appendChild(label);
           label.style.left = '50%';
           label.style.top = '50%';
@@ -239,8 +244,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   
       this.isShowing = true;
     } else {
-      // Eliminar todas las regiones si ya estaban visibles
-      regionsPlugin.getRegions().forEach((region: { remove: () => any; }) => region.remove());
+      this.waveSurfer.regions.list.forEach((region: any) => region.remove());
       this.isShowing = false;
     }
   }
@@ -254,7 +258,10 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   isWordActive(alignment: Alignment): boolean {
     if (!this.waveSurfer) return false;
     const currentTime = this.waveSurfer.getCurrentTime();
-    return currentTime >= alignment.start && currentTime <= alignment.end;
+    console.log(currentTime)
+    console.log("INICIO: " ,alignment.start)
+    console.log("FIN: " ,alignment.end)
+    return currentTime >= (alignment.start) && currentTime <= (alignment.end);
   }
   
   /**

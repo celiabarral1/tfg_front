@@ -3,7 +3,6 @@ import WaveSurfer from 'wavesurfer.js';
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
 import { AudioService } from '../audio.service';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
-import { ColorGenerator } from '../../@core/common/utils/color-generator'; 
 import VAD from '../../@core/common/utils/vad.ts/vad'; 
 import { AudioEmotionsComponent } from './audio-emotions/audio-emotions.component';
 import { AudioUtils } from '../../@core/common/utils/audio-helper';
@@ -11,6 +10,7 @@ import { RecordingEmotions } from './model/recording-emotions';
 import { CsvGestor } from '../../@core/common/utils/csv-gestor';
 import { Alignment } from './model/alignment';
 import { AuthService } from '../../authentication/auth-services';
+import Swal from 'sweetalert2';
 
 /**
  * Componente dedicado a la detección de voz en tiempo real y a la visualización de los datos asociados
@@ -261,7 +261,16 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       });
   
     } catch (error) {
-      console.error('Error al acceder al micrófono:', error);
+      this.isRecording = false ;
+      console.log('Error accediendo al micrófono');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error de acceso',
+        text: 'No se ha podido comenzar a grabar por el micrófono.',
+        confirmButtonText: 'Aceptar'
+      });
+      return; 
+
     }
   }
   
@@ -287,7 +296,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
           console.error('Error al cerrar el AudioContext:', error);
         });
     } else {
-      this.audioContext = null; // Si ya estaba cerrado, asegurarse de limpiarlo
+      this.audioContext = null; 
     }
     
   
@@ -482,37 +491,6 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('Todos los audios han sido descargados.');
   }
 
-  
-  // showEmotions(response: any) {
-  //   console.log(this.waveSurferRecorded)
-  //   this.waveSurferRecorded.forEach((waveSurferInstance) => {
-  //     const regions = waveSurferInstance.plugins[0]
-  //     console.log("Regions Plugin:", waveSurferInstance.plugins[0]); 
 
-  //     if (regions) {
-  //       console.log("Plugin Regions cargado:", regions);
-
-  //       // Agregar las emociones como regiones
-  //       this.EMOTIONS_DATA.forEach((emotionArray) => {
-  //         // Para cada subarray de emociones
-  //         emotionArray.forEach((emotion) => {
-  //           console.log(emotion);
-  //           regions.addRegion({
-  //             start: emotion.start,  // Comienzo de la región
-  //             end: emotion.end,      // Fin de la región
-  //             color: this.colorGenerator.randomColor(),  // Color aleatorio
-  //             content: emotion.emotion,  // Etiqueta con el nombre de la emoción
-  //             drag: false,
-  //           });
-  //         });
-  //       });
-        
-  //     } else {
-  //       console.log("Plugin Regions no está accesible.");
-  //     }
-  //   });
-  // }
-  
-  
   
 }

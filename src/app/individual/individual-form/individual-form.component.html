@@ -18,7 +18,7 @@
           </div>
       </div>
       <div class="invalid-feedback" *ngIf="form.get('userId')?.invalid && form.get('userId')?.touched">
-        * La identificación del usuario es obligatoria.
+        *Introduce un ID.
       </div>
     </div>
       <div class="row">
@@ -78,7 +78,7 @@
         <fieldset>
           <legend>Tipo de gráfico:</legend>
           <label>
-            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categoric
+            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categórico
           </label>
           <label>
             <input type="radio" formControlName="charType" value="1" (change)="onCharTypeChange('1')" /> Dimensional

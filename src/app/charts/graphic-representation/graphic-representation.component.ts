@@ -8,6 +8,11 @@ import { ActivatedRoute} from '@angular/router';
   templateUrl: './graphic-representation.component.html',
   styleUrl: './graphic-representation.component.scss'
 })
+
+/**
+ * Componente que gestiona todos los cambios de gráficos y los tipos de
+ * visualización
+ */
 export class GraphicRepresentationComponent  implements OnInit {
   charType: string = '1';
   selectedTab: string = 'individual';
@@ -40,9 +45,13 @@ export class GraphicRepresentationComponent  implements OnInit {
   }
 
   private resetCharType(): void {
-    this.charType = '1'; // Valor predeterminado al cambiar de pestaña
+    this.charType = '1'; // Valor predeterminado. Gráfico dimensional
   }
 
+  /**
+   * 
+   * @returns Descarga de datos 
+   */
   downloadData(): void {
     if (this.isDisabled()) {
       console.warn('No hay datos disponibles para descargar.');

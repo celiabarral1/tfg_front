@@ -7,8 +7,12 @@ import { AuthService } from '../auth-services';
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
-  // encapsulation: ViewEncapsulation.None
 })
+
+/**
+ * Componente de Iniciar Sesión en la aplicación
+ * Utiliza el servicio de autenticación para comprobar la entrada al sistema 
+ */
 export class LoginComponent {
   loginForm: FormGroup;
   errorMessage: string | null = null;
@@ -20,6 +24,10 @@ export class LoginComponent {
     });
   }
 
+  /**
+   * Si los datos son correctos (verificado por authService)
+   * se lleva al usuario a la página principal
+   */
   onSubmit() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.value;

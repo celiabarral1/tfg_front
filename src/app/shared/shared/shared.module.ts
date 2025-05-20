@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [],
@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
+    MatExpansionModule
     
   ],
   exports: [

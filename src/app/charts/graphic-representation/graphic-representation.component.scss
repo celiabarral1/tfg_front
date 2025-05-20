@@ -159,6 +159,7 @@ h2 {
 .graphic-representation {
     display: flex;
     justify-content: space-between;
+    // align-items: center; //funciona bien para dimensional pero para categorico no
     gap: 20px;
     padding: 20px;
     background-color: var(--dark-gray-color);

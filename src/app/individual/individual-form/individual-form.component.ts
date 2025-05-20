@@ -48,7 +48,6 @@ export class IndividualFormComponent implements OnChanges {
     this.service.getIds().subscribe(
       (response) => {
         this.ids = response; 
-        console.log(response)
       },
       (error) => {
         console.error('Error al obtener las opciones de tiempo:', error);
@@ -56,49 +55,49 @@ export class IndividualFormComponent implements OnChanges {
     );
   }
 
+  ngAfterViewInit(): void {
+    if (this.id) {
+      this.form.patchValue({ userId: this.id });
+      this.cdr.detectChanges(); // Detecta cambios después de recibir id por asignación
+    }
+  }
+  
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['id'] && changes['id'].currentValue) {
+      console.log('id recibido:', this.id);  // Asegúrate de que el id esté llegando correctamente
       this.form.patchValue({ userId: this.id });
+      this.form.updateValueAndValidity();
+      this.form.get('userId')?.setValue(Number(this.id));
     }
+  }
+  
+  
+dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
+  const userId = control.get('userId')?.value;
+  const time = control.get('time')?.value;
+  const startDate = control.get('startDate')?.value;
+  const endDate = control.get('endDate')?.value;
+
+  // Si no hay usuario seleccionado, no validar aún
+  if (!userId) {
+    return null;
   }
 
-  dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
-    const userId = control.get('userId')?.value;
-    const timeControl = control.get('time');
-    const startDateControl = control.get('startDate');
-    const endDateControl = control.get('endDate');
-  
-    const time = timeControl?.value;
-    const startDate = startDateControl?.value;
-    const endDate = endDateControl?.value;
-  
-    // Si no hay usuario seleccionado, no validar nada aún
-    if (!userId) {
-      return null;
-    }
-  
-    // Si el usuario no ha interactuado con al menos uno de los campos, no mostrar error
-    const isAnyFieldTouched = timeControl?.dirty || startDateControl?.dirty || endDateControl?.dirty;
-    if (!isAnyFieldTouched) {
-      return null;
-    }
-  
-    // Si se ha introducido una ventana temporal o ambas fechas, la validación es correcta
-    if (time || (startDate && endDate)) {
-      return null;
-    }
-  
-    // Si el usuario había tocado `time` pero lo dejó vacío, también es inválido
-    if (timeControl?.dirty && !time) {
-      return { dateOrTimeRequired: true };
-    }
-  
-    // Si ninguno de los campos requeridos tiene un valor, mostrar error
-    return { dateOrTimeRequired: true };
+  // Si hay valor en time, es válido
+  if (time) {
+    return null;
   }
-  
-  
-  
+
+  // Si hay tanto startDate como endDate, es válido
+  if (startDate && endDate) {
+    return null;
+  }
+
+  // Si no hay ni time ni un rango completo de fechas, inválido
+  return { dateOrTimeRequired: true };
+}
+
+
 
   dateValidator(control: AbstractControl): ValidationErrors | null {
     const userId = control.get('userId')?.value;

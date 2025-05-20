@@ -2,39 +2,47 @@
    <div class="main-info">
       <div class="left-container">
          <h1>Reconocimiento de voz en tiempo real</h1>
-         
+
          <!-- Controles de grabación -->
          <div class="buttons">
             <button class="btn-initial" (click)="startRecording()" [disabled]="isRecording">Grabar</button>
             <button class="btn-initial" (click)="stopRecording()" [disabled]="!isRecording">Detener</button>
             <!-- <button (click)="pauseRecording()">Pausar/Reanudar</button> -->
          </div>
+         <!-- <label for="delaySelect">Selecciona el delay:</label>
+         <select id="delaySelect" [(ngModel)]="selectedDelay" (change)="onChangeDelay(selectedDelay)"
+         [disabled]="isRecording">
+            <option *ngFor="let delay of stopDelayOptions" [ngValue]="delay">
+               {{ delay }} ms
+            </option>
+         </select> -->
 
       </div>
-      
+
       <div class="right-container">
          <!-- Progreso de la grabación -->
-         <div class="live-record" >
+         <div class="live-record">
             <!-- Contenedor de WaveSurfer -->
-               <!-- <div *ngIf="isRecording">
+            <!-- <div *ngIf="isRecording">
                   <div #waveform style="border: 1px solid #ddd; margin: 10px 0;"></div>
                </div> -->
-            <div #waveform ></div>
+            <div #waveform></div>
             <!-- <p>Progreso: {{ recordingProgress }}</p> -->
          </div>
       </div>
    </div>
-   
+
    <div class="separator"></div>
 
-    <!-- Grabaciones -->
+   <!-- Grabaciones -->
    <div class="records">
       <h2>Grabaciones</h2>
-      <button class="btn-secondary" [disabled]="recordingsWithEmotions.length === 0 || !isAuthorized " (click)="downloadAll()">Descargar Datos</button>
-   </div> 
-     <div class="record-container">
-        <div #recordings class="audios-recorded"></div>
-     </div>
-   
-   
-  </div>
+      <button class="btn-secondary" [disabled]="recordingsWithEmotions.length === 0 || !isAuthorized "
+         (click)="downloadAll()">Descargar Datos</button>
+   </div>
+   <div class="record-container">
+      <div #recordings class="audios-recorded"></div>
+   </div>
+
+
+</div>

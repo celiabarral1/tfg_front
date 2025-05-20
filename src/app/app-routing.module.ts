@@ -11,6 +11,7 @@ import { ShiftRepresentationComponent } from './shift-representation/shift-repre
 import { GraphicRepresentationComponent } from './charts/graphic-representation/graphic-representation.component';
 import { AccessDeniedComponent } from './authentication/access-denied/access-denied.component';
 import { AnalysisComponent } from './analysis/analysis.component';
+import { ConfigComponent } from './config/config.component';
 
 const routes: Routes = [
   { path: '', component: PrincipalComponent }, 
@@ -21,12 +22,14 @@ const routes: Routes = [
     { path: 'representation/:id', component: GraphicRepresentationComponent, canActivate: [authGuard],
       data: { expectedRoles: ['psychologist', 'admin'] }  } ,
   { path: 'audio', component: AudioComponent, canActivate: [authGuard] } ,
+  // { path: 'audio', component: AudioVoiceComponent, canActivate: [authGuard] } ,
   { path: 'analysis', component: AnalysisComponent, canActivate: [authGuard],
     data: { expectedRoles: ['psychologist', 'admin'] } } ,
   { path: 'csv', component: CsvAudiosComponent, canActivate: [authGuard] ,
     data: { expectedRoles: ['psychologist', 'admin'] } } ,
   { path: 'login', component: LoginComponent } , 
-  { path: 'register', component: RegisterFormComponent, canActivate: [authGuard] },
+  // { path: 'register', component: RegisterFormComponent, canActivate: [authGuard] },
+  { path: 'register', component: ConfigComponent, canActivate: [authGuard] },
   { path: 'shift', component: ShiftRepresentationComponent, canActivate: [authGuard] ,
     data: { expectedRoles: ['psychologist', 'admin'] } } ,
   { path: 'access-denied', component: AccessDeniedComponent }

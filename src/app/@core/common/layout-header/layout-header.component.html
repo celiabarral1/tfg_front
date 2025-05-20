@@ -4,20 +4,21 @@
       <img src="img/logo_white.png" alt="WebEmotions Logo" class="logo-image">
     </a>
   </div>
-
   <mat-toolbar *ngIf="!isLoginPage" class="menu">
-    <a mat-button routerLink="/representation">Representación</a>
-    <a mat-button routerLink="/analysis">Análisis</a>
-    <a mat-button routerLink="/audio">Audio</a>
-    <a mat-button routerLink="/csv">CSV</a>
-    <a mat-button routerLink="/register">Trabajadores</a>
+    <a mat-button routerLink="/representation" routerLinkActive="active-link">Análisis detallado</a>
+    <a mat-button routerLink="/analysis" routerLinkActive="active-link">Análisis global</a>
+    <a mat-button routerLink="/audio" routerLinkActive="active-link">Inferencia tiempo real</a>
+    <a mat-button routerLink="/csv" routerLinkActive="active-link">Inferencia diferida</a>
+    <a mat-button routerLink="/register" routerLinkActive="active-link">Trabajadores</a>
   </mat-toolbar>
 
-  <div *ngIf="!isLoggedIn && !isLoginPage" class="login">
-    <button class="btn-secondary" routerLink="/login">Entrar</button>
-  </div>
+  <div class="login-container">
+    <div *ngIf="!isLoggedIn && !isLoginPage" class="login">
+      <button class="btn-secondary" routerLink="/login">Entrar</button>
+    </div>
 
-  <div *ngIf="isLoggedIn && !isLoginPage" class="login">
-    <button class="btn-secondary" (click)="logout()">Salir</button>
+    <div *ngIf="isLoggedIn && !isLoginPage" class="login">
+      <button class="btn-secondary" (click)="logout()">Salir</button>
+    </div>
   </div>
 </div>

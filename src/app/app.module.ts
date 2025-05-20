@@ -25,7 +25,6 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { AudioRecordedComponent } from './audio/audio-recorded/audio-recorded.component';
-import { ColorGenerator } from './@core/common/utils/color-generator';
 import { AudioVadComponent } from './audio/audio-vad/audio-vad.component';
 import { AudioVadLiveComponent } from './audio/audio-vad-live/audio-vad-live.component';
 import { AudioEmotionsComponent } from './audio/audio-vad-live/audio-emotions/audio-emotions.component';
@@ -45,6 +44,9 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
 import { AccessDeniedComponent } from './authentication/access-denied/access-denied.component';
 import { AnalysisComponent } from './analysis/analysis.component';
+import { AudioVoiceComponent } from './audio/audio-voice-component/audio-voice-component.component';
+import { ConfigComponent } from './config/config.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -73,6 +75,8 @@ import { AnalysisComponent } from './analysis/analysis.component';
     GraphicRepresentationComponent,
     AccessDeniedComponent,
     AnalysisComponent,
+    AudioVoiceComponent,
+    ConfigComponent,
   ],
   imports: [
     BrowserModule,
@@ -92,11 +96,11 @@ import { AnalysisComponent } from './analysis/analysis.component';
     MatFormFieldModule,
     MatNativeDateModule,
     MatInputModule,
+    MatExpansionModule,
     BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration(),
-    ColorGenerator
   ],
   bootstrap: [AppComponent]
 })

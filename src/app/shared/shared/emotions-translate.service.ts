@@ -11,9 +11,9 @@ export class EmotionTranslationService {
     'fear': 'miedo',
     'sadness': 'tristeza',
     'neutral': 'neutral',
-    'Arousal': 'excitación',
-    'Valence':  'intensidad',
-    'Dominance': 'dominancia'
+    'arousal': 'excitación',
+    'valence':  'intensidad',
+    'dominance': 'dominancia'
   };
 
   constructor() {}

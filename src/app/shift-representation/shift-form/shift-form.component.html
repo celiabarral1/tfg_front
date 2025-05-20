@@ -63,9 +63,9 @@
       <div class="row">
       <div class="form-group">
         <fieldset>
-          <legend>Char type:</legend>
+          <legend>Tipo de gráfico:</legend>
           <label>
-            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categoric
+            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categórico
           </label>
           <label>
             <input type="radio" formControlName="charType" value="1" (change)="onCharTypeChange('1')" /> Dimensional
@@ -73,10 +73,14 @@
         </fieldset>
       </div>
     </div>
-        <button type="submit" class="btn-initial">Show</button>
-      </form>      
+        <div class = "buttons">
+          <button type="submit" class="btn-initial">Mostrar</button>
+          <a href="#" (click)="changePopUpState($event)">Mostrar Participantes</a>
+        </div> 
+        
+    </form>      
 </div>
-<button type="button" class="btn-initial" (click)="changePopUpState()">Mostrar Participantes</button>
+
 <div class="popup" *ngIf="showPopup">
   <div class="popup-content">
     <button class="close-button" (click)="changePopUpState()">✖</button>

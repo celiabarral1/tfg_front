@@ -6,6 +6,7 @@ import { Record } from '../../shared/shared/model/record';
 import { AnalysisService } from '../../analysis/analysis.service';
 import { Classification } from '../../analysis/model/classification';
 import { Router } from '@angular/router';
+import { first } from 'rxjs';
 
 @Component({
   selector: 'app-shift-form',
@@ -159,8 +160,21 @@ isDatesDisabled: boolean = false;
     this.charTypeChange.emit(value); 
   }
 
-  changePopUpState(): void {
-    this.showPopup = !this.showPopup;
+  changePopUpState(event?: Event): void {
+    if(this.chartDataService.chartData$){
+      if (event) {
+        event.preventDefault();  
+      }
+      this.chartDataService.chartData$.pipe(first()).subscribe((data) => {
+        if (data && data.data.length > 0) {
+          this.showPopup = !this.showPopup;
+          this.cdr.detectChanges();
+        } else {
+          console.warn('No hay datos disponibles para mostrar en el popup');
+        }
+      });
+    }
+    
   }
 
   /**
@@ -172,9 +186,5 @@ isDatesDisabled: boolean = false;
     this.router.navigate(['/representation', id]);
   }
 
-    /**
-   * Método para manejar si se deben ocultar algunos ids por exceso de datos y mostrar
-   * un "Leer más"
-   */
 
 }
