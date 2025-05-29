@@ -140,9 +140,9 @@ fieldset input[type="radio"] {
 
 
 .is-invalid {
-  border: 2px;
-  border-color: #dc3545;
+  border: 2px solid #dc3545;
 }
+
 
 .invalid-feedback {
   color: #dc3545;
@@ -204,6 +204,7 @@ fieldset input[type="radio"] {
     padding: 1rem;
   }
 
+}
   
 @media (min-width: 1024px) {
 .btn-initial:first-of-type {
@@ -216,7 +217,7 @@ fieldset input[type="radio"] {
   // .row:nth-child(3) {
   //   grid-template-columns: 1fr; /* Cada elemento en una fila */
   // }
-}
+
 
 // @media (min-width: 1024px) and (max-width: 2048px) {
 //   label, legend , fieldset label{

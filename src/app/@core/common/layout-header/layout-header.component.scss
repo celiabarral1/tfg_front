@@ -43,6 +43,9 @@ mat-toolbar.menu {
   z-index: 10;
 }
 
+::ng-deep .mat-toolbar {
+   background: none;  /* Eliminar el fondo predeterminado */
+}
 
 /* Para pantallas pequeñas */
 @media (max-width: 1024px) { /* 768px se ha convertido en rem (768px / 16px base = 48rem) */

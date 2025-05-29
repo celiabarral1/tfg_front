@@ -1,0 +1,19 @@
+.inicial-container {
+    display: flex;
+    flex-direction: column; /* Organiza los elementos en una columna */
+//   justify-content: center; /* Centra verticalmente */  
+    align-items: center; /* Centra horizontalmente */
+    height: 60vh; /* Asegura que el contenedor ocupe toda la altura de la ventana */
+    padding-top: 100px;
+    padding-left: 50px;
+    padding-right: 40px;
+    border: 5px solid var(--primary-color);
+    border-radius: 18px;
+    background-color: #d2c8fa;
+    gap: 5%;
+}
+
+
+h1 {
+    color: var(--primary-color );
+}

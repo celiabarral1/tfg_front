@@ -1,3 +1,10 @@
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
 .container-form {
   // max-width: 400px; /* Aumento el ancho máximo para más espacio */
   margin: 20px auto;
@@ -31,6 +38,11 @@ form {
 
 label {
    padding: 0.75rem;
+  font-size: 20px;
+}
+
+input {
+  font-size: 18px;
 }
 
 .ng-dropdown-panel {
@@ -57,3 +69,10 @@ mat-panel-title {
     margin-bottom: 15px;
 }
 
+.shifts-containers {
+  margin-left: 30px;
+}
+
+.btn-form {
+  margin-left: 5px;
+}

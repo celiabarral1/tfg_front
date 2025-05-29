@@ -47,6 +47,7 @@ import { AnalysisComponent } from './analysis/analysis.component';
 import { AudioVoiceComponent } from './audio/audio-voice-component/audio-voice-component.component';
 import { ConfigComponent } from './config/config.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { DeferredInferenceComponent } from './audio/deferred-inference/deferred-inference.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
     AnalysisComponent,
     AudioVoiceComponent,
     ConfigComponent,
+    DeferredInferenceComponent,
   ],
   imports: [
     BrowserModule,

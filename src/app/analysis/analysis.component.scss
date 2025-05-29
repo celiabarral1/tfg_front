@@ -85,3 +85,11 @@ button {
 h1 {
   color: var(--primary-color );
 }
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 600px;  /* Establece un tamaño máximo si es necesario */
+  margin: 0 auto;
+}

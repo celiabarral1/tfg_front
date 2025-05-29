@@ -28,20 +28,6 @@ export class ConfigService {
     );
   }
 
-//   getFullConfig(): Observable<{ config: Config; full: FullConfig }> {
-//     return this.http.get<FullConfig>(`${this.apiUrl}/getConfig`).pipe(
-//       map(data => {
-//         const config = new Config({
-//           nWorkers: data.GENERATION.n_trabajadores,
-//           nSamples: data.GENERATION.n_samples,
-//           inferenceModel: data.INFERENCE.inference_model,
-//           silenceInterval: data.INFERENCE.silence_interval
-//         });
-//         return { config, full: data };
-//       })
-//     );
-//   }
-
 getFullConfig(): Observable<FullConfig> {
     return this.http.get<any>(`${this.apiUrl}/getConfig`).pipe(
       map(data => {
@@ -71,5 +57,7 @@ getFullConfig(): Observable<FullConfig> {
     return this.http.post(`${this.apiUrl}/changeConfig`, config); 
   }
   
-  
+  resetConfig(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/resetConfig`); 
+  }
 }

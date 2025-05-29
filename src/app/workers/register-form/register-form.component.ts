@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Employee } from '../model/employee';
 import { EmployeeService } from '../employee.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -15,7 +16,7 @@ export class RegisterFormComponent implements OnInit{
   dateNow: string;
   ids = [];
 
-  constructor(private fb: FormBuilder, private employeeService: EmployeeService) {
+  constructor(private fb: FormBuilder, private employeeService: EmployeeService , private router: Router) {
     this.dateNow = new Date().toISOString().split('T')[0];
     this.registerForm = this.fb.group({
       id: [null, Validators.required],
@@ -82,6 +83,10 @@ export class RegisterFormComponent implements OnInit{
       });
       this.registerForm.reset();
     }
+  }
+
+  backToConfig() {
+    this.router.navigate(['/config']);
   }
 
 }

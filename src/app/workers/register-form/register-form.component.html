@@ -1,3 +1,5 @@
+<div class="container-general">
+<button class="btn-secondary" (click)="backToConfig()">Volver</button>
 <div class="container-form">
   <h2>Alta de Usuario</h2>
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -53,9 +55,9 @@
       </div>
     </div>
 
-    <!-- Botón de envío -->
     <div class="form-actions">
       <button type="submit" [disabled]="registerForm.invalid" class="btn-form">Registrar</button>
     </div>
   </form>
+</div>
 </div>

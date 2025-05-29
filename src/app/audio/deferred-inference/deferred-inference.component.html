@@ -1,0 +1,34 @@
+<div class="inicial-container">
+    <h1>Inferencia de emociones.</h1>
+    <p>Ahora no hace falta hablar, sube aquí el .csv (siguiendo el modelo que puedes descargar aquí), 
+      junto con los audios que se mencionan en el .csv y podrás visualizar las emociones asociadas a cada audio
+    </p>
+    <input type="file" accept=".wav" multiple (change)="onChargeAudios($event)">
+  </div>
+  
+     <div class="records">
+      <h2>Grabaciones</h2>
+   </div>
+   <div class="record-container">
+      <div #recordings class="audios-recorded"></div>
+   </div>
+
+  <!-- <div *ngIf="recordings.length > 0">
+    <h3>Audios procesados</h3>
+    <div *ngFor="let recording of recordings; let i = index">
+      <app-audio-emotions
+        [audioBlob]="recording.audioBlob"
+        [emotions_categoric]="[
+          { emo: recording.Emotion_1_label, prob: recording.Emotion_1_mean },
+          { emo: recording.Emotion_2_label, prob: recording.Emotion_2_mean },
+          { emo: recording.Emotion_3_label, prob: recording.Emotion_3_mean }
+        ]"
+        [emotions_dimensional]="[
+          { valence: recording.valence, arousal: recording.arousal, dominance: recording.dominance }
+        ]"
+        [audioIndex]="i"
+        [alignments]="recording.alignments">
+      </app-audio-emotions>
+    </div>
+  </div> -->
+  

@@ -12,6 +12,7 @@ import { GraphicRepresentationComponent } from './charts/graphic-representation/
 import { AccessDeniedComponent } from './authentication/access-denied/access-denied.component';
 import { AnalysisComponent } from './analysis/analysis.component';
 import { ConfigComponent } from './config/config.component';
+import { DeferredInferenceComponent } from './audio/deferred-inference/deferred-inference.component';
 
 const routes: Routes = [
   { path: '', component: PrincipalComponent }, 
@@ -25,11 +26,13 @@ const routes: Routes = [
   // { path: 'audio', component: AudioVoiceComponent, canActivate: [authGuard] } ,
   { path: 'analysis', component: AnalysisComponent, canActivate: [authGuard],
     data: { expectedRoles: ['psychologist', 'admin'] } } ,
-  { path: 'csv', component: CsvAudiosComponent, canActivate: [authGuard] ,
+  // { path: 'csv', component: CsvAudiosComponent, canActivate: [authGuard] ,
+  //   data: { expectedRoles: ['psychologist', 'admin'] } } ,
+   { path: 'csv', component: DeferredInferenceComponent, canActivate: [authGuard] ,
     data: { expectedRoles: ['psychologist', 'admin'] } } ,
   { path: 'login', component: LoginComponent } , 
-  // { path: 'register', component: RegisterFormComponent, canActivate: [authGuard] },
-  { path: 'register', component: ConfigComponent, canActivate: [authGuard] },
+  { path: 'register', component: RegisterFormComponent, canActivate: [authGuard] },
+  { path: 'config', component: ConfigComponent, canActivate: [authGuard] },
   { path: 'shift', component: ShiftRepresentationComponent, canActivate: [authGuard] ,
     data: { expectedRoles: ['psychologist', 'admin'] } } ,
   { path: 'access-denied', component: AccessDeniedComponent }

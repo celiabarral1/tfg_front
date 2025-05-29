@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AnalysisService } from './analysis.service';
 import { Classification } from './model/classification';
 import { Router } from '@angular/router';
+import { Chart, ChartConfiguration, ChartTypeRegistry } from 'chart.js';
 
 /**
  * Componente destinado a la visualización de los trabajadores agrupados según su tendencia psicológica predominante.
@@ -40,6 +41,10 @@ export class AnalysisComponent implements OnInit {
   showLessAnxiety: boolean = true;
   showLessNoDisorder: boolean = true;
 
+
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
+  chart!: Chart<'doughnut', number[], string>;
+
   /**
    * Constructor del componente de análisis de grupos.
    * @param analysisService servicio para realizar peticiones y obtener datos a la API sobre la clasificación de trabajadores
@@ -62,11 +67,18 @@ export class AnalysisComponent implements OnInit {
               response.depression,
               response.anxiety
             ); 
+            setTimeout(() => {
+          this.createChart();  // Retrasamos la creación del gráfico
+        }, 0); 
           },
           error: (error) => {
             console.error('Error al obtener la clasificación:', error);
           }
         });
+      } else {
+        setTimeout(() => {
+          this.createChart();  // Retrasamos la creación del gráfico
+        }, 0); 
       }
     
   }
@@ -136,4 +148,46 @@ export class AnalysisComponent implements OnInit {
       this.showLessNoDisorder = !this.showLessNoDisorder;
     }
   }
+
+
+createChart(): void {
+  if (!this.chartCanvas) return;
+
+  const ctx = this.chartCanvas.nativeElement.getContext('2d');
+  if (!ctx) return;
+
+  if (this.chart) {
+    this.chart.destroy(); // elimina gráfico anterior si existe
+  }
+
+  this.chart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Depresión', 'Ansiedad', 'Sin Trastorno'],
+      datasets: [{
+        label: 'Distribución de trabajadores',
+        data: [
+          this.classificationData.depression.length,
+          this.classificationData.anxiety.length,
+          this.classificationData.no_disorder.length
+        ],
+        backgroundColor: ['#e74c3c', '#3498db', '#2ecc71'],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top'
+        },
+        title: {
+          display: true,
+          text: 'Distribución de trabajadores por tendencia psicológica'
+        }
+      }
+    }
+  });
+}
+
 }

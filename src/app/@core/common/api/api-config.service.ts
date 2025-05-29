@@ -14,6 +14,12 @@ export class ApiConfigService {
    */
   private apiUrl: string = 'http://127.0.0.1:5000';
 
+    /**
+   * Define la URL base de la API.
+   * @private
+   */
+  private apiUrlForceAlignment: string = 'http://127.0.0.1:5001';
+
   /**
    * Constructor de ApiConfigService.
    */
@@ -25,5 +31,13 @@ export class ApiConfigService {
    */
   getApiUrl(): string {
     return this.apiUrl;
+  }
+
+    /**
+   * Devuelve la URL base de la API.
+   * @returns {string} URL base de la API.
+   */
+  getApiUrlForceAlignment(): string {
+    return this.apiUrlForceAlignment;
   }
 }

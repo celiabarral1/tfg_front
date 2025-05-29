@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
 import { CsvGestor } from '../../@core/common/utils/csv-gestor';
 import { ActivatedRoute} from '@angular/router';
+import { debounceTime, fromEvent, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-graphic-representation',
@@ -18,6 +19,7 @@ export class GraphicRepresentationComponent  implements OnInit {
   selectedTab: string = 'individual';
   graphData: any[] = [];
   id: string | null = null;
+    resizeSubscription!: Subscription;
 
   constructor(private chartDataService: ChartDataService, private cdr: ChangeDetectorRef, private router: ActivatedRoute) {
 

@@ -3,7 +3,7 @@ import WaveSurfer from 'wavesurfer.js';
 import RecordPlugin from 'wavesurfer.js/dist/plugins/record.esm.js';
 import { AudioService } from '../audio.service';
 import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.esm.js';
-import VAD from '../../@core/common/utils/vad.ts/vad'; 
+import VAD from '../../@core/common/utils/vad.ts/vad';
 import { AudioEmotionsComponent } from './audio-emotions/audio-emotions.component';
 import { AudioUtils } from '../../@core/common/utils/audio-helper';
 import { RecordingEmotions } from './model/recording-emotions';
@@ -11,6 +11,8 @@ import { CsvGestor } from '../../@core/common/utils/csv-gestor';
 import { Alignment } from './model/alignment';
 import { AuthService } from '../../authentication/auth-services';
 import Swal from 'sweetalert2';
+import { ForceAlignmentService } from '../force-alignment/force-alignment.service';
+import { lastValueFrom } from 'rxjs';
 
 /**
  * Componente dedicado a la detección de voz en tiempo real y a la visualización de los datos asociados
@@ -68,7 +70,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   isRecording = false;
   recordingProgress = '00:00';
 
-  index=0;
+  index = 0;
 
   /**
    * Estructura que almacena las grabaciones de WaveSurfer
@@ -84,7 +86,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
    * Determina si hay o no alguna petición siendo resuelta.
    */
   private isRequestInProgress = false;
-  
+
   /**
    * Lista de audios asociados con sus datos emocionales.
    */
@@ -100,6 +102,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   fftSize = 1024;
   bufferLen = 1024;
 
+  voice_stop_delay_string: string = this.voice_stop_delay.toString();
   /**
    * Opciones de tiempo para la detección de silencio.
    */
@@ -117,8 +120,9 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
     private authService: AuthService,
+    private forceAlignment: ForceAlignmentService,
     private cdr: ChangeDetectorRef
-  ) {}
+  ) { }
   ngAfterViewInit(): void {
     if (this.waveformRef && this.waveformRef.nativeElement) {
       this.createWaveSurfer();
@@ -133,6 +137,11 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     // this.createWaveSurfer();
     this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
+    this.audioService.getInferenceInterval().subscribe(value => {
+      this.voice_stop_delay = value;
+      // this.voice_stop_delay_string = value.toString();
+    });
+
   }
 
   /**
@@ -159,29 +168,29 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   createWaveSurfer(): void {
     this.waveSurfer = WaveSurfer.create({
       container: this.waveformRef.nativeElement,
-      waveColor: 'rgb(97, 80, 234)' ,
+      waveColor: 'rgb(97, 80, 234)',
       progressColor: 'rgb(100, 0, 100)',
       height: 200,
     });
-  
+
     this.audio = this.waveSurfer.registerPlugin(
       RecordPlugin.create({
-        renderRecordedAudio: true, 
-        continuousWaveform: false, 
+        renderRecordedAudio: true,
+        continuousWaveform: false,
       })
     );
-  
+
     this.audio.on('record-end', (blob: Blob) => {
       this.processRecordedAudio(blob);
     });
-  
+
     this.audio.on('record-progress', (time: number) => {
-      this.updateProgress(time); 
+      this.updateProgress(time);
     });
 
     console.log('WaveSurfer creado.');
   }
-   
+
   /**
    * Destruye la onda de audio.
    */
@@ -199,7 +208,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  
+
   /**
    * Se encarga de cerrar bien todo lo relacionado con la capturación de audio mediante
    * el micrófono.
@@ -227,17 +236,17 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
    * * @throws {Error} si el usuario niega el acceso al micrófono o si ocurre algún problema de acceso.
    */
   async startRecording(): Promise<void> {
-    this.stopRecording(); 
-    this.destroyWaveSurfer(); 
-    this.createWaveSurfer(); 
-    this.closeAudioContext(); 
-  
+    this.stopRecording();
+    this.destroyWaveSurfer();
+    this.createWaveSurfer();
+    this.closeAudioContext();
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       this.mediaStream = stream;
       this.audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
       const sourceNode = this.audioContext.createMediaStreamSource(stream);
-      this.isRecording = true ;
+      this.isRecording = true;
 
 
       this.vad = new VAD({
@@ -245,23 +254,23 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
         context: this.audioContext,
         fftSize: 1024,
         bufferLen: 1024,
-        voice_stop_delay: 500,
+        voice_stop_delay: this.voice_stop_delay,
         voice_start: () => {
           console.log('Voz detectada');
           this.cdr.detectChanges();
-          this.audio.startRecording(); 
+          this.audio.startRecording();
         },
         voice_stop: () => {
           console.log('Silencio detectado, finalizando grabación actual');
-          this.audio.stopRecording(); 
+          this.audio.stopRecording();
           this.cdr.detectChanges();
           this.destroyWaveSurfer();
           this.createWaveSurfer();
         },
       });
-  
+
     } catch (error) {
-      this.isRecording = false ;
+      this.isRecording = false;
       console.log('Error accediendo al micrófono');
       Swal.fire({
         icon: 'error',
@@ -269,11 +278,11 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
         text: 'No se ha podido comenzar a grabar por el micrófono.',
         confirmButtonText: 'Aceptar'
       });
-      return; 
+      return;
 
     }
   }
-  
+
 
   /**
    * Detiene la grabación, tanto visualmente como cierra la escucha.
@@ -290,21 +299,21 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       this.audioContext.close()
         .then(() => {
           console.log('AudioContext cerrado correctamente.');
-          this.audioContext = null; 
+          this.audioContext = null;
         })
         .catch((error) => {
           console.error('Error al cerrar el AudioContext:', error);
         });
     } else {
-      this.audioContext = null; 
+      this.audioContext = null;
     }
-    
-  
+
+
     if (this.mediaStream) {
       this.mediaStream.getTracks().forEach((track) => track.stop());
       this.mediaStream = null;
     }
-    
+
     console.log('Grabación detenida manualmente.');
   }
 
@@ -331,10 +340,10 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       // Crear el componente dinámicamente
       const componentFactory = this.componentFactoryResolver.resolveComponentFactory(AudioEmotionsComponent);
       const componentRef = this.viewContainerRef.createComponent(componentFactory);
-      
+
       // Pasar las propiedades al componente
-      componentRef.instance.audioBlob = wav; 
-      componentRef.instance.audioIndex = this.index; 
+      componentRef.instance.audioBlob = wav;
+      componentRef.instance.audioIndex = this.index;
       // Pasar las emociones correspondientes
 
       // Agregar el componente al DOM
@@ -343,7 +352,6 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     });
 
     this.index++;
-    
   }
 
   // EMOTIONS PROCESS
@@ -353,29 +361,35 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       const audioData = new FormData();
       const fileName = 'recording' + this.index + '.wav';
       const audioFile = new File([blob], fileName, { type: blob.type });
-  
+
       audioData.append('audioFile', audioFile);
-  
+
+      //  this.forceAlignment.getForcedAlignment(audioData).subscribe((resp)=> {
+      //   console.log(resp)
+      // });
       try {
         const response = await this.audioService.getDataAudio(audioData).toPromise();
         console.log('Audio enviado exitosamente:', response);
 
-        
+        // Esperar a que la primera petición se procese antes de lanzar la segunda
+        const alignmentsResponse = await lastValueFrom(this.forceAlignment.getForcedAlignment(audioData));
+        response.alignments = alignmentsResponse;
+
         const emocategoric = response.emotions.emocategoric;
         this.addCategoric(emocategoric, componentRef.instance);
         const emodimensional = response.emotions.emodimensional;
         this.addDimensional(emodimensional, componentRef.instance);
-        const alignmentsResponse = response.alignments;
-        console.log('respuesta ',alignmentsResponse)
-        const alignments = alignmentsResponse.map((alignment: any) => {
-          return new Alignment( alignment.end, alignment.start, alignment.word);
+        // const alignmentsResponse = response.alignments;
+        // console.log('respuesta ', alignmentsResponse)
+        let alignments = alignmentsResponse.map((alignment: any) => {
+          return new Alignment(alignment.end, alignment.start, alignment.word);
         });
-        
+
         componentRef.instance.alignments = alignments;
 
 
-        const recordingWithEmotion = this.createRecordingWithEmotion(fileName,emocategoric,emodimensional,response.userId,blob,
-          response.transcription,alignments);
+        const recordingWithEmotion = this.createRecordingWithEmotion(fileName, emocategoric, emodimensional, response.userId, blob,
+          response.transcription, alignments);
 
         // Agregar el objeto al arreglo
         this.recordingsWithEmotions.push(await recordingWithEmotion);
@@ -385,7 +399,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
         console.error('Error al enviar el audio:', error);
       }
     };
-  
+
     this.enqueueRequest(request);
   }
 
@@ -412,7 +426,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     userId: number,
     audioBlob: Blob,
     transcription: string,
-    alignments: Alignment[] 
+    alignments: Alignment[]
   ): Promise<RecordingEmotions> {
     // const audioBase64 = await this.audioUtils.convertBlobToBase64(audioBlob); // Convertir el blob a base64
     console.log('antes de crear ', alignments)
@@ -433,30 +447,30 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       userId: userId,
       timestamp: Date.now(),
       // audioBlob: audioBase64,  // Almacenar la cadena base64
-      audioBlob:audioBlob,
+      audioBlob: audioBlob,
       transcription: transcription,
-      alignments: alignments 
+      alignments: alignments
     });
   }
-  
-  
-  
+
+
+
   // GESTION DE LA COLA DE PETICIONES
   private async enqueueRequest(request: () => Promise<void>): Promise<void> {
     this.requestQueue.push(request);
-  
+
     if (!this.isRequestInProgress) {
       this.processQueue();
     }
   }
-  
+
   private async processQueue(): Promise<void> {
     if (this.isRequestInProgress || this.requestQueue.length === 0) {
       return;
     }
-  
+
     this.isRequestInProgress = true;
-  
+
     const nextRequest = this.requestQueue.shift();
     if (nextRequest) {
       try {
@@ -467,14 +481,14 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       }
     }
   }
-  
+
   // descarga de audios
   downloadAll(): void {
     if (this.waveSurferRecorded.length === 0) {
       console.warn('No hay audios grabados para descargar.');
       return;
     }
-  
+
     this.waveSurferRecorded.forEach((audioBlob, index) => {
       const audioUrl = URL.createObjectURL(audioBlob);
       const anchor = document.createElement('a');
@@ -483,14 +497,14 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       anchor.click();
       URL.revokeObjectURL(audioUrl); // Limpia el objeto URL
     });
-  
+
     this.cdr.detectChanges();
     console.log("tiene alignmets? ", this.recordingsWithEmotions)
-    CsvGestor.downloadCsv(this.recordingsWithEmotions,'recordings_emotions');
-    
+    CsvGestor.downloadCsv(this.recordingsWithEmotions, 'recordings_emotions');
+
     console.log('Todos los audios han sido descargados.');
   }
 
 
-  
+
 }

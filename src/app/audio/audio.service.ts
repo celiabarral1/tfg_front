@@ -24,4 +24,8 @@ export class AudioService {
   getAvalaibleModels() : Observable<any> {
     return this.http.get(`${this.apiUrl}/audio/getAvalaibleModels`);
   }
+
+  getInferenceInterval() : Observable<any> {
+     return this.http.get(`${this.apiUrl}/audio/getInferenceInterval`);
+  }
 }

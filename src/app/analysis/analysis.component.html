@@ -1,71 +1,61 @@
 <div class="search-container">
   <h1>Agrupación de los trabajadores por tendencia psicológica </h1>
-    <input
-      type="text"
-      [(ngModel)]="searchTerm"
-      placeholder="Buscar por ID..."
-      class="search-input"
-    />
-  </div>
-  <div class="groups-container">
-    <!-- Tendencia depresiva -->
-    <div class="group-depression">
-      <h2>Tendencia depresiva</h2>
-      <div class="users_info">
-        <p>Total: {{ classificationData.depression.length }}</p>
-        <ul>
-          <li
-            *ngFor="let id of filteredDepression.slice(0, showLessDepression ? 10 : filteredDepression.length)"
-            (click)="routeToRepresentation(id)"
-          >
-            ID: {{ id }}
-          </li>
-        </ul>
-        <button class="btn-secondary" *ngIf="filteredDepression.length > 10" (click)="toggleShow('depression')">
-          {{ showLessDepression ? 'Leer más' : 'Leer menos' }}
-        </button>
-      </div>
-    </div>
-  
-    <!-- Tendencia ansiosa -->
-    <div class="group-anxiety">
-      <h2>Tendencia ansiosa</h2>
-      <div class="users_info">
-        <p>Total: {{ classificationData.anxiety.length }}</p>
-        <ul>
-          <li
-            *ngFor="let id of filteredAnxiety.slice(0, showLessAnxiety ? 10 : filteredAnxiety.length)"
-            (click)="routeToRepresentation(id)"
-          >
-            ID: {{ id }}
-          </li>
-        </ul>
-        <button class="btn-secondary" *ngIf="filteredAnxiety.length > 10" (click)="toggleShow('anxiety')">
-          {{ showLessAnxiety ? 'Leer más' : 'Leer menos' }}
-        </button>
-      </div>
-    </div>
-  
-    <!-- Sin tendencia detectada -->
-    <div class="group-no-disorder">
-      <h2>Sin tendencia detectada</h2>
-      <div class="users_info">
-        <p>Total: {{ classificationData.no_disorder.length }}</p>
-        <ul>
-          <li
-            *ngFor="let id of filteredNoDisorder.slice(0, showLessNoDisorder ? 10 : filteredNoDisorder.length)"
-            (click)="routeToRepresentation(id)"
-          >
-            ID: {{ id }}
-          </li>
-        </ul>
-        <button class="btn-secondary"
-          *ngIf="filteredNoDisorder.length > 10"
-          (click)="toggleShow('noDisorder')"
-        >
-          {{ showLessNoDisorder ? 'Leer más' : 'Leer menos' }}
-        </button>
-      </div>
+  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por ID..." class="search-input" />
+</div>
+<div class="groups-container">
+  <!-- Tendencia depresiva -->
+  <div class="group-depression">
+    <h2>Tendencia depresiva</h2>
+    <div class="users_info">
+      <p>Total: {{ classificationData.depression.length }}</p>
+      <ul>
+        <li *ngFor="let id of filteredDepression.slice(0, showLessDepression ? 10 : filteredDepression.length)"
+          (click)="routeToRepresentation(id)">
+          ID: {{ id }}
+        </li>
+      </ul>
+      <button class="btn-secondary" *ngIf="filteredDepression.length > 10" (click)="toggleShow('depression')">
+        {{ showLessDepression ? 'Leer más' : 'Leer menos' }}
+      </button>
     </div>
   </div>
-  
+
+  <!-- Tendencia ansiosa -->
+  <div class="group-anxiety">
+    <h2>Tendencia ansiosa</h2>
+    <div class="users_info">
+      <p>Total: {{ classificationData.anxiety.length }}</p>
+      <ul>
+        <li *ngFor="let id of filteredAnxiety.slice(0, showLessAnxiety ? 10 : filteredAnxiety.length)"
+          (click)="routeToRepresentation(id)">
+          ID: {{ id }}
+        </li>
+      </ul>
+      <button class="btn-secondary" *ngIf="filteredAnxiety.length > 10" (click)="toggleShow('anxiety')">
+        {{ showLessAnxiety ? 'Leer más' : 'Leer menos' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Sin tendencia detectada -->
+  <div class="group-no-disorder">
+    <h2>Sin tendencia detectada</h2>
+    <div class="users_info">
+      <p>Total: {{ classificationData.no_disorder.length }}</p>
+      <ul>
+        <li *ngFor="let id of filteredNoDisorder.slice(0, showLessNoDisorder ? 10 : filteredNoDisorder.length)"
+          (click)="routeToRepresentation(id)">
+          ID: {{ id }}
+        </li>
+      </ul>
+      <button class="btn-secondary" *ngIf="filteredNoDisorder.length > 10" (click)="toggleShow('noDisorder')">
+        {{ showLessNoDisorder ? 'Leer más' : 'Leer menos' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="chart-container">
+    <canvas #chartCanvas width="400" height="400"></canvas>
+
+  </div>
+</div>

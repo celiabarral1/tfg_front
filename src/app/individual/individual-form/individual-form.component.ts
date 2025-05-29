@@ -73,49 +73,50 @@ export class IndividualFormComponent implements OnChanges {
   
   
 dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
-  const userId = control.get('userId')?.value;
-  const time = control.get('time')?.value;
-  const startDate = control.get('startDate')?.value;
-  const endDate = control.get('endDate')?.value;
+  // const userId = control.get('userId')?.value;
+  // const time = control.get('time')?.value;
+  // const startDate = control.get('startDate')?.value;
+  // const endDate = control.get('endDate')?.value;
 
-  // Si no hay usuario seleccionado, no validar aún
-  if (!userId) {
-    return null;
-  }
+  // // Si no hay usuario seleccionado, no validar aún
+  // if (!userId) {
+  //   return null;
+  // }
 
-  // Si hay valor en time, es válido
-  if (time) {
-    return null;
-  }
+  // // Si hay valor en time, es válido
+  // if (time) {
+  //   return null;
+  // }
 
-  // Si hay tanto startDate como endDate, es válido
-  if (startDate && endDate) {
-    return null;
-  }
+  // // Si hay tanto startDate como endDate, es válido
+  // if (startDate && endDate) {
+  //   return null;
+  // }
 
-  // Si no hay ni time ni un rango completo de fechas, inválido
-  return { dateOrTimeRequired: true };
+  // // Si no hay ni time ni un rango completo de fechas, inválido
+  // return { dateOrTimeRequired: true };
+  return null;
 }
 
 
 
   dateValidator(control: AbstractControl): ValidationErrors | null {
-    const userId = control.get('userId')?.value;
-    const startDateControl = control.get('startDate');
-    const endDateControl = control.get('endDate');
+    // const userId = control.get('userId')?.value;
+    // const startDateControl = control.get('startDate');
+    // const endDateControl = control.get('endDate');
   
-    if (!userId) {
-      return null;
-    }
+    // if (!userId) {
+    //   return null;
+    // }
   
-    if (!startDateControl?.touched && !endDateControl?.touched) {
-      return null;
-    }
+    // if (!startDateControl?.touched && !endDateControl?.touched) {
+    //   return null;
+    // }
   
-    if (startDateControl?.value && endDateControl?.value && new Date(startDateControl.value) > new Date(endDateControl.value)) {
-      return { invalidDateRange: true };  
-    }
-    this.form.updateValueAndValidity();
+    // if (startDateControl?.value && endDateControl?.value && new Date(startDateControl.value) > new Date(endDateControl.value)) {
+    //   return { invalidDateRange: true };  
+    // }
+    // this.form.updateValueAndValidity();
     return null;  
   }
   
