@@ -39,6 +39,7 @@ getFullConfig(): Observable<FullConfig> {
           uploadFolder: data.UPLOAD_FOLDER,
           maxContentLength: data.MAX_CONTENT_LENGTH,
           port: data.PORT,
+          alignmentPort: data.PORT_FORCE_ALIGNMENT,
           shifts: data.SHIFTS,
           generation: {
             nWorkers: data.GENERATION?.n_trabajadores,
@@ -60,4 +61,9 @@ getFullConfig(): Observable<FullConfig> {
   resetConfig(): Observable<any> {
     return this.http.get(`${this.apiUrl}/resetConfig`); 
   }
+
+  changeFileWithData(fileName: string): Observable<any> {
+  return this.http.post(`${this.apiUrl}/setCsv`, { file: fileName });
+}
+
 }

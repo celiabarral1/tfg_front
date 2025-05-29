@@ -5,6 +5,7 @@ export interface FullConfig {
     corsOrigins: string;
     uploadFolder: string;
     maxContentLength: number;
+    alignmentPort: number;
     port: number;
     shifts: { [key: string]: [string, string] };
     generation: {

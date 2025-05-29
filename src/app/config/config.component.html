@@ -12,20 +12,37 @@
                 <mat-expansion-panel-header>
                     <mat-panel-title>General</mat-panel-title>
                 </mat-expansion-panel-header>
-                
+                <div class="row">
+                    <div class="col-6 col-sm-4">
+                        <div class="form-group">
+                            <label for="port">Puerto servidor principal</label>
+                            <input id="port" type="number" class="form-control" formControlName="port"
+                                placeholder="Ej: 5000" />
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4">
+                        <div class="form-group">
+                            <label for="alignmentPort">Puerto servidor alineación forzada</label>
+                            <input id="alignmentPort" type="number" class="form-control" formControlName="alignmentPort"
+                                placeholder="Ej: 6000" />
+                        </div>
+                    </div>
+                </div>
+
 
             </mat-expansion-panel>
 
             <!-- Panel 2: Trabajadores -->
             <mat-expansion-panel>
                 <mat-expansion-panel-header>
-                    <mat-panel-title>Representación</mat-panel-title>
+                    <mat-panel-title>Análisis</mat-panel-title>
                 </mat-expansion-panel-header>
 
                 <div class="row">
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
-                            <label for="id">Número de trabajadores</label>
+                            <label for="id">Número de trabajadores en la muestra</label>
                             <ng-select id="nWorkers" [items]="numWorkers" bindLabel="label" bindValue="value"
                                 formControlName="nWorkers" placeholder="Seleccione..." [searchable]="true">
                             </ng-select>
@@ -114,11 +131,15 @@
 
         </mat-accordion>
 
+        <div>
+            <input type="checkbox" formControlName="newData" id="newData" />
+            <label for="newData">¿Quieres generar una nueva muestra de datos y explotarlos?</label>
+        </div>
         <!-- Botón de guardar al final -->
         <div class="text-center mt-3">
             <button type="button" class="btn-form" (click)="resetDefalut()">Reestablecer</button>
             <button class="btn-form" type="submit">Guardar configuración</button>
-            
+
         </div>
     </form>
 </div>

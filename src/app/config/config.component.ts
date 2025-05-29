@@ -33,14 +33,11 @@ export class ConfigComponent implements OnInit {
     value: val
   }));
 
-  shifts = [
-    { label: 'Mañana', startControl: 'morningStart', endControl: 'morningEnd' },
-    { label: 'Tarde', startControl: 'afternoonStart', endControl: 'afternoonEnd' },
-    { label: 'Noche', startControl: 'nightStart', endControl: 'nightEnd' }
-  ];
-
 
   inferenceModels = [];
+
+  newFile = 'estocastic_data_reconfig.csv';
+  defaultFile = 'estocastic_data_reconfig.csv';
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -61,7 +58,9 @@ export class ConfigComponent implements OnInit {
       pmEnd: [''],
       ntOn: [false],
       ntStart: [''],
-      ntEnd: ['']
+      ntEnd: [''],
+      port: [null],
+      alignmentPort: [null],
     });
   }
 
@@ -86,7 +85,10 @@ export class ConfigComponent implements OnInit {
         pmStart: shifts?.['tarde']?.[0] || '',
         pmEnd: shifts?.['tarde']?.[1] || '',
         ntStart: shifts?.['noche']?.[0] || '',
-        ntEnd: shifts?.['noche']?.[1] || ''
+        ntEnd: shifts?.['noche']?.[1] || '',
+        port: this.defaultConfig.port ?? '',
+        alignmentPort: this.defaultConfig.alignmentPort ?? '',
+        newData: [false]
       });
       console.log(config)
     })
@@ -110,7 +112,6 @@ export class ConfigComponent implements OnInit {
   }
 
   save() {
-    // Opción 1: Si quieres enviar lo que esté en el formulario (convertido a snake_case)
     const newConfig = this.parseForm(); // clase Config
 
     const finalData = {
@@ -136,9 +137,18 @@ export class ConfigComponent implements OnInit {
 
     this.configService.changeConfig(finalData).subscribe({
       next: () => {
-        Swal.fire("Configuración modificada", "", "success");
-        this.routeToPrincipal();
-        console.log('Config enviada al backend correctamente');
+        this.configService.changeFileWithData(this.newFile).subscribe({
+          next: () => {
+            console.log('Archivo cambiado correctamente');
+            Swal.fire("Configuración modificada y datos actualizados", "", "success");
+            this.routeToPrincipal();
+          },
+          error: (err: any) => {
+            console.error('Error al cambiar archivo de datos', err);
+            Swal.fire("Configuración guardada, pero hubo un error cargando los datos", "", "warning");
+            this.routeToPrincipal();
+          }
+        });
       },
       error: (err) => console.error('Error al enviar config:', err)
     });
@@ -148,11 +158,11 @@ export class ConfigComponent implements OnInit {
     this.router.navigate(['/register']);
   }
 
-    routeToPrincipal(): void {
+  routeToPrincipal(): void {
     this.router.navigate(['/']);
   }
 
-resetDefalut(): void {
+resetDefault(): void {
   Swal.fire({
     title: '¿Restablecer la configuración por defecto?',
     text: 'La aplicación tomará los valores por defecto.',
@@ -162,10 +172,26 @@ resetDefalut(): void {
     cancelButtonText: 'Cancelar'
   }).then((result) => {
     if (result.isConfirmed) {
-      this.configService.resetConfig().subscribe(()=> {
-        Swal.fire("Configuración reestablecida", "", "success");
-        this.routeToPrincipal();
-        console.log('Config enviada al backend correctamente');
+      this.configService.resetConfig().subscribe({
+        next: () => {
+          // Ahora cambiamos el archivo activo a los datos por defecto
+          this.configService.changeFileWithData(this.defaultFile).subscribe({
+            next: () => {
+              Swal.fire("Configuración reestablecida", "", "success");
+              this.routeToPrincipal();
+              console.log('Config por defecto cargada y datos reiniciados');
+            },
+            error: (err: any) => {
+              Swal.fire("La configuración fue restablecida, pero falló la carga de datos", "", "warning");
+              this.routeToPrincipal();
+              console.error('Error al cambiar archivo después del reset:', err);
+            }
+          });
+        },
+        error: err => {
+          Swal.fire("Error al restablecer configuración", "", "error");
+          console.error('Error al resetear configuración:', err);
+        }
       });
     }
   });

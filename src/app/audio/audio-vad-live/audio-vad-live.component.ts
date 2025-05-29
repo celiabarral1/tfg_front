@@ -355,53 +355,55 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   // EMOTIONS PROCESS
+async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
+  const request = async () => {
+    const audioData = new FormData();
+    const fileName = 'recording' + this.index + '.wav';
+    const audioFile = new File([blob], fileName, { type: blob.type });
+    audioData.append('audioFile', audioFile);
 
-  async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
-    const request = async () => {
-      const audioData = new FormData();
-      const fileName = 'recording' + this.index + '.wav';
-      const audioFile = new File([blob], fileName, { type: blob.type });
+    try {
+      // PRIMERA PETICIÓN: obtener emociones y transcripción
+      const response = await this.audioService.getDataAudio(audioData).toPromise();
+      console.log('Audio enviado exitosamente:', response);
 
-      audioData.append('audioFile', audioFile);
+      // Mostrar emociones apenas se reciban
+      const emocategoric = response.emotions.emocategoric;
+      this.addCategoric(emocategoric, componentRef.instance);
+      const emodimensional = response.emotions.emodimensional;
+      this.addDimensional(emodimensional, componentRef.instance);
 
-      //  this.forceAlignment.getForcedAlignment(audioData).subscribe((resp)=> {
-      //   console.log(resp)
-      // });
-      try {
-        const response = await this.audioService.getDataAudio(audioData).toPromise();
-        console.log('Audio enviado exitosamente:', response);
+      // Crear objeto parcial de recording sin alignments (placeholder vacío)
+      const recordingWithEmotion = await this.createRecordingWithEmotion(
+        fileName,
+        emocategoric,
+        emodimensional,
+        response.userId,
+        blob,
+        response.transcription,
+        [] // alignments aún no disponibles
+      );
+      this.recordingsWithEmotions.push(recordingWithEmotion);
 
-        // Esperar a que la primera petición se procese antes de lanzar la segunda
-        const alignmentsResponse = await lastValueFrom(this.forceAlignment.getForcedAlignment(audioData));
-        response.alignments = alignmentsResponse;
+      // SEGUNDA PETICIÓN: obtener alignments
+      const alignmentsResponse = await lastValueFrom(this.forceAlignment.getForcedAlignment(audioData));
+      const alignments = alignmentsResponse.map((alignment: any) =>
+        new Alignment(alignment.end, alignment.start, alignment.word)
+      );
 
-        const emocategoric = response.emotions.emocategoric;
-        this.addCategoric(emocategoric, componentRef.instance);
-        const emodimensional = response.emotions.emodimensional;
-        this.addDimensional(emodimensional, componentRef.instance);
-        // const alignmentsResponse = response.alignments;
-        // console.log('respuesta ', alignmentsResponse)
-        let alignments = alignmentsResponse.map((alignment: any) => {
-          return new Alignment(alignment.end, alignment.start, alignment.word);
-        });
+      // Actualizar alignments en la interfaz y en el objeto ya creado
+      componentRef.instance.alignments = alignments;
+      recordingWithEmotion.alignments = alignments;
 
-        componentRef.instance.alignments = alignments;
+      console.log(recordingWithEmotion);
+    } catch (error) {
+      console.error('Error al enviar el audio:', error);
+    }
+  };
 
+  this.enqueueRequest(request);
+}
 
-        const recordingWithEmotion = this.createRecordingWithEmotion(fileName, emocategoric, emodimensional, response.userId, blob,
-          response.transcription, alignments);
-
-        // Agregar el objeto al arreglo
-        this.recordingsWithEmotions.push(await recordingWithEmotion);
-
-        console.log(recordingWithEmotion)
-      } catch (error) {
-        console.error('Error al enviar el audio:', error);
-      }
-    };
-
-    this.enqueueRequest(request);
-  }
 
   addCategoric(emocategoric: any, instance: any) {
     if (emocategoric && Array.isArray(emocategoric)) {
@@ -460,7 +462,7 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     this.requestQueue.push(request);
 
     if (!this.isRequestInProgress) {
-      this.processQueue();
+      await this.processQueue();
     }
   }
 
@@ -477,8 +479,10 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
         await nextRequest();
       } finally {
         this.isRequestInProgress = false;
-        this.processQueue(); // Procesa la siguiente solicitud en la cola
+        await this.processQueue();
       }
+    } else {
+      this.isRequestInProgress = false;
     }
   }
 
