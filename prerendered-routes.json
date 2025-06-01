@@ -1,0 +1,15 @@
+{
+  "routes": [
+    "/",
+    "/access-denied",
+    "/analysis",
+    "/audio",
+    "/config",
+    "/csv",
+    "/individual",
+    "/login",
+    "/register",
+    "/representation",
+    "/shift"
+  ]
+}
