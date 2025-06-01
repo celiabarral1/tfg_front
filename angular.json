@@ -45,7 +45,6 @@
               "node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
               "node_modules/bootstrap-icons/font/bootstrap-icons.css"
-
             ],
             "scripts": [],
             "server": "src/main.server.ts",
@@ -59,8 +58,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "3MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -77,6 +76,31 @@
             }
           },
           "defaultConfiguration": "production"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/frontend-web-emotions-server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media",
+              "sourceMap": false,
+              "optimization": true
+            }
+          }
+        },
+        "prerender": {
+          "builder": "@angular-devkit/build-angular:prerender",
+          "options": {
+            "browserTarget": "frontendWebEmotions:build:production",
+            "serverTarget": "frontendWebEmotions:server:production",
+            "routes": [
+              "/"
+            ]
+          }
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",

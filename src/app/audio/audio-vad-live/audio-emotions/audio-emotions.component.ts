@@ -1,6 +1,7 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
-import RegionsPlugin from 'wavesurfer.js/dist/plugins/regions.js';
+import RegionsPlugin from 'wavesurfer.js/plugins/regions';
+
 import { Alignment } from '../model/alignment';
 import { AuthService } from '../../../authentication/auth-services';
 import { EmotionTranslationService } from '../../../shared/shared/emotions-translate.service';
@@ -54,6 +55,8 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     }));
 
     console.log('Alignments procesados:', this._alignments);
+
+    this.showAlignment();
     
     this.changeDetector.detectChanges(); // Forzar actualización en la vista
 
@@ -172,6 +175,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     if (changes['audioBlob'] && this.audioBlob) {
       this.createWaveSurfer();
     }
+
   }
   
   /**
@@ -197,11 +201,15 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
         plugins: [
           RegionsPlugin.create()  // Asegúrate de que el plugin está aquí
         ],
-      });
-  
+        });
+
+
       this.waveSurfer.on('audioprocess', () => {
         this.changeDetector.detectChanges();
       });
+
+      console.log('WaveSurfer plugins activos:', this.waveSurfer?.plugins);
+
     } else {
       console.error('audioBlob o waveformContainer no están definidos');
     }
@@ -209,13 +217,16 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   
 
   showAlignment(): void {
+    console.log("hloaoa")
     if (!this.waveSurfer || typeof this.waveSurfer.addRegion !== 'function') {
       console.error('El plugin de regiones no está disponible');
       return;
     }
   
     if (!this.isShowing) {
+       console.log("entra alig")
       this._alignments.forEach(alignment => {
+        console.log(alignment)
         const isSilence = alignment.word.trim() === '';
   
         const region = this.waveSurfer.addRegion({
@@ -258,9 +269,6 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   isWordActive(alignment: Alignment): boolean {
     if (!this.waveSurfer) return false;
     const currentTime = this.waveSurfer.getCurrentTime();
-    console.log(currentTime)
-    console.log("INICIO: " ,alignment.start)
-    console.log("FIN: " ,alignment.end)
     return currentTime >= (alignment.start) && currentTime <= (alignment.end);
   }
   

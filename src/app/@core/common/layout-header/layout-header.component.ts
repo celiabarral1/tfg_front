@@ -23,13 +23,14 @@ export class LayoutHeaderComponent implements OnInit {
   isLoginPage: boolean = false;
 
   menuOpen = false;
+  isMobile = false;
 
   /**
    * Constructor.
    * @param authService servicio que gestiona el estado de sesión del usuario.
    * @param router servicio de enrutamiento que proporciona navegación.
    */
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router) { }
 
   /**
    * Inicialización del componente.
@@ -37,12 +38,25 @@ export class LayoutHeaderComponent implements OnInit {
    * o actualizar si está loggeado o no, para realizar las acciones e¡pertinentes.
    */
   ngOnInit() {
+    this.checkMobile();
+    window.addEventListener('resize', () => this.checkMobile());
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         this.isLoginPage = this.router.url === '/login';
         this.isLoggedIn = this.authService.isLoggedIn();
       }
     });
+  }
+
+  checkMobile() {
+    this.isMobile = window.innerWidth <= 768;
+    if (!this.isMobile) {
+      this.menuOpen = false;
+    }
+  }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 
   /**
@@ -54,7 +68,5 @@ export class LayoutHeaderComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }
+
 }

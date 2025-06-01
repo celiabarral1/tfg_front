@@ -173,6 +173,18 @@ input[type="file"]::-webkit-file-upload-button {
   display: none;
 }
 
+@media (min-width:1024px) {
+
+.ng-select .ng-select-container, .ng-select .ng-select-container .ng-value-container .ng-input > input {
+  font-size: 18px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option { 
+   font-size: 18px;
+}
+
+}
+
 @media (max-width: 1024px) { 
   .btn-initial {
     font-size: 12px;

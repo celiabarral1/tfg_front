@@ -76,3 +76,15 @@ mat-panel-title {
 .btn-form {
   margin-left: 5px;
 }
+
+::ng-deep mat-expansion-panel {
+  overflow: visible !important;
+}
+
+::ng-deep .mat-expansion-panel-content {
+  overflow: visible !important;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  overflow: visible !important;
+}

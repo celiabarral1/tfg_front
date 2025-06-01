@@ -1,10 +1,11 @@
 .container-fluid {
     margin: 3em;
-    margin-bottom: 10rem;
+    margin-bottom: 100rem;
 }
 
 @media (max-width: 2048px) {
     .container-fluid {
         margin: 3em 2em;
+        margin-bottom: 10rem;
     }
 }

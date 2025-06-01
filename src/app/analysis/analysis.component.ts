@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { AnalysisService } from './analysis.service';
 import { Classification } from './model/classification';
 import { Router } from '@angular/router';
-import { Chart, ChartConfiguration, ChartTypeRegistry } from 'chart.js';
+import { Chart, registerables } from 'chart.js';
 
 /**
  * Componente destinado a la visualización de los trabajadores agrupados según su tendencia psicológica predominante.
@@ -43,7 +43,7 @@ export class AnalysisComponent implements OnInit {
 
 
   @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
-  chart!: Chart<'doughnut', number[], string>;
+  chart!: any;
 
   /**
    * Constructor del componente de análisis de grupos.
@@ -51,7 +51,10 @@ export class AnalysisComponent implements OnInit {
    * por tendecia psicológica.
    * @param router servicio que gestiona la navegación entre pantallas
    */
-  constructor (private readonly analysisService: AnalysisService, private router: Router){}
+  constructor (private readonly analysisService: AnalysisService, private router: Router){
+    Chart.register(...registerables); 
+    
+  }
 
   /**
    * Inicializa al componente realizando una petición de la que se recogen los datos a mostar, la clasificación
@@ -69,7 +72,7 @@ export class AnalysisComponent implements OnInit {
             ); 
             setTimeout(() => {
           this.createChart();  // Retrasamos la creación del gráfico
-        }, 0); 
+        }, 100); 
           },
           error: (error) => {
             console.error('Error al obtener la clasificación:', error);
@@ -81,6 +84,7 @@ export class AnalysisComponent implements OnInit {
         }, 0); 
       }
     
+      
   }
   
   /**
@@ -161,7 +165,7 @@ createChart(): void {
   }
 
   this.chart = new Chart(ctx, {
-    type: 'doughnut',
+    type: 'pie',
     data: {
       labels: ['Depresión', 'Ansiedad', 'Sin Trastorno'],
       datasets: [{
@@ -171,7 +175,7 @@ createChart(): void {
           this.classificationData.anxiety.length,
           this.classificationData.no_disorder.length
         ],
-        backgroundColor: ['#e74c3c', '#3498db', '#2ecc71'],
+        backgroundColor: ['#c9caf5', '#f5ebc9', '#8F8F8F'],
         borderWidth: 1
       }]
     },

@@ -7,7 +7,7 @@
   <div class="group-depression">
     <h2>Tendencia depresiva</h2>
     <div class="users_info">
-      <p>Total: {{ classificationData.depression.length }}</p>
+      <p>Total: {{ filteredDepression.length }}</p>
       <ul>
         <li *ngFor="let id of filteredDepression.slice(0, showLessDepression ? 10 : filteredDepression.length)"
           (click)="routeToRepresentation(id)">
@@ -24,7 +24,7 @@
   <div class="group-anxiety">
     <h2>Tendencia ansiosa</h2>
     <div class="users_info">
-      <p>Total: {{ classificationData.anxiety.length }}</p>
+      <p>Total: {{ filteredAnxiety.length }}</p>
       <ul>
         <li *ngFor="let id of filteredAnxiety.slice(0, showLessAnxiety ? 10 : filteredAnxiety.length)"
           (click)="routeToRepresentation(id)">
@@ -41,7 +41,7 @@
   <div class="group-no-disorder">
     <h2>Sin tendencia detectada</h2>
     <div class="users_info">
-      <p>Total: {{ classificationData.no_disorder.length }}</p>
+      <p>Total: {{ filteredNoDisorder.length }}</p>
       <ul>
         <li *ngFor="let id of filteredNoDisorder.slice(0, showLessNoDisorder ? 10 : filteredNoDisorder.length)"
           (click)="routeToRepresentation(id)">
@@ -54,8 +54,8 @@
     </div>
   </div>
 
+</div>
+
   <div class="chart-container">
     <canvas #chartCanvas width="400" height="400"></canvas>
-
   </div>
-</div>

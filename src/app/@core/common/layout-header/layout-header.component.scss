@@ -67,6 +67,9 @@ mat-toolbar.menu {
     font-size: 0.7rem; /* Tamaño de texto relativo */
   }
   
+  .menu-items {
+  gap: 1rem;
+}
 
 }
 
@@ -91,4 +94,52 @@ mat-toolbar.menu {
   }
   
 }
+
+.hamburger {
+  background: none;
+  font-size: 1.2rem; /* Más pequeño que antes */
+  border: none;
+  cursor: pointer;
+  display: none;
+  padding: 0.25rem 0.5rem;
+  line-height: 1;
+}
+
+
+.menu-items {
+  display: flex;
+  flex-direction: row;
+  gap: 3rem;
+}
+
+.menu-items.show {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+    margin-left: auto;
+  }
+
+  .menu-items {
+    display: none;
+    flex-direction: column;
+    gap: 1rem;
+    background-color: white;
+    padding: 1rem;
+    position: absolute;
+    top: 4rem;
+    right: 1rem;
+    z-index: 999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  }
+
+  .menu-items.show {
+    display: flex;
+  }
+}
+
+
+
 

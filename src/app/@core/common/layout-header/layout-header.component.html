@@ -1,22 +1,27 @@
 <div class="menu-container">
   <div class="logo-container">
     <a mat-button routerLink="/">
-      <img src="img/logo_white.png" alt="WebEmotions Logo" class="logo-image">
+      <img src="img/logo_white.png" alt="WebEmotions Logo" class="logo-image" />
     </a>
   </div>
-  <mat-toolbar *ngIf="!isLoginPage" class="menu">
+
+  <!-- Botón hamburguesa para móvil -->
+  <button class="hamburger" (click)="toggleMenu()" *ngIf="isMobile">&#9776;</button>
+
+  <!-- Menú de navegación -->
+  <div class="menu-items" [class.show]="menuOpen" *ngIf="!isLoginPage">
     <a mat-button routerLink="/representation" routerLinkActive="active-link">Análisis detallado</a>
     <a mat-button routerLink="/analysis" routerLinkActive="active-link">Análisis global</a>
     <a mat-button routerLink="/audio" routerLinkActive="active-link">Inferencia tiempo real</a>
     <a mat-button routerLink="/csv" routerLinkActive="active-link">Inferencia diferida</a>
     <a mat-button routerLink="/config" routerLinkActive="active-link">Configuración</a>
-  </mat-toolbar>
+  </div>
 
+  <!-- Botones de login / logout -->
   <div class="login-container">
     <div *ngIf="!isLoggedIn && !isLoginPage" class="login">
       <button class="btn-secondary" routerLink="/login">Entrar</button>
     </div>
-
     <div *ngIf="isLoggedIn && !isLoginPage" class="login">
       <button class="btn-secondary" (click)="logout()">Salir</button>
     </div>
