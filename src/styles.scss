@@ -18,8 +18,8 @@
 // // Aplica el tema personalizado.
 // @include mat.all-component-themes($custom-theme);
 :root {
-  --primary-color: #6150EA;
-  --secondary-color: #876AF1;
+  --primary-color: #350FBD;
+  --secondary-color: #5126ED;
   --third-color: #C1B2FA;
   --fourth-color: #c1aadf;
   --soft-gray-color: #D1D1D1;
@@ -49,6 +49,18 @@ h2 , h3, h4 {
 
 main {
   flex-grow: 1; /* Asegura que main ocupe el espacio disponible */
+}
+
+
+
+.invalid-feedback {
+  color: #dc3545;
+  font-size: 16px;
+}
+
+
+.is-invalid {
+  border: 2px solid #dc3545;
 }
 
 
@@ -161,6 +173,11 @@ input[type="file"] {
   text-align: center;
 }
 
+.ng-select .ng-select-container .ng-value-container .ng-placeholder
+ {
+    color: black !important;
+}
+
 /* Efecto hover para input file */
 input[type="file"]:hover {
   background-color: #876AF1; /* Color de fondo al pasar el ratón */
@@ -225,6 +242,20 @@ input[type="file"]::-webkit-file-upload-button {
     border-radius: 10px;
     box-sizing: border-box;
     transition: border-color 0.3s ease, color 0.2s ease;
+  }
+
+  @media (max-width: 768px) {
+     h1 {
+    font-size: 24px;
+  }
+
+  h2{
+    font-size: 15px;
+  }
+
+  h4 {
+    font-size: 12px;
+  }
   }
 
 }

@@ -12,10 +12,10 @@
                 <mat-expansion-panel-header>
                     <mat-panel-title>General</mat-panel-title>
                 </mat-expansion-panel-header>
-                <div class="row">
+                <div class="row general-container">
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
-                            <label for="port">Puerto servidor principal</label>
+                            <label for="port">Puerto servidor principal:</label>
                             <input id="port" type="number" class="form-control" formControlName="port"
                                 placeholder="Ej: 5000" />
                         </div>
@@ -23,7 +23,7 @@
 
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
-                            <label for="alignmentPort">Puerto servidor alineación forzada</label>
+                            <label for="alignmentPort">Puerto servidor alineación forzada:</label>
                             <input id="alignmentPort" type="number" class="form-control" formControlName="alignmentPort"
                                 placeholder="Ej: 6000" />
                         </div>
@@ -42,16 +42,17 @@
                 <div class="row">
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
-                            <label for="id">Nº de trabajadores en la muestra</label>
+                            <label for="nWorkers">Nº de trabajadores en la muestra</label>
                             <ng-select id="nWorkers" [items]="numWorkers" bindLabel="label" bindValue="value"
-                                formControlName="nWorkers" placeholder="Seleccione..." [searchable]="true">
+                                formControlName="nWorkers" placeholder="Seleccione..." [searchable]="true"
+                                name="nWorkers">
                             </ng-select>
                         </div>
                     </div>
 
                     <div class="col-6 col-sm-4">
                         <div class="form-group">
-                            <label for="id">Nº de muestras</label>
+                            <label for="nSamples">Nº de muestras</label>
                             <ng-select id="nSamples" [items]="numSamples" bindLabel="label" bindValue="value"
                                 formControlName="nSamples" placeholder="Seleccione..." [searchable]="true">
                             </ng-select>

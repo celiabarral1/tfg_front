@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Componente que representa la página principal, de navegación.
+ */
 @Component({
   selector: 'app-principal',
   templateUrl: './principal.component.html',

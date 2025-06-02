@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+/**
+ * Componente para la representación emocional de trabajadores por turno
+ */
 @Component({
   selector: 'app-shift-representation',
   templateUrl: './shift-representation.component.html',

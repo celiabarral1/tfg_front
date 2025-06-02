@@ -5,6 +5,8 @@ import { Alignment } from '../audio-vad-live/model/alignment';
 import { AudioEmotionsComponent } from '../audio-vad-live/audio-emotions/audio-emotions.component';
 import { AudioService } from '../audio.service';
 import { AudioUtils } from '../../@core/common/utils/audio-helper';
+import { lastValueFrom } from 'rxjs';
+import { ForceAlignmentService } from '../force-alignment/force-alignment.service';
 
 @Component({
   selector: 'app-deferred-inference',
@@ -54,6 +56,7 @@ export class DeferredInferenceComponent {
     private readonly audioService: AudioService,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver,
+        private forceAlignment: ForceAlignmentService,
     private cdr: ChangeDetectorRef
   ) {}
 
@@ -118,27 +121,35 @@ export class DeferredInferenceComponent {
   
       try {
         const response = await this.audioService.getDataAudio(audioData).toPromise();
-        console.log('Audio enviado exitosamente:', response);
-
+              console.log('Audio enviado exitosamente:', response);
         
-        const emocategoric = response.emotions.emocategoric;
-        this.addCategoric(emocategoric, componentRef.instance);
-        const emodimensional = response.emotions.emodimensional;
-        this.addDimensional(emodimensional, componentRef.instance);
-        const alignmentsResponse = response.alignments;
-        console.log('respuesta ',alignmentsResponse)
-        const alignments = alignmentsResponse.map((alignment: any) => {
-          return new Alignment( alignment.end, alignment.start, alignment.word);
-        });
+              // Mostrar emociones apenas se reciban
+              const emocategoric = response.emotions.emocategoric;
+              this.addCategoric(emocategoric, componentRef.instance);
+              const emodimensional = response.emotions.emodimensional;
+              this.addDimensional(emodimensional, componentRef.instance);
         
-        componentRef.instance.alignments = alignments;
-
-
-        const recordingWithEmotion = this.createRecordingWithEmotion(fileName,emocategoric,emodimensional,response.userId,blob,
-          response.transcription,alignments);
-
-        // Agregar el objeto al arreglo
-        this.recordingsWithEmotions.push(await recordingWithEmotion);
+              // Crear objeto parcial de recording sin alignments (placeholder vacío)
+              const recordingWithEmotion = await this.createRecordingWithEmotion(
+                fileName,
+                emocategoric,
+                emodimensional,
+                response.userId,
+                blob,
+                response.transcription,
+                [] // alignments aún no disponibles
+              );
+              this.recordingsWithEmotions.push(recordingWithEmotion);
+        
+              // SEGUNDA PETICIÓN: obtener alignments
+              const alignmentsResponse = await lastValueFrom(this.forceAlignment.getForcedAlignment(audioData));
+              const alignments = alignmentsResponse.map((alignment: any) =>
+                new Alignment(alignment.end, alignment.start, alignment.word)
+              );
+        
+              // Actualizar alignments en la interfaz y en el objeto ya creado
+              componentRef.instance.alignments = alignments;
+              recordingWithEmotion.alignments = alignments;
 
         console.log(recordingWithEmotion)
       } catch (error) {

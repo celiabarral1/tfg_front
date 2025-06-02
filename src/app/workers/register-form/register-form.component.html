@@ -1,63 +1,50 @@
 <div class="container-general">
-<button class="btn-secondary" (click)="backToConfig()">Volver</button>
-<div class="container-form">
-  <h2>Alta de Usuario</h2>
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <!-- Fila 1: ID, Nombre, Apellido -->
-    <div class="row">
-      <!-- Columna para el campo ID -->
-      <div class="col-12 col-sm-4">
-        <div class="form-group">
-          <label for="id">ID</label>
-            <ng-select
-              id="id"
-              [items]="ids"
-              bindLabel="label"
-              bindValue="value"
-              formControlName="id"
-              placeholder="ID Trabajador..."
-              [searchable]="true"
-            >
+  <button class="btn-secondary" (click)="backToConfig()">Volver</button>
+  <div class="container-form">
+    <h2>Alta de Usuario</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Fila 1: ID, Nombre, Apellido -->
+      <div class="row">
+        <!-- Columna para el campo ID -->
+        <div class="col-12 col-sm-4">
+          <div class="form-group">
+            <label id="idLabel" class="visually-hidden">ID del trabajador</label>
+
+            <!-- ng-select con aria-label -->
+            <ng-select [attr.aria-label]="'ID del trabajador'" formControlName="id" [items]="ids" bindLabel="label"
+              bindValue="value" placeholder="ID Trabajador..." [searchable]="true">
             </ng-select>
           </div>
           <div *ngIf="registerForm.get('id')?.invalid && registerForm.get('id')?.touched">
-            <small class="error">El ID es obligatorio.</small>
+            <span class="invalid-feedback">*El ID es obligatorio.</span>
           </div>
         </div>
       </div>
 
-    <div class="col-2 col-sm-6">
-      <div class="form-group">
-        <label for="time">Rol:</label>
-        <ng-select
-          id="rol"
-          [items]="roles"
-          bindLabel="label"
-          bindValue="value"
-          formControlName="rol"
-          placeholder="Elija rol..."
-          [searchable]="false"
-        >
-        </ng-select>
-      </div>
-  </div>
-
-    <!-- Fila 3: Fecha de Contratación, Fecha de Registro -->
-    <div class="row">
-
-      <!-- Columna para el campo Registration Date -->
-      <div class="col-12 col-sm-6">
+      <div class="col-2 col-sm-6">
         <div class="form-group">
-          <label for="registration_date">Fecha de Alta</label>
-          <input type="date" id="registration_date" formControlName="registration_date" 
-          [min]="dateNow"/>
+          <label id="rolLabel">Rol:</label>
+          <ng-select [attr.aria-labelledby]="'rolLabel'" [items]="roles" bindLabel="label" bindValue="value"
+            formControlName="rol" placeholder="Elija rol..." [searchable]="false">
+          </ng-select>
         </div>
       </div>
-    </div>
 
-    <div class="form-actions">
-      <button type="submit" [disabled]="registerForm.invalid" class="btn-form">Registrar</button>
-    </div>
-  </form>
-</div>
+      <!-- Fila 3: Fecha de Contratación, Fecha de Registro -->
+      <div class="row">
+
+        <!-- Columna para el campo Registration Date -->
+        <div class="col-12 col-sm-6">
+          <div class="form-group">
+            <label for="registration_date">Fecha de Alta</label>
+            <input type="date" id="registration_date" formControlName="registration_date" [min]="dateNow" />
+          </div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="registerForm.invalid" class="btn-form">Registrar</button>
+      </div>
+    </form>
+  </div>
 </div>

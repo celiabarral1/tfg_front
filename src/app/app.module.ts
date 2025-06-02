@@ -5,7 +5,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutMainComponent } from './@core/common/layout-main/layout-main.component';
 import { LayoutHeaderComponent } from './@core/common/layout-header/layout-header.component';
-import { LayoutFooterComponent } from './@core/common/layout-footer/layout-footer.component';
 import { IndividualComponent } from './individual/individual.component';
 import { IndividualFormComponent } from './individual/individual-form/individual-form.component';
 import { SharedModule } from './shared/shared/shared.module';
@@ -24,13 +23,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { AudioRecordedComponent } from './audio/audio-recorded/audio-recorded.component';
-import { AudioVadComponent } from './audio/audio-vad/audio-vad.component';
 import { AudioVadLiveComponent } from './audio/audio-vad-live/audio-vad-live.component';
 import { AudioEmotionsComponent } from './audio/audio-vad-live/audio-emotions/audio-emotions.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CsvAudiosComponent } from './audio/csv-audios/csv-audios.component';
-import { LayoutNavComponent } from './@core/common/layout-nav/layout-nav.component';
 import { CustomCardComponent } from './principal/custom-card/custom-card.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { LoginComponent } from './authentication/login/login.component';
@@ -44,7 +40,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerToggle } from '@angular/material/datepicker';
 import { AccessDeniedComponent } from './authentication/access-denied/access-denied.component';
 import { AnalysisComponent } from './analysis/analysis.component';
-import { AudioVoiceComponent } from './audio/audio-voice-component/audio-voice-component.component';
 import { ConfigComponent } from './config/config.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DeferredInferenceComponent } from './audio/deferred-inference/deferred-inference.component';
@@ -54,19 +49,15 @@ import { DeferredInferenceComponent } from './audio/deferred-inference/deferred-
     AppComponent,
     LayoutMainComponent,
     LayoutHeaderComponent,
-    LayoutFooterComponent,
     IndividualComponent,
     IndividualFormComponent,
     DimensionalComponent,
     CategoricComponent,
     AudioComponent,
     PrincipalComponent,
-    AudioRecordedComponent,
-    AudioVadComponent,
     AudioVadLiveComponent,
     AudioEmotionsComponent,
     CsvAudiosComponent,
-    LayoutNavComponent,
     CustomCardComponent,
     AuthenticationComponent,
     LoginComponent,
@@ -76,7 +67,6 @@ import { DeferredInferenceComponent } from './audio/deferred-inference/deferred-
     GraphicRepresentationComponent,
     AccessDeniedComponent,
     AnalysisComponent,
-    AudioVoiceComponent,
     ConfigComponent,
     DeferredInferenceComponent,
   ],

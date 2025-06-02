@@ -13,10 +13,9 @@ export class ForceAlignmentService {
     this.apiUrl = this.apiConfig.getApiUrlForceAlignment();  // Usamos el ApiConfigService para obtener la URL base
   }
 
-  test(): Observable<any> {
-      return this.http.get(`${this.apiUrl}/hello`, { responseType: 'text' });
-  }
-
+  /**
+   * Petición al endpoint que pasándole un audio devuelve su alineamiento.
+   */
   getForcedAlignment(formData: FormData): Observable<any> {
     return this.http.post(`${this.apiUrl}/getForcedAlignment`, formData);
   }

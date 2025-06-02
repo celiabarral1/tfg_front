@@ -35,6 +35,9 @@ export class GraphicRepresentationComponent  implements OnInit {
     console.log(this.id)
   }
   
+  /**
+   * Cambia el tipo de gráfico que se quiere visualizar.
+   */
   onCharTypeChange(newCharType: string): void {
     this.charType = newCharType; // Actualiza el charType con el nuevo valor
   }

@@ -5,6 +5,9 @@ import { EmployeeService } from '../employee.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 
+/**
+ * Formulario para dar de alta a un trabajador de manera que pueda interactuar con la aplicación.
+ */
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -24,6 +27,11 @@ export class RegisterFormComponent implements OnInit{
       registration_date: [this.dateNow, Validators.required]
     });
   }
+
+  /**
+   * Inicializa los roles disponibles para dar de alta, así como los ids
+   * que son trabajadores pero aún no están autorizadas para interactuar con la app.
+   */
   ngOnInit(): void {
     this.employeeService.getRols().subscribe(
       (response: { label: string; value: string }[]) => {
@@ -54,6 +62,10 @@ export class RegisterFormComponent implements OnInit{
     );
   }
 
+  /**
+   * Transforma los valores del formulario en un objeto empleado, 
+   * los envía mediante una petición y se notifica si se inserta con éxito o si hay algún error.
+   */
   onSubmit(): void {
     if (this.registerForm.valid) {
       const employeeToInsert = this.parseForm(this.registerForm.value); 

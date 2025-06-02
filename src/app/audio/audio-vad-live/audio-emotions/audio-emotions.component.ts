@@ -1,6 +1,8 @@
 import { Component, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, SimpleChanges, OnChanges, OnInit } from '@angular/core';
 import WaveSurfer from 'wavesurfer.js';
 import RegionsPlugin from 'wavesurfer.js/plugins/regions';
+import TimelinePlugin from 'wavesurfer.js/plugins/timeline';
+
 
 import { Alignment } from '../model/alignment';
 import { AuthService } from '../../../authentication/auth-services';
@@ -31,9 +33,12 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   /**
    * 
    */
-  @Input() audioIndex : number | undefined;
+  @Input() audioIndex: number | undefined;
 
   private isShowing: boolean = false;
+
+  @ViewChild('timelineContainer', { static: true }) timelineContainer?: ElementRef;
+
 
   /**
    * Propiedad de entrada que recibe los `alignments` y los transforma si es necesario.
@@ -57,7 +62,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     console.log('Alignments procesados:', this._alignments);
 
     this.showAlignment();
-    
+
     this.changeDetector.detectChanges(); // Forzar actualización en la vista
 
     // if(this.waveSurfer) {
@@ -82,7 +87,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     this._emotions_categoric.forEach(emotion => {
       emotion.colorClass = `color-${emotion.emo.toLowerCase()}`;
     });
-    
+
     this.changeDetector.detectChanges();
   }
 
@@ -108,12 +113,12 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
       console.error('Invalid value for emotions_dimensional:', value);
       this._emotions_dimensional = [];
     }
-  
+
     console.log('Processed emotions_dimensional:', this._emotions_dimensional);
     this.changeDetector.detectChanges(); // Forzar la detección de cambios
   }
-  
-  
+
+
   get emotions_dimensional(): any[] {
     return this._emotions_dimensional;
   }
@@ -121,7 +126,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   private _emotions_categoric: any[] = [];
   private _emotions_dimensional: any[] = [];
   private _alignments: Alignment[] = [];
-  
+
   /**
    * Representa al elemento del html asociado al componente que contendrá la forma de onda del audio.
    * `{ static: true }` indica que la referencia se resuelve cuando se carga el DOM, 
@@ -134,7 +139,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
    * 
    */
   public waveSurfer: any;
-  
+
   /**
    * Constructor del componente.
    * @param changeDetector servicio que gestiona en tiempo real los cambios en los datos.
@@ -144,7 +149,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     private changeDetector: ChangeDetectorRef,
     private authService: AuthService,
     private emotionTranslationService: EmotionTranslationService
-  ) {}
+  ) { }
 
   /**
    * Para que la primera detección de cambios, en este caso del rol 
@@ -153,7 +158,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   ngOnInit(): void {
     this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
   }
-  
+
   /**
    * Una vez inicializadas las vistas del componente, se comprueba que haya un audio de tipo Blob 
    * y se llama al método para visualizar su onda.
@@ -163,7 +168,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
   ngAfterViewInit(): void {
     if (this.audioBlob) {
       this.createWaveSurfer();
-    } 
+    }
   }
 
   /**
@@ -177,7 +182,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     }
 
   }
-  
+
   /**
    * Método que crea y configura la visualización de la onda asociada al audio que contiene la propiedad 'audioBlob'.
    * Verifica tanto el audioBlob se haya pasado como que el contenedor de onda se haya cargado correctamente en el DOM.
@@ -187,9 +192,9 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
    * @throws {Error} si alguna de las propiedades necesarias (audioBlob o waveformContainer) no están bien definidas.
    */
   createWaveSurfer(): void {
-    if (this.audioBlob && this.waveformContainer) {
+    if (this.audioBlob && this.waveformContainer && this.timelineContainer) {
       const recordedUrl = URL.createObjectURL(this.audioBlob);
-  
+
       this.waveSurfer = WaveSurfer.create({
         container: this.waveformContainer.nativeElement,
         waveColor: 'rgb(204, 102, 0)',
@@ -197,69 +202,94 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
         url: recordedUrl,
         barWidth: 2,
         barGap: 1,
-        barRadius: 2,
-        plugins: [
-          RegionsPlugin.create()  // Asegúrate de que el plugin está aquí
-        ],
-        });
+        barRadius: 2
+      });
 
+      const regionsPlugin = this.waveSurfer.registerPlugin(RegionsPlugin.create());
+      this.waveSurfer.regionsPlugin = regionsPlugin;
+
+      const timelinePlugin = TimelinePlugin.create({
+        container: this.timelineContainer.nativeElement,
+        height: 25,
+  timeInterval: 0.1,
+  primaryLabelInterval: 1,
+        style: {
+          color: '#333',
+          font: '16px Arial',
+          fontWeight: 'normal'
+        }
+      });
+
+      this.waveSurfer.registerPlugin(timelinePlugin);
 
       this.waveSurfer.on('audioprocess', () => {
         this.changeDetector.detectChanges();
       });
 
-      console.log('WaveSurfer plugins activos:', this.waveSurfer?.plugins);
+      this.waveSurfer.once('ready', () => {
+  this.waveSurfer.zoom(100); // 👈 fuerza separación visual de segundos
+});
 
+
+      console.log('WaveSurfer plugins activos:', this.waveSurfer?.plugins);
     } else {
-      console.error('audioBlob o waveformContainer no están definidos');
+      console.error('audioBlob, waveformContainer o timelineContainer no están definidos');
     }
   }
-  
 
+
+
+  /**
+   * Método para visualizar sobre el audio qué región temporal abarca cada palabra detectada.
+   * @returns 
+   */
   showAlignment(): void {
-    console.log("hloaoa")
-    if (!this.waveSurfer || typeof this.waveSurfer.addRegion !== 'function') {
+    if (!this.waveSurfer?.regionsPlugin) {
       console.error('El plugin de regiones no está disponible');
       return;
     }
-  
+
+    const plugin = this.waveSurfer.regionsPlugin;
+
     if (!this.isShowing) {
-       console.log("entra alig")
       this._alignments.forEach(alignment => {
-        console.log(alignment)
         const isSilence = alignment.word.trim() === '';
-  
-        const region = this.waveSurfer.addRegion({
+
+        if (isSilence) {
+          return;
+        }
+
+        const region = plugin.addRegion({
           start: alignment.start,
           end: alignment.end,
-          color: isSilence ? 'rgba(255, 255, 255, 0.3)' : 'rgba(0, 255, 0, 0.5)',
+          color: 'rgba(255,255,255,0.7)',
           drag: false,
           resize: false
         });
-  
-        if (!isSilence) {
+
+        if (!isSilence && region.element) {
           const label = document.createElement('div');
+          label.innerText = `${alignment.word}`;
           label.style.position = 'absolute';
           label.style.fontSize = '12px';
           label.style.color = 'black';
           label.style.backgroundColor = 'rgba(255,255,255,0.7)';
           label.style.borderRadius = '4px';
           label.style.padding = '2px 5px';
-          label.innerText = alignment.word;
-          region.element.appendChild(label);
           label.style.left = '50%';
           label.style.top = '50%';
           label.style.transform = 'translate(-50%, -50%)';
+          region.element.appendChild(label);
         }
       });
-  
+
       this.isShowing = true;
     } else {
-      this.waveSurfer.regions.list.forEach((region: any) => region.remove());
+      // Object.values(plugin.getRegions()).forEach(region => region.remove());
       this.isShowing = false;
     }
   }
-  
+
 
   /**
    * 
@@ -271,7 +301,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
     const currentTime = this.waveSurfer.getCurrentTime();
     return currentTime >= (alignment.start) && currentTime <= (alignment.end);
   }
-  
+
   /**
    * Permite reproducir o detener la reproducción del audio de manera que se visualiza
    * la parte de la onda que le corresponde a cada momento del audio.
@@ -290,7 +320,7 @@ export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit 
       const recordedUrl = URL.createObjectURL(this.audioBlob);
       const downloadLink = document.createElement('a');
       downloadLink.href = recordedUrl;
-      downloadLink.download = `recording` + this.audioIndex +`.${this.audioBlob.type.split('/')[1] || 'webm'}`;
+      downloadLink.download = `recording` + this.audioIndex + `.${this.audioBlob.type.split('/')[1] || 'webm'}`;
       downloadLink.click();
     }
   }

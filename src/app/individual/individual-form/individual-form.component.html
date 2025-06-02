@@ -1,92 +1,95 @@
 <div class="container-form">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-      <div class="row">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- ID Usuario -->
+    <div class="row">
       <div class="form-group">
         <label for="userId">Identificación del usuario:</label>
-        <div class="form-group">
-            <ng-select
-              id="userId"
-              [items]="ids"
-              bindLabel="label"
-              bindValue="value"
-              formControlName="userId"
-              placeholder="ID Usuario..."
-              [searchable]="true"
-               [closeOnSelect]="true"
-              (change)="onTimeChange($event)"
-            >
-            </ng-select>
-          </div>
-      </div>
-      <div class="invalid-feedback" *ngIf="form.get('userId')?.invalid && form.get('userId')?.touched">
-        *Introduce un ID.
-      </div>
-    </div>
-      <div class="row">
-        <div class="col-2 col-sm-6">
-          <div class="form-group">
-            <label for="time">Ventana temporal:</label>
-            <ng-select
-              id="time"
-              [items]="options"
-              bindLabel="label"
-              bindValue="value"
-              formControlName="time"
-              placeholder="Elija fecha..."
-              [searchable]="false"
-              (change)="onTimeChange($event)"
-            >
-            </ng-select>
-          </div>
-      </div>
-      <div class="col-2 col-sm-6">
-        <div class="form-group">
-          <button class="btn-initial" type="button" [disabled]="isDatesDisabled" (click)="focusStartDate()">
-            <i class="bi bi-calendar"></i> Elegir fecha
-          </button>
+        <ng-select
+          id="userId"
+          [items]="ids"
+          bindLabel="label"
+          bindValue="value"
+          formControlName="userId"
+          placeholder="ID Usuario..."
+          [searchable]="true"
+          [closeOnSelect]="true">
+        </ng-select>
+        <div class="invalid-feedback d-block" *ngIf="form.get('userId')?.invalid && form.get('userId')?.touched">
+          * Introduce un ID válido.
         </div>
+      </div>
     </div>
-    </div>
-        <div class="row">
-          <!-- Columna para el campo Hiring Date -->
-          <div class="col-2 col-sm-6">
-            <div class="form-group">
-              <label for="startDate">Inicio:</label>
-              <input type="date" id="startDate" formControlName="startDate" #startDate
-              (change)="onManualDate()"/>
-            </div>
-          </div>
-          <!-- Columna para el campo Registration Date -->
-          <div class="col-2 col-sm-6">
-            <div class="form-group">
-              <label for="endDate">Fin:</label>
-              <input type="date" id="endDate" formControlName="endDate" 
-              (change)="onManualDate()"/>
-            </div>
-          </div>
-          <div class="invalid-feedback d-block" *ngIf="form.errors?.['invalidDateRange'] && form.get('endDate')touched">
-            * La fecha de fin no puede ser anterior a la fecha de inicio.
-          </div>
-          
-          <div class="invalid-feedback d-block" 
-          *ngIf="form.get('userId')?.valid && form.errors?.['dateOrTimeRequired'] && (form.dirty || form.touched)">
-          * Debes seleccionar una ventana temporal o proporcionar fecha de inicio y fin.
-        </div>
 
+    <!-- Ventana Temporal + Botón Fecha -->
+    <div class="row">
+      <div class="col-2 col-sm-6">
+        <label for="time">Ventana temporal:</label>
+        <ng-select
+          id="time"
+          [items]="options"
+          bindLabel="label"
+          bindValue="value"
+          formControlName="time"
+          placeholder="Elija fecha..."
+          [searchable]="false"
+          (change)="onTimeChange($event)">
+        </ng-select>
+      </div>
+
+      <div class="col-2 col-sm-6">
+        <button class="btn-initial" type="button" [disabled]="isDatesDisabled" (click)="focusStartDate()">
+          <i class="bi bi-calendar"></i> Elegir fecha
+        </button>
+      </div>
+    </div>
+
+    <!-- Fechas inicio y fin -->
+    <div class="row">
+      <div class="col-2 col-sm-6">
+        <label for="startDate">Inicio:</label>
+        <input type="date" id="startDate" formControlName="startDate" #startDate
+               [disabled]="isDatesDisabled" (change)="onManualDate()" />
+      </div>
+
+      <div class="col-2 col-sm-6">
+        <label for="endDate">Fin:</label>
+        <input type="date" id="endDate" formControlName="endDate"
+               [disabled]="isDatesDisabled" (change)="onManualDate()" />
+      </div>
+    </div>
+
+    <!-- Mensajes de error de validación -->
+    <div class="row">
+      <div class="col">
+        <div class="invalid-feedback d-block" *ngIf="form.errors?.['invalidDateRange']">
+          * La fecha de fin no puede ser anterior a la fecha de inicio.
         </div>
-      <div class="row">
+        <div class="invalid-feedback d-block"
+             *ngIf="form.get('userId')?.valid && form.errors?.['dateOrTimeRequired'] && (form.touched || form.dirty)">
+          * Debes seleccionar una ventana temporal o proporcionar fechas de inicio y fin.
+        </div>
+      </div>
+    </div>
+
+    <!-- Tipo de gráfico -->
+    <div class="row">
       <div class="form-group">
         <fieldset>
           <legend>Tipo de gráfico:</legend>
           <label>
-            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" /> Categórico
+            <input type="radio" formControlName="charType" value="0" (change)="onCharTypeChange('0')" />
+            Categórico
           </label>
           <label>
-            <input type="radio" formControlName="charType" value="1" (change)="onCharTypeChange('1')" /> Dimensional
+            <input type="radio" formControlName="charType" value="1" (change)="onCharTypeChange('1')" />
+            Dimensional
           </label>
         </fieldset>
       </div>
     </div>
-    <button type="submit" class="btn-initial" [disabled]='!form.valid'>Mostrar</button>
-  </form>      
+
+    <!-- Botón de envío -->
+    <button type="submit" class="btn-initial" [disabled]="!form.valid">Mostrar</button>
+  </form>
 </div>

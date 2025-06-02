@@ -125,3 +125,16 @@ align-items: center; /* Alinea verticalmente los elementos */
     margin-top: 0;
   }
 }
+
+@media (max-width:768px) {
+
+  .left-container {
+    text-align: center;
+  }
+
+  .silence-interval {
+    margin-top: 5px;
+    text-align: center;
+    font-size: 12px;
+  }
+}

@@ -10,21 +10,21 @@
 
 
 /* Menú de navegación */
-.menu {
+.menu-items{
   display: flex;
   justify-content: center;
   gap: 3rem; /* 20px se ha convertido en rem (20px / 16px base = 1.25rem) */
   // margin-top: 2rem;
 }
 
-.menu a {
+.menu-items a {
   font-family: 'FraktionMono',monospace ;
   text-transform: uppercase;
   font-size: 1rem; /* Tamaño de texto relativo */
    transition: all 0.5s ease; 
 }
 
-.menu a:hover {
+.menu-items a:hover {
   background-color: var(--secondary-color); 
   color: var(--background-color);
   transform: translateY(-3px);
@@ -32,9 +32,9 @@
 }
 
 /* Estilo para el enlace activo */
-.menu a.active-link {
+.menu-items a.active-link {
   font-weight: bold;
-  color: var(--third-color); /* Color destacado para la vista actual */
+  color: var(--secondary-color); /* Color destacado para la vista actual */
   text-decoration: none;
 }
 
@@ -63,7 +63,7 @@ mat-toolbar.menu {
     width: 10rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
   }
 
-  .menu a {
+  .menu-items a {
     font-size: 0.7rem; /* Tamaño de texto relativo */
   }
   
@@ -73,27 +73,27 @@ mat-toolbar.menu {
 
 }
 
-@media (max-width: 768px) { 
+// @media (max-width: 768px) { 
 
-  .menu {
-    gap:0px;
-  }
+//   .menu {
+//     gap:0px;
+//   }
 
-  .menu-container{
-    padding:0.5rem;
-    justify-content: flex-end;
-    margin: 2rem 1rem;
-  }
+//   .menu-container{
+//     padding:0.5rem;
+//     justify-content: flex-end;
+//     margin: 2rem 1rem;
+//   }
 
-  .logo-image {
-    width: 8rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
-  }
+//   .logo-image {
+//     width: 8rem; /* 150px se ha convertido en rem (150px / 16px base = 9.375rem) */
+//   }
 
-  .menu a {
-    font-size: 0.5rem; /* Tamaño de texto relativo */
-  }
+//   .menu-items a {
+//     font-size: 0.5rem; /* Tamaño de texto relativo */
+//   }
   
-}
+// }
 
 .hamburger {
   background: none;
@@ -103,17 +103,6 @@ mat-toolbar.menu {
   display: none;
   padding: 0.25rem 0.5rem;
   line-height: 1;
-}
-
-
-.menu-items {
-  display: flex;
-  flex-direction: row;
-  gap: 3rem;
-}
-
-.menu-items.show {
-  display: flex;
 }
 
 @media (max-width: 768px) {

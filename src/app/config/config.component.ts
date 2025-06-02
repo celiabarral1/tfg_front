@@ -7,6 +7,11 @@ import { FullConfig } from './model/fullConfig';
 import { Router } from '@angular/router';
 import Swal from 'sweetalert2';
 
+/**
+ * Componente que permite al usuario modificar parámetros de la configuración por defecto
+ * o volver a ella.
+ * También permite generar una nueva muestra de datos para explotar.
+ */
 @Component({
   selector: 'app-config',
   templateUrl: './config.component.html',
@@ -61,10 +66,15 @@ export class ConfigComponent implements OnInit {
       ntEnd: [''],
       port: [null],
       alignmentPort: [null],
+      newData: [false] 
     });
   }
 
 
+  /**
+   * Inicia el componente. Trae del almacenamiento los modelos de inferencia entre los que puede escoger el usuario.
+   * Se rellenea con los valores de la configuración actual.
+   */
   ngOnInit(): void {
     this.audiosService.getAvalaibleModels().subscribe(models => {
       this.inferenceModels = models;
@@ -75,11 +85,15 @@ export class ConfigComponent implements OnInit {
       console.log(this.defaultConfig.inference)
       const shifts = this.defaultConfig.shifts;
 
+      const model = (this.inferenceModels as { label: string; value: string }[])
+      .find(model => model.value === this.defaultConfig.inference?.inferenceModel + '.pkl');
+
+
       this.form.patchValue({
         nWorkers: this.defaultConfig.generation?.nWorkers ?? null,
         nSamples: this.defaultConfig.generation?.nSamples ?? null,
         delay: this.defaultConfig.inference?.silenceInterval ?? null,
-        models: this.defaultConfig.inference?.inferenceModel ?? null,
+        models: model?.value ?? null,
         amStart: shifts?.['mañana']?.[0] || '',
         amEnd: shifts?.['mañana']?.[1] || '',
         pmStart: shifts?.['tarde']?.[0] || '',
@@ -88,12 +102,16 @@ export class ConfigComponent implements OnInit {
         ntEnd: shifts?.['noche']?.[1] || '',
         port: this.defaultConfig.port ?? '',
         alignmentPort: this.defaultConfig.alignmentPort ?? '',
-        newData: [false]
+        newData: false
       });
       console.log(config)
     })
   }
 
+  /**
+   * Transforma los datos del formulario en un objeto Config
+   * @returns nueva Configuración
+   */
   parseForm(): Config {
     const formValue = this.form.value;
     const shifts: { [key: string]: [string, string] } = {
@@ -111,6 +129,12 @@ export class ConfigComponent implements OnInit {
     });
   }
 
+  /**
+   * Transforma los datos del formulario en un objeto Config, completa el resto de datos 
+   * con los de la configuración por defecto
+   * Llama al servicio de configuración para que realice la petición de cambiar configuración y 
+   * si se ha marcado la opción, genere una nueva muestra de datos.
+   */
   save() {
     const newConfig = this.parseForm(); // clase Config
 
@@ -154,14 +178,23 @@ export class ConfigComponent implements OnInit {
     });
   }
 
+  /**
+   * Redirección al alta de trabajadores
+   */
   routeToWorkers(): void {
     this.router.navigate(['/register']);
   }
 
+  /**
+   * Redirección a la pantalla principal
+   */
   routeToPrincipal(): void {
     this.router.navigate(['/']);
   }
 
+  /**
+   * Reestablece la configuración por defecto.
+   */
 resetDefault(): void {
   Swal.fire({
     title: '¿Restablecer la configuración por defecto?',

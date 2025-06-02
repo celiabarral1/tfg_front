@@ -37,6 +37,13 @@ section {
   padding: 10px;
 }
 
+.timeline {
+  width: 100%;
+  overflow: hidden;
+  height: 30px;
+}
+
+
 .controls {
   display: flex;
   gap: 15px;

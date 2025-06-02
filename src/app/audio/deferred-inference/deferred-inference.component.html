@@ -3,7 +3,8 @@
     <p>Ahora no hace falta hablar, sube aquí el .csv (siguiendo el modelo que puedes descargar aquí), 
       junto con los audios que se mencionan en el .csv y podrás visualizar las emociones asociadas a cada audio
     </p>
-    <input type="file" accept=".wav" multiple (change)="onChargeAudios($event)">
+      <label for="audioUpload">Subir archivos de audio en formato .wav</label>
+    <input id="audioUpload" type="file" accept=".wav" multiple (change)="onChargeAudios($event)">
   </div>
   
      <div class="records">

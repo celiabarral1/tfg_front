@@ -15,14 +15,23 @@ import { read } from "fs";
       this.apiUrl = this.apiConfig.getApiUrl() ;  // Usamos el ApiConfigService para obtener la URL base
     }
 
+    /**
+     * Petición que devuelve las ventanas temporales para el análisis.
+     */
     getTimePeriods(): Observable<any> {
       return this.http.get(`${this.apiUrl}/getTimePeriods`); 
     }
 
+    /**
+     * Petición que devuelve las ids disponibles para el análisis.
+     */
     getIds(): Observable<any> {
       return this.http.get(`${this.apiUrl}/ids`); 
     }
 
+    /**
+     * Petición que devuelve los turnos para el análisis.
+     */
     getShifts(): Observable<any> {
       return this.http.get(`${this.apiUrl}/getShifts`); 
     }
@@ -31,10 +40,20 @@ import { read } from "fs";
       return this.http.get(`${this.apiUrl}/getEmotions`); 
     }
 
+    /**
+     * Petición que tiene como parámetro los datos del formulario:
+     * ID, fechas, tipo de emociones.
+     * Devuelve los datos emocionales asociados a los datos individuales anteriores.
+     */
     filterRecords(requestData: any): Observable<any> {
       return this.http.post(`${this.apiUrl}/records/id`, requestData);
     }
 
+    /**
+     * Petición que tiene como parámetro los datos del formulario:
+     * Turno, fechas, tipo de emociones.
+     * Devuelve los datos emocionales asociados a los datos de turno anteriores.
+     */
     filterByShifts(requestData: any): Observable<any> {
       return this.http.post(`${this.apiUrl}/records/shift`, requestData);
   }

@@ -1,25 +1,45 @@
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+  ValidationErrors
+} from '@angular/forms';
 import { IndividualService } from '../individual.service';
 import { ChartDataService } from '../../shared/shared/chart-data.service';
 import { Record } from '../../shared/shared/model/record';
 import Swal from 'sweetalert2';
 
+/**
+ * Componente con el formulario para la búsqueda detallada de un trabajador.
+ */
 @Component({
   selector: 'app-individual-form',
   templateUrl: './individual-form.component.html',
   styleUrls: ['./individual-form.component.scss']
 })
-export class IndividualFormComponent implements OnChanges {
+export class IndividualFormComponent implements OnChanges, AfterViewInit {
   @Input() id: string | undefined | null;
   @Output() charTypeChange = new EventEmitter<string>();
-  @ViewChild('startDate', { static: false }) startDate!: ElementRef;  // Recuperado
+  @ViewChild('startDate', { static: false }) startDate!: ElementRef;
 
   form: FormGroup;
-  selectedOption: string | null = null; 
+  selectedOption: string | null = null;
   options = [];
+  ids = [];
   isDatesDisabled: boolean = false;
-  ids= [];
 
   constructor(
     private readonly formBuilder: FormBuilder,
@@ -28,163 +48,140 @@ export class IndividualFormComponent implements OnChanges {
     private readonly cdr: ChangeDetectorRef
   ) {
     this.form = this.formBuilder.group({
-      userId: [null, Validators.required],   
-      time: [null],  
-      charType: ['1', [Validators.required]], 
+      userId: [null, Validators.required],
+      time: [null],
+      charType: ['1', Validators.required],
       startDate: [''],
-      endDate: [''],
-    }, { validators: [this.dateOrTimeValidator, this.dateValidator] });  
+      endDate: ['']
+    }, { validators: [this.dateOrTimeValidator, this.dateValidator] });
+
+    // Activar/desactivar fechas según cambio en 'time'
+    this.form.get('time')?.valueChanges.subscribe(value => {
+      this.toggleDateInputs(!!value);
+    });
   }
 
+  /**
+   * Recoge los periodos de tiempo establecidos y los ids de los trabajadores a analizar.
+   */
   ngOnInit(): void {
     this.service.getTimePeriods().subscribe(
-      (response) => {
-        this.options = response; 
-      },
-      (error) => {
-        console.error('Error al obtener las opciones de tiempo:', error);
-      }
+      response => this.options = response,
+      error => console.error('Error al obtener las opciones de tiempo:', error)
     );
+
     this.service.getIds().subscribe(
-      (response) => {
-        this.ids = response; 
-      },
-      (error) => {
-        console.error('Error al obtener las opciones de tiempo:', error);
-      }
+      response => this.ids = response,
+      error => console.error('Error al obtener los IDs:', error)
     );
   }
 
   ngAfterViewInit(): void {
     if (this.id) {
       this.form.patchValue({ userId: this.id });
-      this.cdr.detectChanges(); // Detecta cambios después de recibir id por asignación
+      this.cdr.detectChanges();
     }
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['id'] && changes['id'].currentValue) {
-      console.log('id recibido:', this.id);  // Asegúrate de que el id esté llegando correctamente
-      this.form.patchValue({ userId: this.id });
-      this.form.updateValueAndValidity();
-      this.form.get('userId')?.setValue(Number(this.id));
+      this.form.patchValue({ userId: Number(this.id) });
     }
   }
-  
-  
-dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
-  // const userId = control.get('userId')?.value;
-  // const time = control.get('time')?.value;
-  // const startDate = control.get('startDate')?.value;
-  // const endDate = control.get('endDate')?.value;
 
-  // // Si no hay usuario seleccionado, no validar aún
-  // if (!userId) {
-  //   return null;
-  // }
-
-  // // Si hay valor en time, es válido
-  // if (time) {
-  //   return null;
-  // }
-
-  // // Si hay tanto startDate como endDate, es válido
-  // if (startDate && endDate) {
-  //   return null;
-  // }
-
-  // // Si no hay ni time ni un rango completo de fechas, inválido
-  // return { dateOrTimeRequired: true };
-  return null;
-}
-
-
-
-  dateValidator(control: AbstractControl): ValidationErrors | null {
-    // const userId = control.get('userId')?.value;
-    // const startDateControl = control.get('startDate');
-    // const endDateControl = control.get('endDate');
-  
-    // if (!userId) {
-    //   return null;
-    // }
-  
-    // if (!startDateControl?.touched && !endDateControl?.touched) {
-    //   return null;
-    // }
-  
-    // if (startDateControl?.value && endDateControl?.value && new Date(startDateControl.value) > new Date(endDateControl.value)) {
-    //   return { invalidDateRange: true };  
-    // }
-    // this.form.updateValueAndValidity();
-    return null;  
+  toggleDateInputs(disabled: boolean): void {
+    const startDate = this.form.get('startDate');
+    const endDate = this.form.get('endDate');
+    if (disabled) {
+      startDate?.disable();
+      endDate?.disable();
+      this.form.patchValue({ startDate: '', endDate: '' });
+    } else {
+      startDate?.enable();
+      endDate?.enable();
+    }
+    this.isDatesDisabled = disabled;
+    this.cdr.detectChanges();
   }
-  
-  
 
   onTimeChange(value: any): void {
-  const startDateControl = this.form.get('startDate');
-  const endDateControl = this.form.get('endDate');
-
-  if (value) {  
-    startDateControl?.disable();
-    endDateControl?.disable();
-    this.isDatesDisabled = true;
-  } else {
-    startDateControl?.enable();
-    endDateControl?.enable();
-    this.isDatesDisabled = false;
+    this.toggleDateInputs(!!value);
+    this.form.updateValueAndValidity();
   }
 
-  this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true }); // ← Actualiza validaciones
-  this.cdr.detectChanges();
-}
-
-onManualDate(): void {
-  const timeControl = this.form.get('time');
-
-  if (this.form.get('startDate')?.value || this.form.get('endDate')?.value) {
-    timeControl?.disable();
-  } else {
-    timeControl?.enable();
-  }
-
-  this.form.updateValueAndValidity({ onlySelf: false, emitEvent: true });
-}
-
-  focusStartDate() {  
-    if (this.startDate) {
-      this.startDate.nativeElement.focus();
+  onManualDate(): void {
+    const time = this.form.get('time');
+    if (this.form.get('startDate')?.value || this.form.get('endDate')?.value) {
+      time?.disable();
+      this.isDatesDisabled = false;
+    } else {
+      time?.enable();
     }
+    this.form.updateValueAndValidity();
   }
 
+  focusStartDate(): void {
+    this.startDate?.nativeElement.focus();
+  }
+
+  dateOrTimeValidator(control: AbstractControl): ValidationErrors | null {
+    const time = control.get('time');
+    const startDate = control.get('startDate');
+    const endDate = control.get('endDate');
+
+    const interacted = time?.touched || startDate?.touched || endDate?.touched ||
+                       time?.dirty || startDate?.dirty || endDate?.dirty;
+
+    if (!interacted) return null;
+
+    if (time?.value) return null;
+
+    if (startDate?.value && endDate?.value) return null;
+
+    return { dateOrTimeRequired: true };
+  }
+
+  dateValidator(control: AbstractControl): ValidationErrors | null {
+    const startDate = control.get('startDate');
+    const endDate = control.get('endDate');
+
+    if (!startDate?.touched && !endDate?.touched) return null;
+
+    if (startDate?.value && endDate?.value && new Date(startDate.value) > new Date(endDate.value)) {
+      return { invalidDateRange: true };
+    }
+    return null;
+  }
+
+  /**
+   * Función que envía los datos del formulario y recibe los datos asociados a:
+   * ID introducido, tipo de emociones a representar (categóricas o dimensioanles)
+   * fechas de los datos que se quieren conocer.
+   * Valida los datos antes de enviarlos.
+   * Se notifica al usuario si no hay datos o si hubiera algún error en su obtención.
+   */
   onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       console.log('Formulario inválido:', this.form.errors);
       return;
     }
-  
-    const userId = this.form.value.userId;
-    const time = this.form.value.time;
-    const charType = this.form.value.charType;
-    const startDate = this.form.value.startDate;
-    const endDate = this.form.value.endDate;
-    this.charTypeChange.emit(charType); 
-  
+
+    const { userId, time, charType, startDate, endDate } = this.form.value;
+    this.charTypeChange.emit(charType);
+
     const requestData: any = {
       user_id: userId,
-      char_type: charType,
+      char_type: charType
     };
-  
+
     if (time) {
       requestData.time_option = time;
     } else {
-      requestData.start_date = new Date(startDate).toISOString().split('T')[0]; 
+      requestData.start_date = new Date(startDate).toISOString().split('T')[0];
       requestData.end_date = new Date(endDate).toISOString().split('T')[0];
     }
-  
-    console.log(requestData);
+
     this.service.filterRecords(requestData).subscribe(
       (response) => {
         if (response.length === 0) {
@@ -194,20 +191,10 @@ onManualDate(): void {
             text: 'No se encontraron registros para los filtros seleccionados.',
             confirmButtonText: 'Aceptar'
           });
-          return;  // Detener ejecución si no hay datos
+          return;
         }
-  
-        const records = response.flat().map((item: any, index: number) => {
-          try {
-            console.log(`Processing item at index ${index}:`, item);
-            return new Record(item);
-          } catch (error) {
-            console.error(`Error at index ${index}:`, item, error);
-            throw error;
-          }
-        });
-  
-        console.log('Datos RECORDS:', records);
+
+        const records = response.flat().map((item: any) => new Record(item));
         this.chartDataService.updateChartData(records, time, userId);
       },
       (error) => {
@@ -221,8 +208,8 @@ onManualDate(): void {
       }
     );
   }
-  
+
   onCharTypeChange(value: string): void {
-    this.charTypeChange.emit(value); 
+    this.charTypeChange.emit(value);
   }
 }

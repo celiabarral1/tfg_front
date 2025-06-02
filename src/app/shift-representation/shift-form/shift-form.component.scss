@@ -10,6 +10,14 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
 }
 
+/* Estilo para los campos de entrada al enfocarse */
+input:focus,
+ng-select:focus {
+  border-color: #f58e81; /* Color de borde al enfocar */
+  outline: none; /* Elimina el contorno por defecto */
+}
+
+
 /* Estilos generales para el formulario */
 form {
   display: flex;

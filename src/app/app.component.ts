@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
+/**
+ * Componente principal de la aplicación.
+ * Agrupa todas las vistas. 
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

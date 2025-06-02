@@ -1,13 +1,23 @@
 <div class="search-container">
-  <h1>Agrupación de los trabajadores por tendencia psicológica </h1>
-  <input type="text" [(ngModel)]="searchTerm" placeholder="Buscar por ID..." class="search-input" />
+  <h1>Agrupación de los trabajadores por tendencia psicológica</h1>
+
+  <div class="search-field">
+    <label for="searchInput">Busca por ID:</label>
+    <input
+      id="searchInput"
+      type="text"
+      [(ngModel)]="searchTerm"
+      placeholder="Introduce ID..."
+      class="search-input" />
+  </div>
 </div>
+
 <div class="groups-container">
   <!-- Tendencia depresiva -->
   <div class="group-depression">
     <h2>Tendencia depresiva</h2>
     <div class="users_info">
-      <p>Total: {{ filteredDepression.length }}</p>
+      <h3>Total: {{ filteredDepression.length }}</h3>
       <ul>
         <li *ngFor="let id of filteredDepression.slice(0, showLessDepression ? 10 : filteredDepression.length)"
           (click)="routeToRepresentation(id)">
@@ -24,7 +34,7 @@
   <div class="group-anxiety">
     <h2>Tendencia ansiosa</h2>
     <div class="users_info">
-      <p>Total: {{ filteredAnxiety.length }}</p>
+      <h3>Total: {{ filteredAnxiety.length }}</h3>
       <ul>
         <li *ngFor="let id of filteredAnxiety.slice(0, showLessAnxiety ? 10 : filteredAnxiety.length)"
           (click)="routeToRepresentation(id)">
@@ -41,7 +51,7 @@
   <div class="group-no-disorder">
     <h2>Sin tendencia detectada</h2>
     <div class="users_info">
-      <p>Total: {{ filteredNoDisorder.length }}</p>
+      <h3>Total: {{ filteredNoDisorder.length }}</h3>
       <ul>
         <li *ngFor="let id of filteredNoDisorder.slice(0, showLessNoDisorder ? 10 : filteredNoDisorder.length)"
           (click)="routeToRepresentation(id)">

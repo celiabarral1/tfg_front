@@ -1,3 +1,7 @@
+/**
+ * Clase Trabajador. Prppiedades
+ * Identificador, rol y fecha de registro
+ */
 export class Employee {
     id: string;
     rol: string;

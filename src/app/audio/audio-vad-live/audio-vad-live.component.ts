@@ -135,11 +135,9 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
    * y se verifica si el usuario tiene un rol adecuado.
    */
   ngOnInit(): void {
-    // this.createWaveSurfer();
     this.isAuthorized = this.authService.isAuthorized('admin', 'psychologist');
     this.audioService.getInferenceInterval().subscribe(value => {
       this.voice_stop_delay = value;
-      // this.voice_stop_delay_string = value.toString();
     });
 
   }
@@ -184,9 +182,6 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
       this.processRecordedAudio(blob);
     });
 
-    this.audio.on('record-progress', (time: number) => {
-      this.updateProgress(time);
-    });
 
     console.log('WaveSurfer creado.');
   }
@@ -317,15 +312,6 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('Grabación detenida manualmente.');
   }
 
-  updateProgress(time: number): void {
-    const formattedTime = [
-      Math.floor((time % 3600000) / 60000), // minutos
-      Math.floor((time % 60000) / 1000), // segundos
-    ]
-      .map((v) => (v < 10 ? '0' + v : v))
-      .join(':');
-    this.recordingProgress = formattedTime;
-  }
 
   /**
    * Función @async que gestiona el procesamiento de cada grabación
@@ -354,7 +340,17 @@ export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     this.index++;
   }
 
-  // EMOTIONS PROCESS
+/**
+ * Proceso completo para procesar cada grabación mediante el modelo de IA, recibir
+ * las emociones categóricas y mostrarlas junto con el alineamiento forzado.
+ * Para ello, transforma cada grabación en un FormData, lo envía al servidor que contiene la llamada
+ * al endpoint con la IA, obtiene sus emociones predominantes y crea una instancia de otro componente encargado de
+ * la visualización del análisis emocional.
+ * Se realiza una llamada al serrvidor de forced alignment y se obtiene la transcripción alineada, que se pasa
+ * al objeto creado.
+ * @param blob audio a procesar
+ * @param componentRef 
+ */
 async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
   const request = async () => {
     const audioData = new FormData();
@@ -405,6 +401,11 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
 }
 
 
+/**
+ * Añade al componente encargado de la visualización del análisis las emociones categóricas
+ * @param emocategoric 
+ * @param instance 
+ */
   addCategoric(emocategoric: any, instance: any) {
     if (emocategoric && Array.isArray(emocategoric)) {
       instance.emotions_categoric = emocategoric;
@@ -413,6 +414,11 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
     }
   }
 
+  /**
+   * Añade al componente encargado de la visualización del análisis las emociones dimensionales
+   * @param emodimensional 
+   * @param instance 
+   */
   addDimensional(emodimensional: any, instance: any) {
     if (emodimensional) {
       instance.emotions_dimensional = emodimensional;
@@ -421,6 +427,18 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
     }
   }
 
+  /**
+   * Crea un componente que engloba los datos del análisis emocional de cada audio y lo representa
+   * visualmente.
+   * @param fileName 
+   * @param emocategoric 
+   * @param emodimensional 
+   * @param userId 
+   * @param audioBlob 
+   * @param transcription 
+   * @param alignments 
+   * @returns 
+   */
   async createRecordingWithEmotion(
     fileName: string,
     emocategoric: any[],
@@ -458,6 +476,10 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
 
 
   // GESTION DE LA COLA DE PETICIONES
+  /**
+   * Añade una nueva petición a la cola y, si no hay otra en curso, comienza a procesarla.
+   * Esta función garantiza que las peticiones de procesamiento de audio se ejecuten secuencialmente.
+   */
   private async enqueueRequest(request: () => Promise<void>): Promise<void> {
     this.requestQueue.push(request);
 
@@ -466,6 +488,9 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
     }
   }
 
+  /**
+   * Procesa la siguiente petición de la cosa si hay.
+   */
   private async processQueue(): Promise<void> {
     if (this.isRequestInProgress || this.requestQueue.length === 0) {
       return;
@@ -487,6 +512,10 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
   }
 
   // descarga de audios
+  /**
+   * Descarga todos los audios que se visualizan a la vez.
+   * @returns 
+   */
   downloadAll(): void {
     if (this.waveSurferRecorded.length === 0) {
       console.warn('No hay audios grabados para descargar.');
@@ -503,7 +532,6 @@ async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise<void> {
     });
 
     this.cdr.detectChanges();
-    console.log("tiene alignmets? ", this.recordingsWithEmotions)
     CsvGestor.downloadCsv(this.recordingsWithEmotions, 'recordings_emotions');
 
     console.log('Todos los audios han sido descargados.');

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * EmotionTranslationService
+ * Servicio de traducciones para las emociones 
+ */
 @Injectable({
   providedIn: 'root',
 })

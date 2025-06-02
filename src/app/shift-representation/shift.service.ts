@@ -14,6 +14,10 @@ export class ShiftService {
     this.apiUrl = this.apiConfig.getApiUrl();  // Usamos el ApiConfigService para obtener la URL base
   }
   
+  /**
+   * Endpoint que devuelve los turnos establecidos para análisis.
+   * @returns 
+   */
   getShifts(): Observable<any> {
     return this.http.get(`${this.apiUrl}/getShifts`); 
   }
