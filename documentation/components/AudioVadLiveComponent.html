@@ -1,0 +1,2982 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend-web-emotions documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend-web-emotions documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AudioVadLiveComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/audio/audio-vad-live/audio-vad-live.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente dedicado a la detección de voz en tiempo real y a la visualización de los datos asociados
+a las grabaciones obtenidas.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+                <code>AfterViewInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-audio-vad-live</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./audio-vad-live.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./audio-vad-live.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#audio" >audio</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#audioContext" >audioContext</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#audioUtils" >audioUtils</a>
+                            </li>
+                            <li>
+                                <a href="#bufferLen" >bufferLen</a>
+                            </li>
+                            <li>
+                                <a href="#fftSize" >fftSize</a>
+                            </li>
+                            <li>
+                                <a href="#index" >index</a>
+                            </li>
+                            <li>
+                                <a href="#isAuthorized" >isAuthorized</a>
+                            </li>
+                            <li>
+                                <a href="#isRecording" >isRecording</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isRequestInProgress" >isRequestInProgress</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#mediaStream" >mediaStream</a>
+                            </li>
+                            <li>
+                                <a href="#recordingProgress" >recordingProgress</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#recordingsRef" >recordingsRef</a>
+                            </li>
+                            <li>
+                                <a href="#recordingsWithEmotions" >recordingsWithEmotions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#requestQueue" >requestQueue</a>
+                            </li>
+                            <li>
+                                <a href="#stopDelayOptions" >stopDelayOptions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#vad" >vad</a>
+                            </li>
+                            <li>
+                                <a href="#voice_stop_delay" >voice_stop_delay</a>
+                            </li>
+                            <li>
+                                <a href="#voice_stop_delay_string" >voice_stop_delay_string</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#waveformRef" >waveformRef</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#waveSurfer" >waveSurfer</a>
+                            </li>
+                            <li>
+                                <a href="#waveSurferRecorded" >waveSurferRecorded</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addCategoric" >addCategoric</a>
+                            </li>
+                            <li>
+                                <a href="#addDimensional" >addDimensional</a>
+                            </li>
+                            <li>
+                                <a href="#closeAudioContext" >closeAudioContext</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#createRecordingWithEmotion" >createRecordingWithEmotion</a>
+                            </li>
+                            <li>
+                                <a href="#createWaveSurfer" >createWaveSurfer</a>
+                            </li>
+                            <li>
+                                <a href="#destroyWaveSurfer" >destroyWaveSurfer</a>
+                            </li>
+                            <li>
+                                <a href="#downloadAll" >downloadAll</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#enqueueRequest" >enqueueRequest</a>
+                            </li>
+                            <li>
+                                <a href="#getWaveformHeight" >getWaveformHeight</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                    <span class="modifier">Async</span>
+                                <a href="#processQueue" >processQueue</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#processRecordedAudio" >processRecordedAudio</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#sendAudioToGetEmotions" >sendAudioToGetEmotions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#startRecording" >startRecording</a>
+                            </li>
+                            <li>
+                                <a href="#stopRecording" >stopRecording</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(audioService: <a href="../injectables/AudioService.html" target="_self">AudioService</a>, viewContainerRef: ViewContainerRef, componentFactoryResolver: ComponentFactoryResolver, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, forceAlignment: <a href="../injectables/ForceAlignmentService.html" target="_self">ForceAlignmentService</a>, cdr: ChangeDetectorRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:109</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor del componente.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>audioService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AudioService.html" target="_self" >AudioService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>serviciop para realizar peticiones relacionadas con el procesamiento y obtención de datos sobre un audio.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>viewContainerRef</td>
+                                                  
+                                                        <td>
+                                                                    <code>ViewContainerRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>representa la vista actual y es necesario para insertar componente dinámicamente.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>componentFactoryResolver</td>
+                                                  
+                                                        <td>
+                                                                    <code>ComponentFactoryResolver</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>gestiona y crea dinámicamente instancias de componentes en tiempo de ejecución.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>servicio para supervisar que el usuario forma parte del perfil con privilegios para las funcionalidades.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>forceAlignment</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ForceAlignmentService.html" target="_self" >ForceAlignmentService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>cdr</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addCategoric"></a>
+                    <span class="name">
+                        <span ><b>addCategoric</b></span>
+                        <a href="#addCategoric"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addCategoric(emocategoric: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, instance: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="409"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:409</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Añade al componente encargado de la visualización del análisis las emociones categóricas</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>emocategoric</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>instance</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addDimensional"></a>
+                    <span class="name">
+                        <span ><b>addDimensional</b></span>
+                        <a href="#addDimensional"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addDimensional(emodimensional: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, instance: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="422"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:422</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Añade al componente encargado de la visualización del análisis las emociones dimensionales</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>emodimensional</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>instance</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeAudioContext"></a>
+                    <span class="name">
+                        <span ><b>closeAudioContext</b></span>
+                        <a href="#closeAudioContext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeAudioContext()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="211"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:211</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Se encarga de cerrar bien todo lo relacionado con la capturación de audio mediante
+el micrófono.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createRecordingWithEmotion"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>createRecordingWithEmotion</b></span>
+                        <a href="#createRecordingWithEmotion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>createRecordingWithEmotion(fileName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, emocategoric: any[], emodimensional: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>, userId: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>, audioBlob: Blob, transcription: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>, alignments: <a href="../classes/Alignment.html" target="_self">Alignment[]</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="442"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:442</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Crea un componente que engloba los datos del análisis emocional de cada audio y lo representa
+visualmente.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>fileName</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>emocategoric</td>
+                                            <td>
+                                                        <code>any[]</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>emodimensional</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>userId</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>audioBlob</td>
+                                            <td>
+                                                        <code>Blob</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>transcription</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                        <tr>
+                                                <td>alignments</td>
+                                            <td>
+                                                            <code><a href="../classes/Alignment.html" target="_self" >Alignment[]</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;RecordingEmotions&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createWaveSurfer"></a>
+                    <span class="name">
+                        <span ><b>createWaveSurfer</b></span>
+                        <a href="#createWaveSurfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createWaveSurfer()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="166"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Crea dinámicamente una instancia de WaveSurfer, en el contenedor del HTML asociado, con los parámetros visuales deseados.
+Utiliza extensiones que ofrece la librería para ajustar más la visualización.
+Cuando la onda termina, se procesa el audio que representa.
+Mientras está grabando se muestra la duración de esa grabación.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroyWaveSurfer"></a>
+                    <span class="name">
+                        <span ><b>destroyWaveSurfer</b></span>
+                        <a href="#destroyWaveSurfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>destroyWaveSurfer()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="192"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:192</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Destruye la onda de audio.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="downloadAll"></a>
+                    <span class="name">
+                        <span ><b>downloadAll</b></span>
+                        <a href="#downloadAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>downloadAll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="519"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:519</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Descarga todos los audios que se visualizan a la vez.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="enqueueRequest"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>enqueueRequest</b></span>
+                        <a href="#enqueueRequest"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>enqueueRequest(request: () => void)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="483"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:483</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Añade una nueva petición a la cola y, si no hay otra en curso, comienza a procesarla.
+Esta función garantiza que las peticiones de procesamiento de audio se ejecuten secuencialmente.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>request</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/function" target="_blank" >function</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getWaveformHeight"></a>
+                    <span class="name">
+                        <span ><b>getWaveformHeight</b></span>
+                        <a href="#getWaveformHeight"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getWaveformHeight()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="199"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="126"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="150"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:150</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Al destruirse el componente se detiene la grabación,
+y se destruye la visualización de la onda en tiempo real.
+Se elimina la cola de peticiones.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:137</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cuando se inicializa el componente, se crea la onda de audio en tiempo real
+y se verifica si el usuario tiene un rol adecuado.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processQueue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                            <span class="modifier">Async</span>
+                        <span ><b>processQueue</b></span>
+                        <a href="#processQueue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processQueue()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="494"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:494</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Procesa la siguiente petición de la cosa si hay.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="processRecordedAudio"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>processRecordedAudio</b></span>
+                        <a href="#processRecordedAudio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>processRecordedAudio(blob: Blob)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="320"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:320</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Función @async que gestiona el procesamiento de cada grabación</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>blob</td>
+                                            <td>
+                                                        <code>Blob</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="sendAudioToGetEmotions"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>sendAudioToGetEmotions</b></span>
+                        <a href="#sendAudioToGetEmotions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>sendAudioToGetEmotions(blob: Blob, componentRef: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="354"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:354</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Proceso completo para procesar cada grabación mediante el modelo de IA, recibir
+las emociones categóricas y mostrarlas junto con el alineamiento forzado.
+Para ello, transforma cada grabación en un FormData, lo envía al servidor que contiene la llamada
+al endpoint con la IA, obtiene sus emociones predominantes y crea una instancia de otro componente encargado de
+la visualización del análisis emocional.
+Se realiza una llamada al serrvidor de forced alignment y se obtiene la transcripción alineada, que se pasa
+al objeto creado.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>blob</td>
+                                            <td>
+                                                        <code>Blob</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>audio a procesar</p>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                                <td>componentRef</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="startRecording"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>startRecording</b></span>
+                        <a href="#startRecording"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>startRecording()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="233"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:233</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método @async que inicia la grabación y todo lo que ello conlleva.
+Primero se encarga de destruir cualquier resto tanto visual como de micrófono que quede.
+A continuación trata de solicitar acceso al micrófono del usuario, inicializa el contexto de audio y crea un nodo de origen de medios.
+Se crea la instancia de VAD (detección de voz) que gestiona cuando comienza y se genera una grabación,
+según lo largo que sea el silencio que detecta (en este caso cada silencio de 500ms). Mientras el micrófono continúa siempre en escucha, a caso de que se detenga explícitamente.</p>
+<ul>
+<li>@returns {Promise<void>} promesa que se resuelve cuando se inicializa correctamente el flujo de audio.</li>
+<li>@throws {Error} si el usuario niega el acceso al micrófono o si ocurre algún problema de acceso.</li>
+</ul>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>Promise&lt;void&gt;</code>
+
+                        </div>
+                            <div class="io-description">
+                                <p>promesa que se resuelve cuando se inicializa correctamente el flujo de audio.
+*</p>
+
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stopRecording"></a>
+                    <span class="name">
+                        <span ><b>stopRecording</b></span>
+                        <a href="#stopRecording"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>stopRecording()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="287"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:287</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Detiene la grabación, tanto visualmente como cierra la escucha.
+Cierra el micrófono y el contexto de audio si está abierto.
+Detiene y libera el mediaStream si existe.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="audio"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>audio</b></span>
+                        <a href="#audio"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="49" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:49</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Audio</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="audioContext"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>audioContext</b></span>
+                        <a href="#audioContext"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>AudioContext | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:53</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Conteto de audio de la aplicación.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="audioUtils"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>audioUtils</b></span>
+                        <a href="#audioUtils"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/AudioUtils.html" target="_self" >AudioUtils</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new AudioUtils()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="65" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:65</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Instancia de la clase que gestiona las conversiones de tipo de audios.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="bufferLen"></a>
+                    <span class="name">
+                        <span ><b>bufferLen</b></span>
+                        <a href="#bufferLen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1024</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="103" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:103</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fftSize"></a>
+                    <span class="name">
+                        <span ><b>fftSize</b></span>
+                        <a href="#fftSize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>1024</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="102" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:102</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="index"></a>
+                    <span class="name">
+                        <span ><b>index</b></span>
+                        <a href="#index"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="73" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:73</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAuthorized"></a>
+                    <span class="name">
+                        <span ><b>isAuthorized</b></span>
+                        <a href="#isAuthorized"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Propiedad para verificar que el usuario tengas permisos necesarios para las funcionalidades.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRecording"></a>
+                    <span class="name">
+                        <span ><b>isRecording</b></span>
+                        <a href="#isRecording"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="70" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Propiedad que determina si se está grabando o no</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isRequestInProgress"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isRequestInProgress</b></span>
+                        <a href="#isRequestInProgress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="88" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:88</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Determina si hay o no alguna petición siendo resuelta.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mediaStream"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>mediaStream</b></span>
+                        <a href="#mediaStream"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MediaStream | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Flujo de medios activo, obtenido del micrófono del usuario</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recordingProgress"></a>
+                    <span class="name">
+                        <span ><b>recordingProgress</b></span>
+                        <a href="#recordingProgress"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;00:00&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="71" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:71</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recordingsRef"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>recordingsRef</b></span>
+                        <a href="#recordingsRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;recordings&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="35" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:35</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Propiedad que representa el elemento del HTML que contiene las grabaciones que se obtienen en tiempo real.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="recordingsWithEmotions"></a>
+                    <span class="name">
+                        <span ><b>recordingsWithEmotions</b></span>
+                        <a href="#recordingsWithEmotions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>RecordingEmotions[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Lista de audios asociados con sus datos emocionales.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="requestQueue"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>requestQueue</b></span>
+                        <a href="#requestQueue"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>(function)[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:84</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estructura de datos en forma de cola para gestionar en orden las peticiones de procesamiento en tiempo real
+de los audios.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="stopDelayOptions"></a>
+                    <span class="name">
+                        <span ><b>stopDelayOptions</b></span>
+                        <a href="#stopDelayOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[500, 1000, 3000, 5000]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="109" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Opciones de tiempo para la detección de silencio.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="vad"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>vad</b></span>
+                        <a href="#vad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/VAD.html" target="_self" >VAD | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="61" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Instancia de una librería que ofrece la gestión de detección de actividad en la voz.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="voice_stop_delay"></a>
+                    <span class="name">
+                        <span ><b>voice_stop_delay</b></span>
+                        <a href="#voice_stop_delay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>500</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="101" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:101</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Propiedades de configuración de la detección automática de voz.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="voice_stop_delay_string"></a>
+                    <span class="name">
+                        <span ><b>voice_stop_delay_string</b></span>
+                        <a href="#voice_stop_delay_string"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this.voice_stop_delay.toString()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:105</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="waveformRef"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>waveformRef</b></span>
+                        <a href="#waveformRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;waveform&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Propiedad que representa el elemento del HTML que contiene la onda que se visualiza en tiempo real.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="waveSurfer"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>waveSurfer</b></span>
+                        <a href="#waveSurfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="45" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Instancia de WaveSurfer para para renderizar la forma de onda captada en tiempo real</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="waveSurferRecorded"></a>
+                    <span class="name">
+                        <span ><b>waveSurferRecorded</b></span>
+                        <a href="#waveSurferRecorded"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="78" class="link-to-prism">src/app/audio/audio-vad-live/audio-vad-live.component.ts:78</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Estructura que almacena las grabaciones de WaveSurfer</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, ElementRef, ViewChild, Inject, OnDestroy, ViewContainerRef, ComponentFactoryResolver, ChangeDetectorRef, AfterViewInit } from &#x27;@angular/core&#x27;;
+import WaveSurfer from &#x27;wavesurfer.js&#x27;;
+import RecordPlugin from &#x27;wavesurfer.js/dist/plugins/record.esm.js&#x27;;
+import { AudioService } from &#x27;../audio.service&#x27;;
+import RegionsPlugin from &#x27;wavesurfer.js/dist/plugins/regions.esm.js&#x27;;
+import VAD from &#x27;../../@core/common/utils/vad.ts/vad&#x27;;
+import { AudioEmotionsComponent } from &#x27;./audio-emotions/audio-emotions.component&#x27;;
+import { AudioUtils } from &#x27;../../@core/common/utils/audio-helper&#x27;;
+import { RecordingEmotions } from &#x27;./model/recording-emotions&#x27;;
+import { CsvGestor } from &#x27;../../@core/common/utils/csv-gestor&#x27;;
+import { Alignment } from &#x27;./model/alignment&#x27;;
+import { AuthService } from &#x27;../../authentication/auth-services&#x27;;
+import Swal from &#x27;sweetalert2&#x27;;
+import { ForceAlignmentService } from &#x27;../force-alignment/force-alignment.service&#x27;;
+import { lastValueFrom } from &#x27;rxjs&#x27;;
+
+/**
+ * Componente dedicado a la detección de voz en tiempo real y a la visualización de los datos asociados
+ * a las grabaciones obtenidas.
+ */
+@Component({
+  selector: &#x27;app-audio-vad-live&#x27;,
+  templateUrl: &#x27;./audio-vad-live.component.html&#x27;,
+  styleUrl: &#x27;./audio-vad-live.component.scss&#x27;
+})
+
+export class AudioVadLiveComponent implements OnInit, OnDestroy, AfterViewInit {
+  /**
+   * Propiedad que representa el elemento del HTML que contiene la onda que se visualiza en tiempo real. 
+   */
+  @ViewChild(&#x27;waveform&#x27;, { static: true }) waveformRef!: ElementRef;
+  /**
+   * Propiedad que representa el elemento del HTML que contiene las grabaciones que se obtienen en tiempo real.
+   */
+  @ViewChild(&#x27;recordings&#x27;, { static: true }) recordingsRef!: ElementRef;
+
+  /**
+   * Propiedad para verificar que el usuario tengas permisos necesarios para las funcionalidades.
+   */
+  isAuthorized: boolean &#x3D; false;
+
+  /**
+   * Instancia de WaveSurfer para para renderizar la forma de onda captada en tiempo real
+   */
+  public waveSurfer: any &#x3D; null;
+  /**
+   * Audio
+   */
+  public audio: any &#x3D; null;
+  /**
+   * Conteto de audio de la aplicación.
+   */
+  public audioContext: AudioContext | null &#x3D; null;
+  /**
+   * Flujo de medios activo, obtenido del micrófono del usuario
+   */
+  private mediaStream: MediaStream | null &#x3D; null;
+  /**
+   * Instancia de una librería que ofrece la gestión de detección de actividad en la voz.
+   */
+  private vad: VAD | null &#x3D; null;
+  /**
+   * Instancia de la clase que gestiona las conversiones de tipo de audios.
+   */
+  private audioUtils: AudioUtils &#x3D; new AudioUtils();
+
+  /**
+   * Propiedad que determina si se está grabando o no 
+   */
+  isRecording &#x3D; false;
+  recordingProgress &#x3D; &#x27;00:00&#x27;;
+
+  index &#x3D; 0;
+
+  /**
+   * Estructura que almacena las grabaciones de WaveSurfer
+   */
+  waveSurferRecorded: any[] &#x3D; [];
+
+  /**
+   * Estructura de datos en forma de cola para gestionar en orden las peticiones de procesamiento en tiempo real 
+   * de los audios.
+   */
+  private requestQueue: (() &#x3D;&gt; Promise&lt;void&gt;)[] &#x3D; [];
+  /**
+   * Determina si hay o no alguna petición siendo resuelta.
+   */
+  private isRequestInProgress &#x3D; false;
+
+  /**
+   * Lista de audios asociados con sus datos emocionales.
+   */
+  recordingsWithEmotions: RecordingEmotions[] &#x3D; [];
+
+  /**
+   * Propiedades de configuración de la detección automática de voz.
+   * @property {voice_stop_delay} tiempo de silencio para cortar una grabación y comenzar una nueva
+   * @property {fftSize} tamaño de la frecuencia del audio
+   * @property {&#x27;bufferLen} longitud de búfer de audio
+   */
+  voice_stop_delay &#x3D; 500;
+  fftSize &#x3D; 1024;
+  bufferLen &#x3D; 1024;
+
+  voice_stop_delay_string: string &#x3D; this.voice_stop_delay.toString();
+  /**
+   * Opciones de tiempo para la detección de silencio.
+   */
+  stopDelayOptions: number[] &#x3D; [500, 1000, 3000, 5000];
+
+  /**
+   * Constructor del componente.
+   * @param audioService serviciop para realizar peticiones relacionadas con el procesamiento y obtención de datos sobre un audio.
+   * @param viewContainerRef representa la vista actual y es necesario para insertar componente dinámicamente.
+   * @param componentFactoryResolver gestiona y crea dinámicamente instancias de componentes en tiempo de ejecución.
+   * @param authService servicio para supervisar que el usuario forma parte del perfil con privilegios para las funcionalidades.
+   */
+  constructor(
+    private readonly audioService: AudioService,
+    private viewContainerRef: ViewContainerRef,
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private authService: AuthService,
+    private forceAlignment: ForceAlignmentService,
+    private cdr: ChangeDetectorRef
+  ) { }
+  ngAfterViewInit(): void {
+    if (this.waveformRef &amp;&amp; this.waveformRef.nativeElement) {
+      this.createWaveSurfer();
+      // window.addEventListener(&#x27;resize&#x27;, this.updateWaveformSize.bind(this));
+    }
+  }
+
+  /**
+   * Cuando se inicializa el componente, se crea la onda de audio en tiempo real
+   * y se verifica si el usuario tiene un rol adecuado.
+   */
+  ngOnInit(): void {
+    this.isAuthorized &#x3D; this.authService.isAuthorized(&#x27;admin&#x27;, &#x27;psychologist&#x27;);
+    this.audioService.getInferenceInterval().subscribe(value &#x3D;&gt; {
+      this.voice_stop_delay &#x3D; value;
+    });
+
+  }
+
+  /**
+   * Al destruirse el componente se detiene la grabación,
+   * y se destruye la visualización de la onda en tiempo real.
+   * Se elimina la cola de peticiones.
+   */
+  ngOnDestroy(): void {
+    this.stopRecording();
+    if (this.waveSurfer) {
+      this.waveSurfer.destroy();
+      this.waveSurfer &#x3D; null;
+    }
+    this.requestQueue &#x3D; [];
+  }
+
+  /**
+   * Crea dinámicamente una instancia de WaveSurfer, en el contenedor del HTML asociado, con los parámetros visuales deseados.
+   * Utiliza extensiones que ofrece la librería para ajustar más la visualización.
+   * Cuando la onda termina, se procesa el audio que representa.
+   * Mientras está grabando se muestra la duración de esa grabación.
+   * 
+   */
+  createWaveSurfer(): void {
+    this.waveSurfer &#x3D; WaveSurfer.create({
+      container: this.waveformRef.nativeElement,
+      waveColor: &#x27;rgb(97, 80, 234)&#x27;,
+      progressColor: &#x27;rgb(100, 0, 100)&#x27;,
+      height: 200,
+    });
+
+    this.audio &#x3D; this.waveSurfer.registerPlugin(
+      RecordPlugin.create({
+        renderRecordedAudio: true,
+        continuousWaveform: false,
+      })
+    );
+
+    this.audio.on(&#x27;record-end&#x27;, (blob: Blob) &#x3D;&gt; {
+      this.processRecordedAudio(blob);
+    });
+
+
+    console.log(&#x27;WaveSurfer creado.&#x27;);
+  }
+
+  /**
+   * Destruye la onda de audio.
+   */
+  destroyWaveSurfer(): void {
+    if (this.waveSurfer) {
+      this.waveSurfer.destroy();
+      this.waveSurfer &#x3D; null;
+      console.log(&#x27;WaveSurfer destruido.&#x27;);
+    }
+  }
+  getWaveformHeight(): number {
+    const windowHeight &#x3D; window.innerHeight;
+    // Puedes ajustar este valor según tus necesidades (ejemplo: 20% de la altura de la pantalla)
+    return windowHeight * 0.3;  // 30% del alto de la pantalla
+  }
+
+
+
+  /**
+   * Se encarga de cerrar bien todo lo relacionado con la capturación de audio mediante
+   * el micrófono.
+   */
+  closeAudioContext(): void {
+    if (this.audioContext) {
+      this.audioContext.close();
+      this.audioContext &#x3D; null;
+      console.log(&#x27;AudioContext cerrado.&#x27;);
+    }
+    if (this.mediaStream) {
+      this.mediaStream.getTracks().forEach(track &#x3D;&gt; track.stop());
+      this.mediaStream &#x3D; null;
+      console.log(&#x27;MediaStream detenido.&#x27;);
+    }
+  }
+
+  /**
+   * Método @async que inicia la grabación y todo lo que ello conlleva.
+   * Primero se encarga de destruir cualquier resto tanto visual como de micrófono que quede.
+   * A continuación trata de solicitar acceso al micrófono del usuario, inicializa el contexto de audio y crea un nodo de origen de medios.
+   * Se crea la instancia de VAD (detección de voz) que gestiona cuando comienza y se genera una grabación,
+   * según lo largo que sea el silencio que detecta (en este caso cada silencio de 500ms). Mientras el micrófono continúa siempre en escucha, a caso de que se detenga explícitamente.
+   * * @returns {Promise&lt;void&gt;} promesa que se resuelve cuando se inicializa correctamente el flujo de audio.
+   * * @throws {Error} si el usuario niega el acceso al micrófono o si ocurre algún problema de acceso.
+   */
+  async startRecording(): Promise&lt;void&gt; {
+    this.stopRecording();
+    this.destroyWaveSurfer();
+    this.createWaveSurfer();
+    this.closeAudioContext();
+
+    try {
+      const stream &#x3D; await navigator.mediaDevices.getUserMedia({ audio: true });
+      this.mediaStream &#x3D; stream;
+      this.audioContext &#x3D; new (window.AudioContext || (window as any).webkitAudioContext)();
+      const sourceNode &#x3D; this.audioContext.createMediaStreamSource(stream);
+      this.isRecording &#x3D; true;
+
+
+      this.vad &#x3D; new VAD({
+        source: sourceNode,
+        context: this.audioContext,
+        fftSize: 1024,
+        bufferLen: 1024,
+        voice_stop_delay: this.voice_stop_delay,
+        voice_start: () &#x3D;&gt; {
+          console.log(&#x27;Voz detectada&#x27;);
+          this.cdr.detectChanges();
+          this.audio.startRecording();
+        },
+        voice_stop: () &#x3D;&gt; {
+          console.log(&#x27;Silencio detectado, finalizando grabación actual&#x27;);
+          this.audio.stopRecording();
+          this.cdr.detectChanges();
+          this.destroyWaveSurfer();
+          this.createWaveSurfer();
+        },
+      });
+
+    } catch (error) {
+      this.isRecording &#x3D; false;
+      console.log(&#x27;Error accediendo al micrófono&#x27;);
+      Swal.fire({
+        icon: &#x27;error&#x27;,
+        title: &#x27;Error de acceso&#x27;,
+        text: &#x27;No se ha podido comenzar a grabar por el micrófono.&#x27;,
+        confirmButtonText: &#x27;Aceptar&#x27;
+      });
+      return;
+
+    }
+  }
+
+
+  /**
+   * Detiene la grabación, tanto visualmente como cierra la escucha.
+   * Cierra el micrófono y el contexto de audio si está abierto.
+   * Detiene y libera el mediaStream si existe.
+   */
+  stopRecording(): void {
+    if (this.isRecording) {
+      this.isRecording &#x3D; false;
+      this.cdr.detectChanges();
+      this.audio.stopRecording();
+    }
+    if (this.audioContext &amp;&amp; this.audioContext.state !&#x3D;&#x3D; &#x27;closed&#x27;) {
+      this.audioContext.close()
+        .then(() &#x3D;&gt; {
+          console.log(&#x27;AudioContext cerrado correctamente.&#x27;);
+          this.audioContext &#x3D; null;
+        })
+        .catch((error) &#x3D;&gt; {
+          console.error(&#x27;Error al cerrar el AudioContext:&#x27;, error);
+        });
+    } else {
+      this.audioContext &#x3D; null;
+    }
+
+
+    if (this.mediaStream) {
+      this.mediaStream.getTracks().forEach((track) &#x3D;&gt; track.stop());
+      this.mediaStream &#x3D; null;
+    }
+
+    console.log(&#x27;Grabación detenida manualmente.&#x27;);
+  }
+
+
+  /**
+   * Función @async que gestiona el procesamiento de cada grabación
+   * @param blob 
+   */
+  async processRecordedAudio(blob: Blob): Promise&lt;void&gt; {
+    // Convertir el audio grabado a WAV
+    this.audioUtils.convertBlobToWav(blob).then((wav) &#x3D;&gt; {
+      this.waveSurferRecorded.push(wav);
+      const container &#x3D; this.recordingsRef.nativeElement;
+
+      // Crear el componente dinámicamente
+      const componentFactory &#x3D; this.componentFactoryResolver.resolveComponentFactory(AudioEmotionsComponent);
+      const componentRef &#x3D; this.viewContainerRef.createComponent(componentFactory);
+
+      // Pasar las propiedades al componente
+      componentRef.instance.audioBlob &#x3D; wav;
+      componentRef.instance.audioIndex &#x3D; this.index;
+      // Pasar las emociones correspondientes
+
+      // Agregar el componente al DOM
+      container.appendChild(componentRef.location.nativeElement);
+      this.sendAudioToGetEmotions(wav, componentRef);
+    });
+
+    this.index++;
+  }
+
+/**
+ * Proceso completo para procesar cada grabación mediante el modelo de IA, recibir
+ * las emociones categóricas y mostrarlas junto con el alineamiento forzado.
+ * Para ello, transforma cada grabación en un FormData, lo envía al servidor que contiene la llamada
+ * al endpoint con la IA, obtiene sus emociones predominantes y crea una instancia de otro componente encargado de
+ * la visualización del análisis emocional.
+ * Se realiza una llamada al serrvidor de forced alignment y se obtiene la transcripción alineada, que se pasa
+ * al objeto creado.
+ * @param blob audio a procesar
+ * @param componentRef 
+ */
+async sendAudioToGetEmotions(blob: Blob, componentRef: any): Promise&lt;void&gt; {
+  const request &#x3D; async () &#x3D;&gt; {
+    const audioData &#x3D; new FormData();
+    const fileName &#x3D; &#x27;recording&#x27; + this.index + &#x27;.wav&#x27;;
+    const audioFile &#x3D; new File([blob], fileName, { type: blob.type });
+    audioData.append(&#x27;audioFile&#x27;, audioFile);
+
+    try {
+      // PRIMERA PETICIÓN: obtener emociones y transcripción
+      const response &#x3D; await this.audioService.getDataAudio(audioData).toPromise();
+      console.log(&#x27;Audio enviado exitosamente:&#x27;, response);
+
+      // Mostrar emociones apenas se reciban
+      const emocategoric &#x3D; response.emotions.emocategoric;
+      this.addCategoric(emocategoric, componentRef.instance);
+      const emodimensional &#x3D; response.emotions.emodimensional;
+      this.addDimensional(emodimensional, componentRef.instance);
+
+      // Crear objeto parcial de recording sin alignments (placeholder vacío)
+      const recordingWithEmotion &#x3D; await this.createRecordingWithEmotion(
+        fileName,
+        emocategoric,
+        emodimensional,
+        response.userId,
+        blob,
+        response.transcription,
+        [] // alignments aún no disponibles
+      );
+      this.recordingsWithEmotions.push(recordingWithEmotion);
+
+      // SEGUNDA PETICIÓN: obtener alignments
+      const alignmentsResponse &#x3D; await lastValueFrom(this.forceAlignment.getForcedAlignment(audioData));
+      const alignments &#x3D; alignmentsResponse.map((alignment: any) &#x3D;&gt;
+        new Alignment(alignment.end, alignment.start, alignment.word)
+      );
+
+      // Actualizar alignments en la interfaz y en el objeto ya creado
+      componentRef.instance.alignments &#x3D; alignments;
+      recordingWithEmotion.alignments &#x3D; alignments;
+
+      console.log(recordingWithEmotion);
+    } catch (error) {
+      console.error(&#x27;Error al enviar el audio:&#x27;, error);
+    }
+  };
+
+  this.enqueueRequest(request);
+}
+
+
+/**
+ * Añade al componente encargado de la visualización del análisis las emociones categóricas
+ * @param emocategoric 
+ * @param instance 
+ */
+  addCategoric(emocategoric: any, instance: any) {
+    if (emocategoric &amp;&amp; Array.isArray(emocategoric)) {
+      instance.emotions_categoric &#x3D; emocategoric;
+    } else {
+      console.error(&#x27;No se recibieron emociones categóricas válidas.&#x27;);
+    }
+  }
+
+  /**
+   * Añade al componente encargado de la visualización del análisis las emociones dimensionales
+   * @param emodimensional 
+   * @param instance 
+   */
+  addDimensional(emodimensional: any, instance: any) {
+    if (emodimensional) {
+      instance.emotions_dimensional &#x3D; emodimensional;
+    } else {
+      console.error(&#x27;No se recibieron emociones dimensionales válidas.&#x27;);
+    }
+  }
+
+  /**
+   * Crea un componente que engloba los datos del análisis emocional de cada audio y lo representa
+   * visualmente.
+   * @param fileName 
+   * @param emocategoric 
+   * @param emodimensional 
+   * @param userId 
+   * @param audioBlob 
+   * @param transcription 
+   * @param alignments 
+   * @returns 
+   */
+  async createRecordingWithEmotion(
+    fileName: string,
+    emocategoric: any[],
+    emodimensional: any,
+    userId: number,
+    audioBlob: Blob,
+    transcription: string,
+    alignments: Alignment[]
+  ): Promise&lt;RecordingEmotions&gt; {
+    // const audioBase64 &#x3D; await this.audioUtils.convertBlobToBase64(audioBlob); // Convertir el blob a base64
+    console.log(&#x27;antes de crear &#x27;, alignments)
+    return new RecordingEmotions({
+      fileName: fileName,
+      Emotion_1_label: emocategoric[0]?.emo || &#x27;&#x27;,
+      Emotion_1_mean: emocategoric[0]?.prob || 0,
+      Emotion_1_std: emocategoric[0]?.std || 0,
+      Emotion_2_label: emocategoric[1]?.emo || &#x27;&#x27;,
+      Emotion_2_mean: emocategoric[1]?.prob || 0,
+      Emotion_2_std: emocategoric[1]?.std || 0,
+      Emotion_3_label: emocategoric[2]?.emo || &#x27;&#x27;,
+      Emotion_3_mean: emocategoric[2]?.prob || 0,
+      Emotion_3_std: emocategoric[2]?.std || 0,
+      valence: emodimensional.valence,
+      arousal: emodimensional.arousal,
+      dominance: emodimensional.dominance,
+      userId: userId,
+      timestamp: Date.now(),
+      // audioBlob: audioBase64,  // Almacenar la cadena base64
+      audioBlob: audioBlob,
+      transcription: transcription,
+      alignments: alignments
+    });
+  }
+
+
+
+  // GESTION DE LA COLA DE PETICIONES
+  /**
+   * Añade una nueva petición a la cola y, si no hay otra en curso, comienza a procesarla.
+   * Esta función garantiza que las peticiones de procesamiento de audio se ejecuten secuencialmente.
+   */
+  private async enqueueRequest(request: () &#x3D;&gt; Promise&lt;void&gt;): Promise&lt;void&gt; {
+    this.requestQueue.push(request);
+
+    if (!this.isRequestInProgress) {
+      await this.processQueue();
+    }
+  }
+
+  /**
+   * Procesa la siguiente petición de la cosa si hay.
+   */
+  private async processQueue(): Promise&lt;void&gt; {
+    if (this.isRequestInProgress || this.requestQueue.length &#x3D;&#x3D;&#x3D; 0) {
+      return;
+    }
+
+    this.isRequestInProgress &#x3D; true;
+
+    const nextRequest &#x3D; this.requestQueue.shift();
+    if (nextRequest) {
+      try {
+        await nextRequest();
+      } finally {
+        this.isRequestInProgress &#x3D; false;
+        await this.processQueue();
+      }
+    } else {
+      this.isRequestInProgress &#x3D; false;
+    }
+  }
+
+  // descarga de audios
+  /**
+   * Descarga todos los audios que se visualizan a la vez.
+   * @returns 
+   */
+  downloadAll(): void {
+    if (this.waveSurferRecorded.length &#x3D;&#x3D;&#x3D; 0) {
+      console.warn(&#x27;No hay audios grabados para descargar.&#x27;);
+      return;
+    }
+
+    this.waveSurferRecorded.forEach((audioBlob, index) &#x3D;&gt; {
+      const audioUrl &#x3D; URL.createObjectURL(audioBlob);
+      const anchor &#x3D; document.createElement(&#x27;a&#x27;);
+      anchor.href &#x3D; audioUrl;
+      anchor.download &#x3D; &#x60;recording${index + 1}.wav&#x60;; // Nombre del archivo
+      anchor.click();
+      URL.revokeObjectURL(audioUrl); // Limpia el objeto URL
+    });
+
+    this.cdr.detectChanges();
+    CsvGestor.downloadCsv(this.recordingsWithEmotions, &#x27;recordings_emotions&#x27;);
+
+    console.log(&#x27;Todos los audios han sido descargados.&#x27;);
+  }
+
+
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;audio-visualizer&quot;&gt;
+   &lt;div class&#x3D;&quot;main-info&quot;&gt;
+      &lt;div class&#x3D;&quot;left-container&quot;&gt;
+         &lt;h1&gt;Reconocimiento de voz en tiempo real&lt;/h1&gt;
+
+         &lt;!-- Controles de grabación --&gt;
+         &lt;div class&#x3D;&quot;buttons&quot;&gt;
+            &lt;button class&#x3D;&quot;btn-initial&quot; (click)&#x3D;&quot;startRecording()&quot; [disabled]&#x3D;&quot;isRecording&quot;&gt;Grabar&lt;/button&gt;
+            &lt;button class&#x3D;&quot;btn-initial&quot; (click)&#x3D;&quot;stopRecording()&quot; [disabled]&#x3D;&quot;!isRecording&quot;&gt;Detener&lt;/button&gt;
+            &lt;!-- &lt;button (click)&#x3D;&quot;pauseRecording()&quot;&gt;Pausar/Reanudar&lt;/button&gt; --&gt;
+         &lt;/div&gt;
+         &lt;!-- &lt;label for&#x3D;&quot;delaySelect&quot;&gt;Selecciona el delay:&lt;/label&gt;
+         &lt;select id&#x3D;&quot;delaySelect&quot; [(ngModel)]&#x3D;&quot;selectedDelay&quot; (change)&#x3D;&quot;onChangeDelay(selectedDelay)&quot;
+         [disabled]&#x3D;&quot;isRecording&quot;&gt;
+            &lt;option *ngFor&#x3D;&quot;let delay of stopDelayOptions&quot; [ngValue]&#x3D;&quot;delay&quot;&gt;
+               {{ delay }} ms
+            &lt;/option&gt;
+         &lt;/select&gt; --&gt;
+          &lt;div class&#x3D;&quot;silence-interval&quot;&gt;
+            Intervalo de silencio (ms): {{ voice_stop_delay_string }}
+         &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;right-container&quot;&gt;
+         &lt;!-- Progreso de la grabación --&gt;
+         &lt;div class&#x3D;&quot;live-record&quot;&gt;
+            &lt;!-- Contenedor de WaveSurfer --&gt;
+            &lt;!-- &lt;div *ngIf&#x3D;&quot;isRecording&quot;&gt;
+                  &lt;div #waveform style&#x3D;&quot;border: 1px solid #ddd; margin: 10px 0;&quot;&gt;&lt;/div&gt;
+               &lt;/div&gt; --&gt;
+            &lt;div #waveform&gt;&lt;/div&gt;
+            &lt;!-- &lt;p&gt;Progreso: {{ recordingProgress }}&lt;/p&gt; --&gt;
+         &lt;/div&gt;
+      &lt;/div&gt;
+   &lt;/div&gt;
+
+   &lt;div class&#x3D;&quot;separator&quot;&gt;&lt;/div&gt;
+
+   &lt;!-- Grabaciones --&gt;
+   &lt;div class&#x3D;&quot;records&quot;&gt;
+      &lt;h2&gt;Grabaciones&lt;/h2&gt;
+      &lt;button class&#x3D;&quot;btn-secondary&quot; [disabled]&#x3D;&quot;recordingsWithEmotions.length &#x3D;&#x3D;&#x3D; 0 || !isAuthorized &quot;
+         (click)&#x3D;&quot;downloadAll()&quot;&gt;Descargar Datos&lt;/button&gt;
+   &lt;/div&gt;
+   &lt;div class&#x3D;&quot;record-container&quot;&gt;
+      &lt;div #recordings class&#x3D;&quot;audios-recorded&quot;&gt;&lt;/div&gt;
+   &lt;/div&gt;
+
+
+&lt;/div&gt;</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="audio-visualizer">   <div class="main-info">      <div class="left-container">         <h1>Reconocimiento de voz en tiempo real</h1>         <!-- Controles de grabación -->         <div class="buttons">            <button class="btn-initial" (click)="startRecording()" [disabled]="isRecording">Grabar</button>            <button class="btn-initial" (click)="stopRecording()" [disabled]="!isRecording">Detener</button>            <!-- <button (click)="pauseRecording()">Pausar/Reanudar</button> -->         </div>         <!-- <label for="delaySelect">Selecciona el delay:</label>         <select id="delaySelect" [(ngModel)]="selectedDelay" (change)="onChangeDelay(selectedDelay)"         [disabled]="isRecording">            <option *ngFor="let delay of stopDelayOptions" [ngValue]="delay">               {{ delay }} ms            </option>         </select> -->          <div class="silence-interval">            Intervalo de silencio (ms): {{ voice_stop_delay_string }}         </div>      </div>      <div class="right-container">         <!-- Progreso de la grabación -->         <div class="live-record">            <!-- Contenedor de WaveSurfer -->            <!-- <div *ngIf="isRecording">                  <div #waveform style="border: 1px solid #ddd; margin: 10px 0;"></div>               </div> -->            <div #waveform></div>            <!-- <p>Progreso: {{ recordingProgress }}</p> -->         </div>      </div>   </div>   <div class="separator"></div>   <!-- Grabaciones -->   <div class="records">      <h2>Grabaciones</h2>      <button class="btn-secondary" [disabled]="recordingsWithEmotions.length === 0 || !isAuthorized "         (click)="downloadAll()">Descargar Datos</button>   </div>   <div class="record-container">      <div #recordings class="audios-recorded"></div>   </div></div></div>'
+    var COMPONENTS = [{'name': 'AccessDeniedComponent', 'selector': 'app-access-denied'},{'name': 'AnalysisComponent', 'selector': 'app-analysis'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AudioComponent', 'selector': 'app-audio'},{'name': 'AudioEmotionsComponent', 'selector': 'app-audio-emotions'},{'name': 'AudioVadLiveComponent', 'selector': 'app-audio-vad-live'},{'name': 'AuthenticationComponent', 'selector': 'app-authentication'},{'name': 'CategoricComponent', 'selector': 'app-categoric'},{'name': 'ConfigComponent', 'selector': 'app-config'},{'name': 'CsvAudiosComponent', 'selector': 'app-csv-audios'},{'name': 'CustomCardComponent', 'selector': 'app-custom-card'},{'name': 'DeferredInferenceComponent', 'selector': 'app-deferred-inference'},{'name': 'DimensionalComponent', 'selector': 'app-dimensional'},{'name': 'GraphicRepresentationComponent', 'selector': 'app-graphic-representation'},{'name': 'IndividualComponent', 'selector': 'app-individual'},{'name': 'IndividualFormComponent', 'selector': 'app-individual-form'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutMainComponent', 'selector': 'app-layout-main'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'ShiftFormComponent', 'selector': 'app-shift-form'},{'name': 'ShiftRepresentationComponent', 'selector': 'app-shift-representation'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AudioVadLiveComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AudioVadLiveComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

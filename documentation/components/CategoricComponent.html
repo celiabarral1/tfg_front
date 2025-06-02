@@ -1,0 +1,1339 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend-web-emotions documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend-web-emotions documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CategoricComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/charts/categoric/categoric.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-categoric</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./categoric.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./categoric.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#accumulatedChart" >accumulatedChart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#canvasAccumulated" >canvasAccumulated</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#canvasCategoric" >canvasCategoric</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#chart" >chart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#emotions" >emotions</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#graphData" >graphData</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#timePeriod" >timePeriod</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#userId" >userId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createAccumulatedStudyChart" >createAccumulatedStudyChart</a>
+                            </li>
+                            <li>
+                                <a href="#createChart" >createChart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#destroyChart" >destroyChart</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(chartDataService: <a href="../injectables/ChartDataService.html" target="_self">ChartDataService</a>, service: <a href="../injectables/IndividualService.html" target="_self">IndividualService</a>, translateService: <a href="../injectables/EmotionTranslationService.html" target="_self">EmotionTranslationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:34</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor del componente</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>chartDataService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/ChartDataService.html" target="_self" >ChartDataService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>, servicio al que se suscribe para recibir datos a mostrar</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>service</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/IndividualService.html" target="_self" >IndividualService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>servicio para</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>translateService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EmotionTranslationService.html" target="_self" >EmotionTranslationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createAccumulatedStudyChart"></a>
+                    <span class="name">
+                        <span ><b>createAccumulatedStudyChart</b></span>
+                        <a href="#createAccumulatedStudyChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createAccumulatedStudyChart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">src/app/charts/categoric/categoric.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>A partir de los datos de base, se crea un gráfico que representa las apariciones acumuladas de cada emoción</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createChart"></a>
+                    <span class="name">
+                        <span ><b>createChart</b></span>
+                        <a href="#createChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createChart()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="99"
+                                    class="link-to-prism">src/app/charts/categoric/categoric.component.ts:99</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Crea el gráfico de tipo línea, que representa el cambio de emoción predominante a lo largo del tiempo</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="destroyChart"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>destroyChart</b></span>
+                        <a href="#destroyChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>destroyChart(chart: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="87"
+                                    class="link-to-prism">src/app/charts/categoric/categoric.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>chart</td>
+                                            <td>
+                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="56"
+                                    class="link-to-prism">src/app/charts/categoric/categoric.component.ts:56</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Destruye los gráficos creados al cerrar la vista. Borra los datos dels ervicio CharData.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">src/app/charts/categoric/categoric.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Realiza una petición al servidor para obtener las emociones que va a representar.
+Las filtra y los datos que contiene chartDataService al que el componente está suscrito,
+pasan a ser los datos del componente</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="accumulatedChart"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>accumulatedChart</b></span>
+                        <a href="#accumulatedChart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canvasAccumulated"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>canvasAccumulated</b></span>
+                        <a href="#canvasAccumulated"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLDivElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;canvasAccumulated&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:28</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Referencia al elemento del DOM que representa el linezo, canvas,
+de un gráfico acumulado</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="canvasCategoric"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>canvasCategoric</b></span>
+                        <a href="#canvasCategoric"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef&lt;HTMLDivElement&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;canvasCategoric&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:23</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Referencia al elemento del DOM que representa el linezo, canvas,
+de un gráfico lineal</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chart"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>chart</b></span>
+                        <a href="#chart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="emotions"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>emotions</b></span>
+                        <a href="#emotions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="33" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:33</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="graphData"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>graphData</b></span>
+                        <a href="#graphData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="30" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timePeriod"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>timePeriod</b></span>
+                        <a href="#timePeriod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="userId"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>userId</b></span>
+                        <a href="#userId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/charts/categoric/categoric.component.ts:31</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, Inject, PLATFORM_ID, OnDestroy, ElementRef, ViewChild } from &#x27;@angular/core&#x27;;
+import { isPlatformBrowser } from &#x27;@angular/common&#x27;;
+import { ChartDataService } from &#x27;../../shared/shared/chart-data.service&#x27;;
+import { IndividualService } from &#x27;../../individual/individual.service&#x27;;
+import { DateHelper } from &#x27;../../@core/common/utils/date-helper&#x27;;
+import { Chart, registerables } from &#x27;chart.js&#x27;;
+import { EmotionTranslationService } from &#x27;../../shared/shared/emotions-translate.service&#x27;;
+
+@Component({
+  selector: &#x27;app-categoric&#x27;,
+  templateUrl: &#x27;./categoric.component.html&#x27;,
+  styleUrls: [&#x27;./categoric.component.scss&#x27;]
+})
+
+/**
+ * Componente ecncargado de realizar la representación gráfica de las emociones categóricas
+ */
+export class CategoricComponent implements OnInit , OnDestroy{
+  /**
+   * Referencia al elemento del DOM que representa el linezo, canvas, 
+   * de un gráfico lineal
+   */
+  @ViewChild(&#x27;canvasCategoric&#x27;, { static: true }) canvasCategoric!: ElementRef&lt;HTMLDivElement&gt;;
+  /**
+   * Referencia al elemento del DOM que representa el linezo, canvas, 
+   * de un gráfico acumulado
+   */
+  @ViewChild(&#x27;canvasAccumulated&#x27;, { static: true }) canvasAccumulated!: ElementRef&lt;HTMLDivElement&gt;;
+  public chart: any;
+  public graphData: any[] &#x3D; [];
+  public userId: any;
+  public timePeriod: any;
+  public emotions: any[] &#x3D; [];
+  public accumulatedChart: any; 
+
+  /**
+   * Constructor del componente
+   * @param chartDataService , servicio al que se suscribe para recibir datos a mostrar
+   * @param service servicio para 
+   * @param translateService 
+   */
+  constructor(private chartDataService: ChartDataService,private readonly service: IndividualService ,
+    private translateService: EmotionTranslationService
+  ) {
+    Chart.register(...registerables);
+    if (typeof window !&#x3D;&#x3D; &#x27;undefined&#x27;) {
+      import(&#x27;chartjs-plugin-zoom&#x27;).then((zoomPlugin) &#x3D;&gt; {
+        Chart.register(zoomPlugin.default);
+      });
+    } 
+  }
+
+  /**
+   * Destruye los gráficos creados al cerrar la vista. Borra los datos dels ervicio CharData.
+   */
+  ngOnDestroy(): void {
+    this.destroyChart(this.chart);
+    this.destroyChart(this.accumulatedChart);
+    this.chartDataService.deleteChartData();
+  }
+
+  /**
+   * Realiza una petición al servidor para obtener las emociones que va a representar.
+   * Las filtra y los datos que contiene chartDataService al que el componente está suscrito,
+   * pasan a ser los datos del componente
+   */
+  ngOnInit(): void {
+    this.service.getEmotions().subscribe(
+      (response) &#x3D;&gt; {
+        const orderedEmotions &#x3D; [&#x27;happiness&#x27;, &#x27;neutral&#x27;, &#x27;anger&#x27;, &#x27;disgust&#x27;, &#x27;fear&#x27;, &#x27;sadness&#x27;];
+        this.emotions &#x3D; orderedEmotions.filter(e &#x3D;&gt; response.includes(e));
+      },
+      (error) &#x3D;&gt; {
+        console.error(&#x27;Error al obtener las emociones:&#x27;, error);
+      }
+    );
+
+    this.chartDataService.chartData$.subscribe(charData &#x3D;&gt; {
+      this.graphData &#x3D; charData.data;
+      this.userId &#x3D; charData.userId;
+      this.timePeriod &#x3D; charData.time;
+      this.createChart(); 
+      this.createAccumulatedStudyChart();
+    });
+  }
+
+  public destroyChart(chart: any): void {
+    if (chart) {
+      chart.destroy();
+      chart &#x3D; null;
+    }
+  }
+  
+
+
+  /**
+   * Crea el gráfico de tipo línea, que representa el cambio de emoción predominante a lo largo del tiempo
+   */
+  createChart(): void {
+    this.destroyChart(this.chart);
+    // Crear y adjuntar un nuevo canvas dinámicamente
+    const canvas &#x3D; document.createElement(&#x27;canvas&#x27;);
+    canvas.id &#x3D; &#x27;canvas_categoric&#x27;;
+    this.canvasCategoric.nativeElement.innerHTML &#x3D; &#x27;&#x27;; // Limpia el contenedor
+    this.canvasCategoric.nativeElement.appendChild(canvas);
+
+      // Configura las etiquetas del eje X
+      const labels &#x3D; this.graphData.map(item &#x3D;&gt; {
+        const date &#x3D; new Date(item.timestamp * 1000); // Convertir timestamp a fecha
+        return date.toLocaleDateString(); // Usa el formato que prefieras
+      });
+  
+      // Recorro cada item (Record) de graphData, saco sus emotions labels [&#x27;joy&#x27;,&#x27;anger&#x27;,&#x27;sadness&#x27;]
+      let data &#x3D; this.graphData.map((item) &#x3D;&gt; {
+        const emotionLabels &#x3D; [item.Emotion_1_label,item.Emotion_2_label,item.Emotion_3_label];
+      
+        // Busca el índice de cada emoción en &#x60;this.emotions&#x60;.
+        // Trabajamos con los índicies del array de this.emotions, cada emoción se 
+        // encuentra en una posición
+        return emotionLabels.map((label) &#x3D;&gt; {
+          const emotionIndex &#x3D; this.emotions.findIndex((emotion) &#x3D;&gt; emotion &#x3D;&#x3D;&#x3D; label);
+          return emotionIndex !&#x3D;&#x3D; -1 ? emotionIndex : null; // Índice o null si no existe
+        });
+      });
+
+      this.chart &#x3D; new Chart(canvas, {
+        type: &#x27;line&#x27;,
+        data: {
+          labels: labels,
+          datasets: [
+            {
+              label: &#x27;Emociones&#x27;,
+              data: data,
+              stepped: true,
+              borderColor: &#x27;#6150EA&#x27;, // Color de la línea
+              borderWidth: 2,
+              fill: false
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            tooltip: {
+              callbacks: {
+                label: (context) &#x3D;&gt; {
+                  const rawData &#x3D; context.raw as number[];
+                  if (Array.isArray(rawData) &amp;&amp; rawData.length &gt; 1) {
+                    const index &#x3D; rawData[1]; 
+
+                    if (index &gt;&#x3D; 0 &amp;&amp; index &lt; this.emotions.length) {
+                      return &#x60;Emoción: ${this.translateService.translateEmotion(this.emotions[index])}&#x60;;
+                    }
+                  }
+
+                  return &#x27;Emoción: Desconocido&#x27;; 
+                }
+              }
+            },
+            zoom: {
+              zoom: {
+                wheel: { enabled: true },
+                pinch: { enabled: true },
+                mode: &#x27;x&#x27;  // Habilita zoom
+              },
+              pan: {
+                enabled: true, 
+                mode: &#x27;xy&#x27; // Hbilita desplazamiento
+              }
+            }
+          },
+          scales: {
+            x: {
+              title: { display: true, text: &#x27;Tiempo&#x27; }
+            },
+            y: {
+              title: { display: true, text: &#x27;Emociones&#x27; },
+              ticks: {
+                callback: (tickValue: string | number) &#x3D;&gt; {
+                  // EJE X: Solo las etiquetas de string, las emociones
+                  const index &#x3D; typeof tickValue &#x3D;&#x3D;&#x3D; &#x27;number&#x27; ? tickValue : parseInt(tickValue, 10);
+                  return this.emotions[index] !&#x3D;&#x3D; undefined ? this.emotions[index] : &#x27;&#x27;;
+                }
+              },
+              beginAtZero: true,
+              max: this.emotions.length - 1 + 1   // Asegura que las emociones estén dentro del rango
+            }
+          }
+        }
+      });
+    }
+
+    /**
+     * A partir de los datos de base, se crea un gráfico que representa las apariciones acumuladas de cada emoción
+     */
+    createAccumulatedStudyChart(): void {
+      // Destruir el gráfico previo si existe
+      this.destroyChart(this.accumulatedChart);
+
+      // Crear y adjuntar un nuevo canvas dinámicamente
+      const canvas &#x3D; document.createElement(&#x27;canvas&#x27;);
+      canvas.id &#x3D; &#x27;canvas_accumulated&#x27;;
+      this.canvasAccumulated.nativeElement.innerHTML &#x3D; &#x27;&#x27;; // Limpia el contenedor
+      this.canvasAccumulated.nativeElement.appendChild(canvas);
+      
+        // Calcular los datos acumulados
+        const accumulatedData &#x3D; this.emotions.map(emotion &#x3D;&gt; {
+          return this.graphData.reduce((acc, item) &#x3D;&gt; {
+            const emotionLabels &#x3D; [item.Emotion_1_label, item.Emotion_2_label, item.Emotion_3_label];
+            return acc + emotionLabels.filter(label &#x3D;&gt; label &#x3D;&#x3D;&#x3D; emotion).length;
+          }, 0);
+        });
+      
+        const labels &#x3D; this.emotions; // Emociones como etiquetas del eje X
+        const data &#x3D; accumulatedData; // Frecuencias acumuladas de cada emoción
+      
+        // Definir los colores para cada emoción
+        const emotionColors: { [key: string]: string } &#x3D; {
+          joy: &#x27;#FFEB3B&#x27;, 
+          sadness: &#x27;#A2C2E1&#x27;,  
+          anger: &#x27;#FF7F7F&#x27;,  
+          fear: &#x27;#A8D5BA&#x27;,  
+          disgust: &#x27;#877459&#x27;,  
+          neutral: &#x27;#FFF8E7&#x27;
+        };
+      
+        // Crear un array de colores para cada barra según la emoción
+        const backgroundColors &#x3D; this.emotions.map(emotion &#x3D;&gt; emotionColors[emotion.toLowerCase()] || &#x27;#FF6384&#x27;); 
+    
+        // Crear el gráfico en el nuevo canvas
+        this.accumulatedChart &#x3D; new Chart(canvas, {
+          type: &#x27;bar&#x27;,
+          data: {
+            labels: labels,
+            datasets: [
+              {
+                label: &#x27;Frecuencia Acumulada de Emociones&#x27;,
+                data: data,
+                backgroundColor: backgroundColors,  // Asignar colores a cada barra
+                borderColor: backgroundColors,  // Usar los mismos colores para el borde
+                borderWidth: 1
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            scales: {
+              x: {
+                title: { display: true, text: &#x27;Emociones&#x27; }
+              },
+              y: {
+                title: { display: true, text: &#x27;Frecuencia&#x27; },
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      }
+    
+}</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- &lt;div class&#x3D;&quot;container-categoric&quot;&gt;
+    &lt;canvas id&#x3D;&quot;canvas_categoric&quot; class&#x3D;&quot;canvas-categoric&quot;&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;container-accumulated&quot;&gt;
+    &lt;canvas id&#x3D;&quot;canvas_accumulated&quot; class&#x3D;&quot;canvas-accumulated&quot;&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+   --&gt;
+&lt;div #canvasCategoric class&#x3D;&quot;canvas-categoric&quot;&gt;&lt;/div&gt;
+&lt;div #canvasAccumulated class&#x3D;&quot;canvas-accumulated&quot;&gt;&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./categoric.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">// .canvas-container {
+//   display:flex; 
+//   flex-direction: column;
+//   gap: 1rem;
+// }
+
+// /* Estilo general para los contenedores */
+// // div {
+// //   display: flex;
+// //   justify-content: center; /* Centra el contenido horizontalmente */
+// //   align-items: flex-start; /* Alinea los elementos al inicio verticalmente */
+// //   margin: 0; /* Elimina márgenes extra */
+// //   padding: 0; /* Elimina el padding extra */
+// //   box-sizing: border-box; /* Asegura que el padding y border no afecten el tamaño del contenedor */
+// // }
+
+// /* Contenedor para el canvas_categoric */
+// .container-categoric {
+//   width: 100%; /* Ocupa todo el ancho disponible */
+//   margin-bottom: 20px; /* Espacio entre los contenedores */
+
+// }
+
+// /* Contenedor para el canvas_accumulated */
+// .container-accumulated {
+//   width: 50%; /* Ocupa la mitad del ancho del contenedor padre */
+//   margin: 0; /* Elimina el centrado automático */
+//   float: left; /* Hace que el contenedor se mueva a la izquierda */
+// }
+
+// /* Estilo para los canvas */
+// .canvas-categoric, .canvas-accumulated {
+//   width: 100%; /* Hace que el canvas ocupe todo el ancho disponible */
+//   height: auto; /* Ajusta la altura proporcionalmente */
+//   max-width: 100%; /* Evita que el canvas exceda el tamaño del contenedor */
+//   max-height: 100%; /* Evita que el canvas exceda el tamaño del contenedor */
+//   object-fit: contain; /* Mantiene la proporción del canvas sin distorsionarlo */
+// }
+
+@media (min-width:1024px) {
+  .canvas-accumulated {
+    width: 50%; /* Ajusta el ancho según lo necesites */
+    height: 400px; /* Ajusta la altura según lo necesites */
+    margin-left: 0; /* Asegura que el canvas se pegue a la izquierda */
+    margin-right: 0; /* Opcional: elimina el margen derecho */
+  }
+}
+
+
+/** EMOTIONS COLORS **/
+.color-joy {
+  color: #FFEB3B; /* Amarillo pastel */
+  background-color: #FFEB3B; /* Amarillo pastel */
+}
+
+.color-sadness {
+  color: #A2C2E1; /* Azul pastel */
+  background-color: #A2C2E1; /* Azul pastel */
+}
+
+.color-anger {
+  color: #FF7F7F; /* Rojo pastel */
+  background-color: #FF7F7F; /* Rojo pastel */
+}
+
+.color-fear {
+  color: #A8D5BA; /* Verde pastel */
+  background-color: #A8D5BA; /* Verde pastel */
+}
+
+.color-disgust {
+  color: #877459; /* Verde amarronado */
+  background-color: #877459; /* Verde amarronado */
+}
+
+.color-neutral {
+  color: #FFF8E7; /* Beige */
+  background-color: #FFF8E7; /* Beige */
+}
+
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- <div class="container-categoric">    <canvas id="canvas_categoric" class="canvas-categoric"></canvas>  </div>  <div class="container-accumulated">    <canvas id="canvas_accumulated" class="canvas-accumulated"></canvas>  </div>   --><div #canvasCategoric class="canvas-categoric"></div><div #canvasAccumulated class="canvas-accumulated"></div></div>'
+    var COMPONENTS = [{'name': 'AccessDeniedComponent', 'selector': 'app-access-denied'},{'name': 'AnalysisComponent', 'selector': 'app-analysis'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AudioComponent', 'selector': 'app-audio'},{'name': 'AudioEmotionsComponent', 'selector': 'app-audio-emotions'},{'name': 'AudioVadLiveComponent', 'selector': 'app-audio-vad-live'},{'name': 'AuthenticationComponent', 'selector': 'app-authentication'},{'name': 'CategoricComponent', 'selector': 'app-categoric'},{'name': 'ConfigComponent', 'selector': 'app-config'},{'name': 'CsvAudiosComponent', 'selector': 'app-csv-audios'},{'name': 'CustomCardComponent', 'selector': 'app-custom-card'},{'name': 'DeferredInferenceComponent', 'selector': 'app-deferred-inference'},{'name': 'DimensionalComponent', 'selector': 'app-dimensional'},{'name': 'GraphicRepresentationComponent', 'selector': 'app-graphic-representation'},{'name': 'IndividualComponent', 'selector': 'app-individual'},{'name': 'IndividualFormComponent', 'selector': 'app-individual-form'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutMainComponent', 'selector': 'app-layout-main'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'ShiftFormComponent', 'selector': 'app-shift-form'},{'name': 'ShiftRepresentationComponent', 'selector': 'app-shift-representation'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'CategoricComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CategoricComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

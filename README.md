@@ -49,7 +49,6 @@ FRONTENDWEBEMOTIONS/
 ├── styles.scss                        # Estilos globales de la aplicación
 ├── .editorconfig               # Configuración de estilos del código
 ├── .gitignore                  # Archivos y carpetas ignorados por Git
-├── 404.html                    # Página personalizada de error 404
 ├── angular.json                # Configuración de Angular CLI
 ├── package.json                # Dependencias y scripts de NPM
 ├── package-lock.json           # Versión exacta de dependencias instaladas
@@ -61,6 +60,7 @@ FRONTENDWEBEMOTIONS/
 ├── tsconfig.spec.json          # Configuración para tests unitarios
 
 ## Módulos más relevantes
+
 ### app/analysis
 app/
 └── analysis/                        # Módulo encargado del análisis de datos emocionales
@@ -154,9 +154,9 @@ Ejecuta 'ng build' para compilar el proyecto. Los artefactos resultantes de la b
 
 Ejecuta 'ng test'
 
-## Further help
+## Más información
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Más información en [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) .
 
 ## Tecnology
 - Framework: Angular 

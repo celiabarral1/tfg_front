@@ -1,0 +1,2059 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>frontend-web-emotions documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">frontend-web-emotions documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AudioEmotionsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Description</h3>
+    </p>
+    <p class="comment">
+        <p>Componente dedicado a la gestión y visualización de un audio y sus datos emocionales asociados.
+Para ello utiliza la librería WaveSurfer.js.</p>
+
+    </p>
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnChanges</code>
+                <code>AfterViewInit</code>
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-audio-emotions</code></td>
+            </tr>
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./audio-emotions.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./audio-emotions.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_alignments" >_alignments</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_emotions_categoric" >_emotions_categoric</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_emotions_dimensional" >_emotions_dimensional</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#isAuthorized" >isAuthorized</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#isShowing" >isShowing</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#timelineContainer" >timelineContainer</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                    <span class="modifier">Optional</span>
+                                <a href="#waveformContainer" >waveformContainer</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#waveSurfer" >waveSurfer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#createWaveSurfer" >createWaveSurfer</a>
+                            </li>
+                            <li>
+                                <a href="#download" >download</a>
+                            </li>
+                            <li>
+                                <a href="#isWordActive" >isWordActive</a>
+                            </li>
+                            <li>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnChanges" >ngOnChanges</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#playPause" >playPause</a>
+                            </li>
+                            <li>
+                                <a href="#showAlignment" >showAlignment</a>
+                            </li>
+                            <li>
+                                <a href="#translateEmotion" >translateEmotion</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alignments" >alignments</a>
+                            </li>
+                            <li>
+                                <a href="#audioBlob" >audioBlob</a>
+                            </li>
+                            <li>
+                                <a href="#audioIndex" >audioIndex</a>
+                            </li>
+                            <li>
+                                <a href="#emotions_categoric" >emotions_categoric</a>
+                            </li>
+                            <li>
+                                <a href="#emotions_dimensional" >emotions_dimensional</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#alignments" >alignments</a>
+                                </li>
+                                <li>
+                                    <a href="#emotions_categoric" >emotions_categoric</a>
+                                </li>
+                                <li>
+                                    <a href="#emotions_dimensional" >emotions_dimensional</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(changeDetector: ChangeDetectorRef, authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, emotionTranslationService: <a href="../injectables/EmotionTranslationService.html" target="_self">EmotionTranslationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:141</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor del componente.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>changeDetector</td>
+                                                  
+                                                        <td>
+                                                                    <code>ChangeDetectorRef</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>servicio que gestiona en tiempo real los cambios en los datos.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>servicio para gestionar la autenticación de usuarios.</p>
+
+                                                        </td>
+                                                </tr>
+                                                <tr>
+                                                        <td>emotionTranslationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/EmotionTranslationService.html" target="_self" >EmotionTranslationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="alignments"></a>
+                        <b>alignments</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Alignment.html" target="_self" >Alignment[]</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:48</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Propiedad de entrada que recibe los <code>alignments</code> y los transforma si es necesario.
+Se asegura de que cada objeto tenga <code>word</code>, <code>start</code> y <code>end</code> correctamente formateados.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="audioBlob"></a>
+                        <b>audioBlob</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Blob</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="31" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:31</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Propiedad de entrada que es un blob de audio, el cuál posteriormente se visualizará.
+El signo ! denota que es una propiedad obligatoria.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="audioIndex"></a>
+                        <b>audioIndex</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>number | undefined</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:36</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emotions_categoric"></a>
+                        <b>emotions_categoric</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:84</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Propiedad de entrada que gestiona la lista de emociones categóricas del audio.
+Cada emoción recibida se procesa para añadir una clase CSS basada en su nombre, lo que permite
+aplicar estilos dinámicos a los elementos relacionados.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emotions_dimensional"></a>
+                        <b>emotions_dimensional</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:105</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Propiedad de entrada que gestiona la lista de emociones dimensionales del audio.
+Cada emoción recibida se procesa para añadir una clase CSS, lo que permite
+aplicar estilos dinámicos a los elementos relacionados.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="createWaveSurfer"></a>
+                    <span class="name">
+                        <span ><b>createWaveSurfer</b></span>
+                        <a href="#createWaveSurfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>createWaveSurfer()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="194"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:194</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método que crea y configura la visualización de la onda asociada al audio que contiene la propiedad &#39;audioBlob&#39;.
+Verifica tanto el audioBlob se haya pasado como que el contenedor de onda se haya cargado correctamente en el DOM.
+Genera a partir del audioBlob una URL para el navegador.
+Mediante la librería WaveSurfer.js ajusta los parámetros para visualizar la onda.
+Mientras el audio se procesa está sometido a detectar cambios.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="download"></a>
+                    <span class="name">
+                        <span ><b>download</b></span>
+                        <a href="#download"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>download()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="318"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:318</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Se encarga de la descarga propia del audioBlob en local.
+Genera una URL a partir del audio, crea dinámicamente un enlace de tipo <a> al que le asocia
+la URL creada y simula un click que inicia la descargar del archivo.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isWordActive"></a>
+                    <span class="name">
+                        <span ><b>isWordActive</b></span>
+                        <a href="#isWordActive"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>isWordActive(alignment: <a href="../classes/Alignment.html" target="_self">Alignment</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="299"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:299</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>alignment</td>
+                                            <td>
+                                                            <code><a href="../classes/Alignment.html" target="_self" >Alignment</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="168"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:168</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Una vez inicializadas las vistas del componente, se comprueba que haya un audio de tipo Blob
+y se llama al método para visualizar su onda.
+También se recoge el valor de si un usuario está autorizado o no, en este caso si los perfiles
+&#39;admin&#39; y &#39;psychologist&#39;</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnChanges"></a>
+                    <span class="name">
+                        <span ><b>ngOnChanges</b></span>
+                        <a href="#ngOnChanges"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnChanges(changes: SimpleChanges)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="179"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:179</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Cuando se detectan cambios en las propiedades:
+audioBlob, para representar adecuadamente la onda de un nuevo audio.</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                                <td>Description</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>changes</td>
+                                            <td>
+                                                        <code>SimpleChanges</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                            <td>
+                                                    <p>contiene los cambios en las propiedades en forma de objeto</p>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="158"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:158</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Para que la primera detección de cambios, en este caso del rol
+del usuario, se actualice antes de cargar la vista.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="playPause"></a>
+                    <span class="name">
+                        <span ><b>playPause</b></span>
+                        <a href="#playPause"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>playPause()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="309"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:309</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Permite reproducir o detener la reproducción del audio de manera que se visualiza
+la parte de la onda que le corresponde a cada momento del audio.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAlignment"></a>
+                    <span class="name">
+                        <span ><b>showAlignment</b></span>
+                        <a href="#showAlignment"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>showAlignment()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="246"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:246</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método para visualizar sobre el audio qué región temporal abarca cada palabra detectada.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="translateEmotion"></a>
+                    <span class="name">
+                        <span ><b>translateEmotion</b></span>
+                        <a href="#translateEmotion"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>translateEmotion(emotion: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="331"
+                                    class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:331</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Método para traducir la emoción al español</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>emotion</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_alignments"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_alignments</b></span>
+                        <a href="#_alignments"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../classes/Alignment.html" target="_self" >Alignment[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="128" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:128</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_emotions_categoric"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_emotions_categoric</b></span>
+                        <a href="#_emotions_categoric"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="126" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:126</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_emotions_dimensional"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_emotions_dimensional</b></span>
+                        <a href="#_emotions_dimensional"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>any[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="127" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:127</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isAuthorized"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>isAuthorized</b></span>
+                        <a href="#isAuthorized"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Propiedad para identificar si el perfil de la aplicación puede acceder a ciertas funcionalidades.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isShowing"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>isShowing</b></span>
+                        <a href="#isShowing"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="timelineContainer"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>timelineContainer</b></span>
+                        <a href="#timelineContainer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;timelineContainer&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="waveformContainer"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                            <span class="modifier">Optional</span>
+                        <span ><b>waveformContainer</b></span>
+                        <a href="#waveformContainer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ElementRef</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;waveformContainer&#x27;, {static: true})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="136" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:136</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Representa al elemento del html asociado al componente que contendrá la forma de onda del audio.
+<code>{ static: true }</code> indica que la referencia se resuelve cuando se carga el DOM,
+antes del ciclo de vida <code>ngAfterViewInit</code>.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="waveSurfer"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>waveSurfer</b></span>
+                        <a href="#waveSurfer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="141" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:141</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="alignments"></a>
+                        <span class="name"><b>alignments</b><a href="#alignments"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>alignments()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="74" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:74</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>alignments(value: <a href="../classes/Alignment.html" target="_self">Alignment[]</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="48" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:48</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Propiedad de entrada que recibe los <code>alignments</code> y los transforma si es necesario.
+Se asegura de que cada objeto tenga <code>word</code>, <code>start</code> y <code>end</code> correctamente formateados.</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="../classes/Alignment.html" target="_self" >Alignment[]</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emotions_categoric"></a>
+                        <span class="name"><b>emotions_categoric</b><a href="#emotions_categoric"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>emotions_categoric()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:94</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>emotions_categoric(value: any[])</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="84" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:84</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Propiedad de entrada que gestiona la lista de emociones categóricas del audio.
+Cada emoción recibida se procesa para añadir una clase CSS basada en su nombre, lo que permite
+aplicar estilos dinámicos a los elementos relacionados.</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                        <code>any[]</code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="emotions_dimensional"></a>
+                        <span class="name"><b>emotions_dimensional</b><a href="#emotions_dimensional"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>emotions_dimensional()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="122" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:122</a></div>
+                                </td>
+                            </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>set</b><code>emotions_dimensional(value: <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank">any</a>)</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="105" class="link-to-prism">src/app/audio/audio-vad-live/audio-emotions/audio-emotions.component.ts:105</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Propiedad de entrada que gestiona la lista de emociones dimensionales del audio.
+Cada emoción recibida se procesa para añadir una clase CSS, lo que permite
+aplicar estilos dinámicos a los elementos relacionados.</p>
+</div>
+
+                                <div class="io-description">
+                                        <b>Parameters :</b>
+                                        <table class="params">
+                                            <thead>
+                                                <tr>
+                                                    <td>Name</td>
+                                                        <td>Type</td>
+                                                    <td>Optional</td>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                    <tr>
+                                                            <td>value</td>
+                                                    
+                                                            <td>
+                                                                            <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                                                            </td>
+                                                    
+                                                        <td>
+                                                                No
+                                                        </td>
+                                                        
+                                                    </tr>
+                                            </tbody>
+                                        </table>
+                                </div>
+                                <div>
+                                </div>
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input, AfterViewInit, ElementRef, ViewChild, ChangeDetectorRef, SimpleChanges, OnChanges, OnInit } from &#x27;@angular/core&#x27;;
+import WaveSurfer from &#x27;wavesurfer.js&#x27;;
+import RegionsPlugin from &#x27;wavesurfer.js/plugins/regions&#x27;;
+import TimelinePlugin from &#x27;wavesurfer.js/plugins/timeline&#x27;;
+
+
+import { Alignment } from &#x27;../model/alignment&#x27;;
+import { AuthService } from &#x27;../../../authentication/auth-services&#x27;;
+import { EmotionTranslationService } from &#x27;../../../shared/shared/emotions-translate.service&#x27;;
+
+/**
+ * Componente dedicado a la gestión y visualización de un audio y sus datos emocionales asociados.
+ * Para ello utiliza la librería WaveSurfer.js.
+ */
+@Component({
+  selector: &#x27;app-audio-emotions&#x27;,
+  templateUrl: &#x27;./audio-emotions.component.html&#x27;,
+  styleUrl: &#x27;./audio-emotions.component.scss&#x27;
+})
+export class AudioEmotionsComponent implements OnChanges, AfterViewInit, OnInit {
+  /**
+   * Propiedad para identificar si el perfil de la aplicación puede acceder a ciertas funcionalidades.
+   */
+  public isAuthorized: boolean &#x3D; false;
+
+  /**
+   * Propiedad de entrada que es un blob de audio, el cuál posteriormente se visualizará.
+   * @decorator @Input
+   * El signo ! denota que es una propiedad obligatoria.
+   */
+  @Input() audioBlob!: Blob;
+
+  /**
+   * 
+   */
+  @Input() audioIndex: number | undefined;
+
+  private isShowing: boolean &#x3D; false;
+
+  @ViewChild(&#x27;timelineContainer&#x27;, { static: true }) timelineContainer?: ElementRef;
+
+
+  /**
+   * Propiedad de entrada que recibe los &#x60;alignments&#x60; y los transforma si es necesario.
+   * Se asegura de que cada objeto tenga &#x60;word&#x60;, &#x60;start&#x60; y &#x60;end&#x60; correctamente formateados.
+   * @decorator @Input
+   */
+  @Input() set alignments(value: Alignment[]) {
+    if (!value || !Array.isArray(value)) {
+      console.error(&#x27;alignments debe ser un array:&#x27;, value);
+      this._alignments &#x3D; [];
+      return;
+    }
+    console.log(&#x27;valores &#x27;, value)
+    // Procesar cada alignment
+    this._alignments &#x3D; value.map(a &#x3D;&gt; ({
+      word: a.word || &#x27;&#x27;, // Asegurar que &#x60;word&#x60; es un string válido
+      start: parseFloat(a.start?.toString()) || 0, // Convertir a número
+      end: parseFloat(a.end?.toString()) || 0 // Convertir a número
+    }));
+
+    console.log(&#x27;Alignments procesados:&#x27;, this._alignments);
+
+    this.showAlignment();
+
+    this.changeDetector.detectChanges(); // Forzar actualización en la vista
+
+    // if(this.waveSurfer) {
+
+    //   this.showAlignment();
+    // }
+  }
+
+  get alignments(): Alignment[] {
+    return this._alignments;
+  }
+
+  /**
+  * Propiedad de entrada que gestiona la lista de emociones categóricas del audio.
+  * Cada emoción recibida se procesa para añadir una clase CSS basada en su nombre, lo que permite 
+  * aplicar estilos dinámicos a los elementos relacionados.
+  * @decorator @Input
+   */
+  @Input() set emotions_categoric(value: any[]) {
+    this._emotions_categoric &#x3D; value;
+
+    this._emotions_categoric.forEach(emotion &#x3D;&gt; {
+      emotion.colorClass &#x3D; &#x60;color-${emotion.emo.toLowerCase()}&#x60;;
+    });
+
+    this.changeDetector.detectChanges();
+  }
+
+  get emotions_categoric(): any[] {
+    return this._emotions_categoric;
+  }
+
+  /**
+  * Propiedad de entrada que gestiona la lista de emociones dimensionales del audio.
+  * Cada emoción recibida se procesa para añadir una clase CSS, lo que permite 
+  * aplicar estilos dinámicos a los elementos relacionados.
+  * @decorator @Input
+  * @throws {Error} si no se procesan correctamente las emociones dimensionales
+   */
+  @Input() set emotions_dimensional(value: any) {
+    if (value &amp;&amp; typeof value &#x3D;&#x3D;&#x3D; &#x27;object&#x27; &amp;&amp; !Array.isArray(value)) {
+      this._emotions_dimensional &#x3D; [
+        { name: &#x27;Arousal&#x27;, value: value.arousal, colorClass: &#x27;color-arousal&#x27; },
+        { name: &#x27;Dominance&#x27;, value: value.dominance, colorClass: &#x27;color-dominance&#x27; },
+        { name: &#x27;Valence&#x27;, value: value.valence, colorClass: &#x27;color-valence&#x27; }
+      ];
+    } else {
+      console.error(&#x27;Invalid value for emotions_dimensional:&#x27;, value);
+      this._emotions_dimensional &#x3D; [];
+    }
+
+    console.log(&#x27;Processed emotions_dimensional:&#x27;, this._emotions_dimensional);
+    this.changeDetector.detectChanges(); // Forzar la detección de cambios
+  }
+
+
+  get emotions_dimensional(): any[] {
+    return this._emotions_dimensional;
+  }
+
+  private _emotions_categoric: any[] &#x3D; [];
+  private _emotions_dimensional: any[] &#x3D; [];
+  private _alignments: Alignment[] &#x3D; [];
+
+  /**
+   * Representa al elemento del html asociado al componente que contendrá la forma de onda del audio.
+   * &#x60;{ static: true }&#x60; indica que la referencia se resuelve cuando se carga el DOM, 
+   * antes del ciclo de vida &#x60;ngAfterViewInit&#x60;.
+   * @decorator @ViewChild
+   */
+  @ViewChild(&#x27;waveformContainer&#x27;, { static: true }) waveformContainer?: ElementRef;
+
+  /**
+   * 
+   */
+  public waveSurfer: any;
+
+  /**
+   * Constructor del componente.
+   * @param changeDetector servicio que gestiona en tiempo real los cambios en los datos.
+   * @param authService servicio para gestionar la autenticación de usuarios.
+   */
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private authService: AuthService,
+    private emotionTranslationService: EmotionTranslationService
+  ) { }
+
+  /**
+   * Para que la primera detección de cambios, en este caso del rol 
+   * del usuario, se actualice antes de cargar la vista.
+   */
+  ngOnInit(): void {
+    this.isAuthorized &#x3D; this.authService.isAuthorized(&#x27;admin&#x27;, &#x27;psychologist&#x27;);
+  }
+
+  /**
+   * Una vez inicializadas las vistas del componente, se comprueba que haya un audio de tipo Blob 
+   * y se llama al método para visualizar su onda.
+   * También se recoge el valor de si un usuario está autorizado o no, en este caso si los perfiles
+   * &#x27;admin&#x27; y &#x27;psychologist&#x27;
+   */
+  ngAfterViewInit(): void {
+    if (this.audioBlob) {
+      this.createWaveSurfer();
+    }
+  }
+
+  /**
+   * Cuando se detectan cambios en las propiedades:
+   * audioBlob, para representar adecuadamente la onda de un nuevo audio.
+   * @param changes contiene los cambios en las propiedades en forma de objeto
+   */
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes[&#x27;audioBlob&#x27;] &amp;&amp; this.audioBlob) {
+      this.createWaveSurfer();
+    }
+
+  }
+
+  /**
+   * Método que crea y configura la visualización de la onda asociada al audio que contiene la propiedad &#x27;audioBlob&#x27;.
+   * Verifica tanto el audioBlob se haya pasado como que el contenedor de onda se haya cargado correctamente en el DOM.
+   * Genera a partir del audioBlob una URL para el navegador.
+   * Mediante la librería WaveSurfer.js ajusta los parámetros para visualizar la onda.
+   * Mientras el audio se procesa está sometido a detectar cambios.
+   * @throws {Error} si alguna de las propiedades necesarias (audioBlob o waveformContainer) no están bien definidas.
+   */
+  createWaveSurfer(): void {
+    if (this.audioBlob &amp;&amp; this.waveformContainer &amp;&amp; this.timelineContainer) {
+      const recordedUrl &#x3D; URL.createObjectURL(this.audioBlob);
+
+      this.waveSurfer &#x3D; WaveSurfer.create({
+        container: this.waveformContainer.nativeElement,
+        waveColor: &#x27;rgb(204, 102, 0)&#x27;,
+        progressColor: &#x27;rgb(100, 50, 0)&#x27;,
+        url: recordedUrl,
+        barWidth: 2,
+        barGap: 1,
+        barRadius: 2
+      });
+
+      const regionsPlugin &#x3D; this.waveSurfer.registerPlugin(RegionsPlugin.create());
+      this.waveSurfer.regionsPlugin &#x3D; regionsPlugin;
+
+      const timelinePlugin &#x3D; TimelinePlugin.create({
+        container: this.timelineContainer.nativeElement,
+        height: 25,
+  timeInterval: 0.1,
+  primaryLabelInterval: 1,
+        style: {
+          color: &#x27;#333&#x27;,
+          font: &#x27;16px Arial&#x27;,
+          fontWeight: &#x27;normal&#x27;
+        }
+      });
+
+      this.waveSurfer.registerPlugin(timelinePlugin);
+
+      this.waveSurfer.on(&#x27;audioprocess&#x27;, () &#x3D;&gt; {
+        this.changeDetector.detectChanges();
+      });
+
+      this.waveSurfer.once(&#x27;ready&#x27;, () &#x3D;&gt; {
+  this.waveSurfer.zoom(100); // 👈 fuerza separación visual de segundos
+});
+
+
+      console.log(&#x27;WaveSurfer plugins activos:&#x27;, this.waveSurfer?.plugins);
+    } else {
+      console.error(&#x27;audioBlob, waveformContainer o timelineContainer no están definidos&#x27;);
+    }
+  }
+
+
+
+  /**
+   * Método para visualizar sobre el audio qué región temporal abarca cada palabra detectada.
+   * @returns 
+   */
+  showAlignment(): void {
+    if (!this.waveSurfer?.regionsPlugin) {
+      console.error(&#x27;El plugin de regiones no está disponible&#x27;);
+      return;
+    }
+
+    const plugin &#x3D; this.waveSurfer.regionsPlugin;
+
+    if (!this.isShowing) {
+      this._alignments.forEach(alignment &#x3D;&gt; {
+        const isSilence &#x3D; alignment.word.trim() &#x3D;&#x3D;&#x3D; &#x27;&#x27;;
+
+        if (isSilence) {
+          return;
+        }
+
+        const region &#x3D; plugin.addRegion({
+          start: alignment.start,
+          end: alignment.end,
+          color: &#x27;rgba(255,255,255,0.7)&#x27;,
+          drag: false,
+          resize: false
+        });
+
+        if (!isSilence &amp;&amp; region.element) {
+          const label &#x3D; document.createElement(&#x27;div&#x27;);
+          label.innerText &#x3D; &#x60;${alignment.word}&#x60;;
+          label.style.position &#x3D; &#x27;absolute&#x27;;
+          label.style.fontSize &#x3D; &#x27;12px&#x27;;
+          label.style.color &#x3D; &#x27;black&#x27;;
+          label.style.backgroundColor &#x3D; &#x27;rgba(255,255,255,0.7)&#x27;;
+          label.style.borderRadius &#x3D; &#x27;4px&#x27;;
+          label.style.padding &#x3D; &#x27;2px 5px&#x27;;
+          label.style.left &#x3D; &#x27;50%&#x27;;
+          label.style.top &#x3D; &#x27;50%&#x27;;
+          label.style.transform &#x3D; &#x27;translate(-50%, -50%)&#x27;;
+          region.element.appendChild(label);
+        }
+      });
+
+      this.isShowing &#x3D; true;
+    } else {
+      // Object.values(plugin.getRegions()).forEach(region &#x3D;&gt; region.remove());
+      this.isShowing &#x3D; false;
+    }
+  }
+
+
+  /**
+   * 
+   * @param alignment 
+   * @returns 
+   */
+  isWordActive(alignment: Alignment): boolean {
+    if (!this.waveSurfer) return false;
+    const currentTime &#x3D; this.waveSurfer.getCurrentTime();
+    return currentTime &gt;&#x3D; (alignment.start) &amp;&amp; currentTime &lt;&#x3D; (alignment.end);
+  }
+
+  /**
+   * Permite reproducir o detener la reproducción del audio de manera que se visualiza
+   * la parte de la onda que le corresponde a cada momento del audio.
+   */
+  playPause(): void {
+    this.waveSurfer.playPause();
+  }
+
+  /**
+   * Se encarga de la descarga propia del audioBlob en local.
+   * Genera una URL a partir del audio, crea dinámicamente un enlace de tipo &lt;a&gt; al que le asocia 
+   * la URL creada y simula un click que inicia la descargar del archivo.
+   */
+  download(): void {
+    if (this.audioBlob) {
+      const recordedUrl &#x3D; URL.createObjectURL(this.audioBlob);
+      const downloadLink &#x3D; document.createElement(&#x27;a&#x27;);
+      downloadLink.href &#x3D; recordedUrl;
+      downloadLink.download &#x3D; &#x60;recording&#x60; + this.audioIndex + &#x60;.${this.audioBlob.type.split(&#x27;/&#x27;)[1] || &#x27;webm&#x27;}&#x60;;
+      downloadLink.click();
+    }
+  }
+
+  /**
+   * Método para traducir la emoción al español
+   */
+  translateEmotion(emotion: string): string {
+    return this.emotionTranslationService.translateEmotion(emotion);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;section&gt;
+&lt;div class&#x3D;&quot;audio-recording&quot;&gt;
+  &lt;div class&#x3D;&quot;audio-container&quot;&gt;
+    &lt;div #waveformContainer class&#x3D;&quot;waveform-container&quot;&gt;
+    
+      &lt;!-- &lt;div class&#x3D;&quot;dimensional-emotions&quot;&gt;
+        &lt;p&gt;Arousal: {{ emotions_dimensional[0]?.arousal | number:&#x27;1.2-2&#x27; }}&lt;/p&gt;
+        &lt;p&gt;Dominance: {{ emotions_dimensional[0]?.dominance | number:&#x27;1.2-2&#x27; }}&lt;/p&gt;
+        &lt;p&gt;Valence: {{ emotions_dimensional[0]?.valence | number:&#x27;1.2-2&#x27; }}&lt;/p&gt;
+      &lt;/div&gt; --&gt;
+    &lt;/div&gt;
+    &lt;div #timelineContainer class&#x3D;&quot;timeline&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;emotions-container&quot;&gt;
+   &lt;div class&#x3D;&quot;top-container&quot;&gt;
+    &lt;div class&#x3D;&quot;emotions-categoric&quot;&gt;
+    &lt;div *ngFor&#x3D;&quot;let emotion of emotions_categoric&quot; class&#x3D;&quot;emotion-item&quot;&gt;
+      &lt;p&gt;{{  translateEmotion(emotion.emo) }}: {{ emotion.prob.toFixed(2) }}%&lt;/p&gt;
+      &lt;div class&#x3D;&quot;emotion-bar-container&quot;&gt;
+        &lt;div [ngClass]&#x3D;&quot;emotion.colorClass&quot; class&#x3D;&quot;emotion-bar&quot; 
+             [ngStyle]&#x3D;&quot;{ 
+               &#x27;width&#x27;: (emotion.prob * 100) + &#x27;%&#x27; 
+             }&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;emotions-dimensional&quot;&gt;
+    &lt;div *ngFor&#x3D;&quot;let dimension of emotions_dimensional&quot; class&#x3D;&quot;dimension-item&quot;&gt;
+      &lt;p&gt;{{ translateEmotion(dimension.name) }}: {{ (dimension.value * 100).toFixed(2) }}%&lt;/p&gt;
+      &lt;div class&#x3D;&quot;dimension-bar-container&quot;&gt;
+        &lt;div 
+          [ngClass]&#x3D;&quot;dimension.colorClass&quot; 
+          class&#x3D;&quot;dimension-bar&quot; 
+          [ngStyle]&#x3D;&quot;{ &#x27;width&#x27;: (dimension.value * 100) + &#x27;%&#x27; }&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt; 
+    
+  &lt;div class&#x3D;&quot;controls&quot;&gt;
+    &lt;button class&#x3D;&quot;btn-form&quot; (click)&#x3D;&quot;playPause()&quot;&gt;Reproducir/Parar&lt;/button&gt;
+    &lt;!-- &lt;button class&#x3D;&quot;btn-form&quot; (click)&#x3D;&quot;showAlignment()&quot; [disabled]&#x3D;&quot; !isAuthorized &quot;&gt;Ver transcipción&lt;/button&gt; --&gt;
+    &lt;button class&#x3D;&quot;btn-form&quot; (click)&#x3D;&quot;download()&quot; [disabled]&#x3D;&quot; !isAuthorized &quot;&gt;Descargar&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;/div&gt;
+ 
+  
+&lt;/div&gt;
+
+  &lt;div class&#x3D;&quot;transcription-container&quot;&gt;
+    &lt;h4&gt;Transcripción:&lt;/h4&gt;
+    &lt;p&gt;
+      &lt;span
+        *ngFor&#x3D;&quot;let alignment of alignments&quot;
+        [class.active]&#x3D;&quot;isWordActive(alignment)&quot;
+        class&#x3D;&quot;word&quot;
+      &gt;
+        {{ alignment.word }}
+      &lt;/span&gt;
+    &lt;/p&gt;
+  &lt;/div&gt;
+&lt;/section&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><section><div class="audio-recording">  <div class="audio-container">    <div #waveformContainer class="waveform-container">          <!-- <div class="dimensional-emotions">        <p>Arousal: {{ emotions_dimensional[0]?.arousal | number:\'1.2-2\' }}</p>        <p>Dominance: {{ emotions_dimensional[0]?.dominance | number:\'1.2-2\' }}</p>        <p>Valence: {{ emotions_dimensional[0]?.valence | number:\'1.2-2\' }}</p>      </div> -->    </div>    <div #timelineContainer class="timeline"></div>  </div>  <div class="emotions-container">   <div class="top-container">    <div class="emotions-categoric">    <div *ngFor="let emotion of emotions_categoric" class="emotion-item">      <p>{{  translateEmotion(emotion.emo) }}: {{ emotion.prob.toFixed(2) }}%</p>      <div class="emotion-bar-container">        <div [ngClass]="emotion.colorClass" class="emotion-bar"              [ngStyle]="{                \'width\': (emotion.prob * 100) + \'%\'              }">        </div>      </div>    </div>  </div>  <div class="emotions-dimensional">    <div *ngFor="let dimension of emotions_dimensional" class="dimension-item">      <p>{{ translateEmotion(dimension.name) }}: {{ (dimension.value * 100).toFixed(2) }}%</p>      <div class="dimension-bar-container">        <div           [ngClass]="dimension.colorClass"           class="dimension-bar"           [ngStyle]="{ \'width\': (dimension.value * 100) + \'%\' }">        </div>      </div>    </div>  </div></div>       <div class="controls">    <button class="btn-form" (click)="playPause()">Reproducir/Parar</button>    <!-- <button class="btn-form" (click)="showAlignment()" [disabled]=" !isAuthorized ">Ver transcipción</button> -->    <button class="btn-form" (click)="download()" [disabled]=" !isAuthorized ">Descargar</button>  </div>  </div>   </div>  <div class="transcription-container">    <h4>Transcripción:</h4>    <p>      <span        *ngFor="let alignment of alignments"        [class.active]="isWordActive(alignment)"        class="word"      >        {{ alignment.word }}      </span>    </p>  </div></section></div>'
+    var COMPONENTS = [{'name': 'AccessDeniedComponent', 'selector': 'app-access-denied'},{'name': 'AnalysisComponent', 'selector': 'app-analysis'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AudioComponent', 'selector': 'app-audio'},{'name': 'AudioEmotionsComponent', 'selector': 'app-audio-emotions'},{'name': 'AudioVadLiveComponent', 'selector': 'app-audio-vad-live'},{'name': 'AuthenticationComponent', 'selector': 'app-authentication'},{'name': 'CategoricComponent', 'selector': 'app-categoric'},{'name': 'ConfigComponent', 'selector': 'app-config'},{'name': 'CsvAudiosComponent', 'selector': 'app-csv-audios'},{'name': 'CustomCardComponent', 'selector': 'app-custom-card'},{'name': 'DeferredInferenceComponent', 'selector': 'app-deferred-inference'},{'name': 'DimensionalComponent', 'selector': 'app-dimensional'},{'name': 'GraphicRepresentationComponent', 'selector': 'app-graphic-representation'},{'name': 'IndividualComponent', 'selector': 'app-individual'},{'name': 'IndividualFormComponent', 'selector': 'app-individual-form'},{'name': 'LayoutHeaderComponent', 'selector': 'app-layout-header'},{'name': 'LayoutMainComponent', 'selector': 'app-layout-main'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'PrincipalComponent', 'selector': 'app-principal'},{'name': 'RegisterFormComponent', 'selector': 'app-register-form'},{'name': 'ShiftFormComponent', 'selector': 'app-shift-form'},{'name': 'ShiftRepresentationComponent', 'selector': 'app-shift-representation'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'AudioEmotionsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AudioEmotionsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
